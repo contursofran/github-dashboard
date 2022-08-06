@@ -1,23 +1,35 @@
-import { AppShell, Header, Navbar, Box, Anchor } from "@mantine/core";
 import React from "react";
-import { useStyles } from "./Layout.styles";
+import { Navbar } from "./Navbar";
+import { createStyles, Group } from "@mantine/core";
+import { Header } from "./Header";
+
+const useStyles = createStyles((theme) => ({
+  root: {
+    color: "white",
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    alignItems: "start",
+    alignSelf: "stretch",
+    marginRight: theme.spacing.md,
+  },
+}));
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { classes } = useStyles();
 
   return (
-    <AppShell>
-      <Header height={70}>
-        <Navbar width={{ base: 300 }} p="xs">
-          <Box>
-            <Anchor>
-              <img src="/logo.svg" alt="Mantine" />
-            </Anchor>
-          </Box>
-        </Navbar>
-      </Header>
-      {children}
-    </AppShell>
+    <div>
+      <Group align="start">
+        <Navbar />
+        <div className={classes.content}>
+          <Header />
+          <Group className={classes.content}>{children}</Group>
+        </div>
+      </Group>
+    </div>
   );
 }
 

@@ -1,12 +1,9 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import { ReactElement } from "react";
 import { Layout } from "../components/layout/Layout";
-import styles from "../styles/Home.module.css";
+import { NextPageWithLayout } from "./_app";
 
-const Home = () => {
-  return <div>Test</div>;
+const Home: NextPageWithLayout = () => {
+  return <div>Content</div>;
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {

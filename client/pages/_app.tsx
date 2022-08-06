@@ -1,21 +1,18 @@
-import "../styles/globals.css";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (_page: ReactElement) => ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-export default function App(props: AppPropsWithLayout) {
-  const { Component, pageProps } = props;
-
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
