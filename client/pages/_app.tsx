@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: "dark",
+          fontFamily: "Poppins, Roboto",
         }}
       >
         {getLayout(

@@ -1,6 +1,11 @@
 import { Avatar, Navbar as MantineNavbar, Stack, Text } from "@mantine/core";
 import { createStyles } from "@mantine/core";
-import { IconBrandGithub, IconLogout, IconSettings } from "@tabler/icons";
+import {
+  IconBrandGithub,
+  IconHome,
+  IconLogout,
+  IconSettings,
+} from "@tabler/icons";
 import { useState } from "react";
 
 const useStyles = createStyles((theme, _params, getRef) => {
@@ -8,10 +13,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
   return {
     navbar: {
-      navbar: {
-        backgroundColor:
-          theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-      },
+      backgroundColor:
+        theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+      border: "none",
     },
     link: {
       ...theme.fn.focusStyles(),
@@ -70,7 +74,12 @@ const useStyles = createStyles((theme, _params, getRef) => {
 const data = [
   {
     link: "",
-    label: "Projects",
+    label: "Home",
+    icon: IconHome,
+  },
+  {
+    link: "",
+    label: "Repositories",
     icon: IconBrandGithub,
   },
 
@@ -102,7 +111,7 @@ function Navbar() {
   ));
 
   return (
-    <MantineNavbar width={{ sm: 300 }} p="md" className={classes.navbar}>
+    <MantineNavbar width={{ sm: 300 }} p={"sm"} className={classes.navbar}>
       <MantineNavbar.Section grow mt="xl">
         <Stack className={classes.header}>
           <Avatar
