@@ -1,7 +1,5 @@
-import { createStyles, Group, Stack, Text, Title } from "@mantine/core";
-import { useState } from "react";
-import { primaryColorShade } from "../../utils/mantine";
-import { Tabs } from "./Layout";
+import { createStyles } from "@mantine/core";
+import { primaryColorShade } from "../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -64,52 +62,18 @@ const useStyles = createStyles((theme) => ({
         : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
-
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
           : theme.colors.gray[0],
+      color: theme.white,
     },
   },
 }));
 
-function Header({ tabs }: { tabs: Tabs[] }) {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Public");
-
-  const items = tabs.map((tab) => (
-    <a
-      key={tab.label}
-      href={tab.link}
-      className={cx(classes.tabsLinks, {
-        [classes.linkActive]: active === tab.link,
-      })}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(tab.link);
-      }}
-    >
-      {tab.label}
-    </a>
-  ));
-
-  return (
-    <Group className={classes.header} position="center" align="center">
-      <Stack>
-        <Group>
-          <Title className={classes.title} order={6}>
-            Repositories{" "}
-            <Text className={classes.subTitle} inherit component="span">
-              / Public
-            </Text>
-          </Title>
-        </Group>
-        <Title order={2}>Repositories</Title>
-      </Stack>
-      <Group pr={30}>{items}</Group>
-    </Group>
-  );
-}
-
-export { Header };
+export { useStyles };

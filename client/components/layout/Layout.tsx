@@ -1,16 +1,12 @@
 import React from "react";
 import { Navbar } from "./Navbar";
-import { createStyles, Group } from "@mantine/core";
-import { Header } from "./Header";
-
-export interface Tabs {
-  link: string;
-  label: string;
-}
+import { Header, Tabs } from "./Header";
+import { createStyles } from "@mantine/core";
 
 interface Props {
   children: React.ReactNode;
-  tabs: Tabs[];
+  currentPage: string;
+  tabs?: Tabs[];
 }
 
 const useStyles = createStyles((theme) => ({
@@ -31,14 +27,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Layout({ children, tabs }: Props) {
+function Layout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   return (
     <div className={classes.root}>
-      <Navbar />
+      <Navbar currentPage={currentPage} />
       <div className={classes.body}>
-        <Header tabs={tabs} />
+        <Header currentPage={currentPage} tabs={tabs} />
         {children}
       </div>
     </div>
