@@ -11,8 +11,8 @@ export interface Tab {
 
 function Tabs({ tabs }: { tabs: Tab[] }) {
   const { classes, cx } = useStyles();
-  const router = useRouter();
-  const [active, setActive] = useState(router.route);
+  const { route } = useRouter();
+  const [active, setActive] = useState(route);
 
   const mapTabs = (tabs: Tab[]) => {
     const tabsMap = tabs.map((tab) => (

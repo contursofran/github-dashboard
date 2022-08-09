@@ -1,2 +1,2 @@
 export { Header } from "./Header";
-export type { Tabs } from "./Header";
+export type { Tab } from "./Tabs";

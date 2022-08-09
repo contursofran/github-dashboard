@@ -14,7 +14,7 @@ function Header({ currentPage, tabs }: Props) {
     <Group className={classes.header} position="center" align="center">
       <Stack>
         <Group>
-          <Title className={classes.title} order={6}>
+          <Title className={classes.title} order={5}>
             {currentPage.split("/")[0]}{" "}
             <Text className={classes.subTitle} inherit component="span">
               / {currentPage.split("/")[1]}

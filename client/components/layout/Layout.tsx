@@ -1,12 +1,12 @@
 import React from "react";
 import { Navbar } from "./Navbar";
-import { Header, Tabs } from "./Header";
+import { Header, Tab } from "./Header";
 import { createStyles } from "@mantine/core";
 
 interface Props {
   children: React.ReactNode;
   currentPage: string;
-  tabs?: Tabs[];
+  tabs?: Tab[];
 }
 
 const useStyles = createStyles((theme) => ({
@@ -25,6 +25,11 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.gray[0]
         : theme.colors.dark[7],
   },
+  content: {
+    alignSelf: "stretch",
+    flexGrow: 1,
+    padding: theme.spacing.xl,
+  },
 }));
 
 function Layout({ children, currentPage, tabs }: Props) {
@@ -32,10 +37,10 @@ function Layout({ children, currentPage, tabs }: Props) {
 
   return (
     <div className={classes.root}>
-      <Navbar currentPage={currentPage} />
+      <Navbar />
       <div className={classes.body}>
         <Header currentPage={currentPage} tabs={tabs} />
-        {children}
+        <div className={classes.content}>{children}</div>
       </div>
     </div>
   );

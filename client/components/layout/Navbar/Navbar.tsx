@@ -8,6 +8,8 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 import { useStyles } from "./Navbar.styles";
+import { useRouter } from "next/router";
+import { upperFirst } from "@mantine/hooks";
 
 const data = [
   {
@@ -28,10 +30,14 @@ const data = [
   },
 ];
 
-function Navbar({ currentPage }: { currentPage: string }) {
+function Navbar() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState(currentPage);
+  const { route } = useRouter();
+  const [active, setActive] = useState(
+    route === "/" ? "Home" : upperFirst(route.split("/")[1])
+  );
 
+  console.log(active);
   const links = data.map((item) => (
     <Link href={item.link} key={item.label} passHref>
       <a
