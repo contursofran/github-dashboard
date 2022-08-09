@@ -27,7 +27,7 @@ const useStyles = createStyles((theme) => ({
   },
   content: {
     alignSelf: "stretch",
-    padding: theme.spacing.xl,
+    padding: "0.5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -46,10 +46,9 @@ function Layout({ children, currentPage, tabs }: Props) {
           <SimpleGrid
             breakpoints={[
               { minWidth: 1700, cols: 3, spacing: 40 },
-              { minWidth: 1400, cols: 2, spacing: 40 },
-              { minWidth: 0, cols: 1, spacing: "md" },
+              { minWidth: 1200, cols: 2, spacing: 40 },
+              { minWidth: 0, cols: 1, spacing: 30 },
             ]}
-            spacing={"xl"}
             cols={3}
           >
             {children}

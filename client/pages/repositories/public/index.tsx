@@ -15,7 +15,42 @@ const tabs = [
 ];
 
 const Home: NextPageWithLayout = () => {
-  return <></>;
+  return (
+    <>
+      <Card
+        title="Github-dashboard"
+        text="Dashboard to organize github projects"
+        language="TypeScript"
+        languageColor="blue"
+        lastUpdated="Updated 7 hours ago"
+        badge="Private"
+      />
+      <Card
+        title="Github-dashboard"
+        text="Dashboard to organize github projects"
+        language="TypeScript"
+        languageColor="blue"
+        lastUpdated="Updated 7 hours ago"
+        badge="Private"
+      />
+      <Card
+        title="Github-dashboard"
+        text="Dashboard to organize github projects"
+        language="TypeScript"
+        languageColor="blue"
+        lastUpdated="Updated 7 hours ago"
+        badge="Private"
+      />
+      <Card
+        title="Github-dashboard"
+        text="Dashboard to organize github"
+        language="TypeScript"
+        languageColor="blue"
+        lastUpdated="Updated 7 hours ago"
+        badge="Private"
+      />
+    </>
+  );
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {

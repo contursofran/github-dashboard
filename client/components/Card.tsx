@@ -5,7 +5,10 @@ import {
   createStyles,
   ColorSwatch,
   useMantineTheme,
+  ChevronIcon,
+  ActionIcon,
 } from "@mantine/core";
+import { IconChevronRight, IconChevronsRight } from "@tabler/icons";
 
 interface Props {
   title: string;
@@ -20,6 +23,10 @@ const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor: "#141517",
     width: "450px",
+    "&:hover": {
+      borderColor: theme.colors.blue[4],
+      cursor: "pointer",
+    },
 
     [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
       width: "400px",
@@ -44,21 +51,22 @@ function Card({ title, text, language, languageColor, lastUpdated }: Props) {
   const { colors } = useMantineTheme();
   return (
     <MantineCard
+      onClick={() => console.log("e")}
       className={classes.root}
       shadow="md"
       p="lg"
       radius="md"
       withBorder
     >
-      <Group position="apart" mb="xs">
+      <Group mb="xs">
         <Text size={"lg"} color="blue.4">
           {title}
         </Text>
       </Group>
-
       <Text size="md" color="dimmed">
         {text}
       </Text>
+
       <Group pt={"md"} position="apart">
         <Group align="center" position="center">
           <ColorSwatch
