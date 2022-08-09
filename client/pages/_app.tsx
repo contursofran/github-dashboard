@@ -36,11 +36,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           fontFamily: "Poppins, Roboto",
         }}
       >
-        {getLayout(
-          <main>
-            <Component {...pageProps} />
-          </main>
-        )}
+        {getLayout(<Component {...pageProps} />)}
       </MantineProvider>
     </>
   );

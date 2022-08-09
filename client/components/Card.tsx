@@ -1,11 +1,8 @@
 import {
   Card as MantineCard,
   Text,
-  Badge,
-  Button,
   Group,
   createStyles,
-  Title,
   ColorSwatch,
   useMantineTheme,
 } from "@mantine/core";
@@ -22,8 +19,15 @@ interface Props {
 const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor: "#141517",
-    position: "relative",
-    width: "50%",
+    width: "450px",
+
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      width: "400px",
+    },
+
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      width: "300px",
+    },
   },
   title: {
     fontSize: "1.1rem",
@@ -55,7 +59,7 @@ function Card({ title, text, language, languageColor, lastUpdated }: Props) {
       <Text size="md" color="dimmed">
         {text}
       </Text>
-      <Group pt={"md"}>
+      <Group pt={"md"} position="apart">
         <Group align="center" position="center">
           <ColorSwatch
             color={colors[languageColor][5]}
@@ -64,10 +68,10 @@ function Card({ title, text, language, languageColor, lastUpdated }: Props) {
           <Text size="sm" color="dimmed">
             {language}
           </Text>
-          <Text size="sm" color="dimmed">
-            {lastUpdated}
-          </Text>
         </Group>
+        <Text size="sm" color="dimmed">
+          {lastUpdated}
+        </Text>
       </Group>
     </MantineCard>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 import { Header, Tab } from "./Header";
-import { createStyles } from "@mantine/core";
+import { createStyles, SimpleGrid } from "@mantine/core";
 
 interface Props {
   children: React.ReactNode;
@@ -27,8 +27,10 @@ const useStyles = createStyles((theme) => ({
   },
   content: {
     alignSelf: "stretch",
-    flexGrow: 1,
     padding: theme.spacing.xl,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -40,7 +42,19 @@ function Layout({ children, currentPage, tabs }: Props) {
       <Navbar />
       <div className={classes.body}>
         <Header currentPage={currentPage} tabs={tabs} />
-        <div className={classes.content}>{children}</div>
+        <div className={classes.content}>
+          <SimpleGrid
+            breakpoints={[
+              { minWidth: 1700, cols: 3, spacing: 40 },
+              { minWidth: 1400, cols: 2, spacing: 40 },
+              { minWidth: 0, cols: 1, spacing: "md" },
+            ]}
+            spacing={"xl"}
+            cols={3}
+          >
+            {children}
+          </SimpleGrid>
+        </div>
       </div>
     </div>
   );
