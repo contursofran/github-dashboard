@@ -5,10 +5,9 @@ import {
   createStyles,
   ColorSwatch,
   useMantineTheme,
-  ChevronIcon,
-  ActionIcon,
 } from "@mantine/core";
-import { IconChevronRight, IconChevronsRight } from "@tabler/icons";
+import Link from "next/link";
+import { store } from "../store";
 
 interface Props {
   title: string;
@@ -49,39 +48,44 @@ const useStyles = createStyles((theme) => ({
 function Card({ title, text, language, languageColor, lastUpdated }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
+  const link = `/repositories/public/${title}/features`;
   return (
-    <MantineCard
-      onClick={() => console.log("e")}
-      className={classes.root}
-      shadow="md"
-      p="lg"
-      radius="md"
-      withBorder
-    >
-      <Group mb="xs">
-        <Text size={"lg"} color="blue.4">
-          {title}
-        </Text>
-      </Group>
-      <Text size="md" color="dimmed">
-        {text}
-      </Text>
-
-      <Group pt={"md"} position="apart">
-        <Group align="center" position="center">
-          <ColorSwatch
-            color={colors[languageColor][5]}
-            className={classes.swatch}
-          />
-          <Text size="sm" color="dimmed">
-            {language}
+    <Link href={link} key={title} passHref>
+      <MantineCard
+        onClick={() => {
+          store.setState({ selectedProject: title });
+        }}
+        className={classes.root}
+        shadow="md"
+        p="lg"
+        radius="md"
+        withBorder
+      >
+        <Group mb="xs">
+          <Text size={"lg"} color="blue.4">
+            {title}
           </Text>
         </Group>
-        <Text size="sm" color="dimmed">
-          {lastUpdated}
+        <Text size="md" color="dimmed">
+          {text}
         </Text>
-      </Group>
-    </MantineCard>
+
+        <Group pt={"md"} position="apart">
+          <Group align="center" position="center">
+            <ColorSwatch
+              color={colors[languageColor][5]}
+              className={classes.swatch}
+            />
+            <Text size="sm" color="dimmed">
+              {language}
+            </Text>
+          </Group>
+          <Text size="sm" color="dimmed">
+            {lastUpdated}
+          </Text>
+        </Group>
+      </MantineCard>
+    </Link>
   );
 }
 
