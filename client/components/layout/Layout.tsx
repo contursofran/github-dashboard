@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
 
 function Layout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
-  console.log(currentPage);
+
   useEffect(() => {
     if (!currentPage.includes("[project]")) {
       useStore.setState({ selectedProject: "" });

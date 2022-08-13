@@ -17,7 +17,7 @@ function Header({ currentPage, tabs }: Props) {
       <Title order={2}>
         {selectedProject ? selectedProject : currentPage.split("/")[0]}
       </Title>
-      {tabs && <Tabs tabs={tabs} />}
+      {tabs && <Tabs selectedProject={selectedProject} tabs={tabs} />}
     </Group>
   );
 }

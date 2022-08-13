@@ -55,7 +55,7 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout currentPage="Repositories/Public" tabs={tabs}>
+    <Layout currentPage="Repositories/" tabs={tabs}>
       {page}
     </Layout>
   );
