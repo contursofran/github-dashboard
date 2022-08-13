@@ -27,19 +27,6 @@ const useStyles = createStyles((theme) => ({
   tabLabel: {
     paddingBottom: "3px",
   },
-  title: {
-    color:
-      theme.colorScheme === "light"
-        ? `${theme.colors.gray[6]} !important `
-        : theme.colors.gray[6],
-  },
-  subTitle: {
-    color:
-      theme.colorScheme === "light"
-        ? `${theme.colors.gray[5]} !important `
-        : theme.colors.gray[7],
-  },
-
   linkActive: {
     "&, &:hover": {
       backgroundColor: theme.fn.variant({

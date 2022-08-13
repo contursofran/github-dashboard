@@ -1,8 +1,8 @@
 import create from "zustand";
 import { createAplicationSlice, AplicationSlice } from "./aplicationSlice";
 
-const store = create<AplicationSlice>()((...a) => ({
+const useStore = create<AplicationSlice>()((...a) => ({
   ...createAplicationSlice(...a),
 }));
 
-export { store };
+export { useStore };

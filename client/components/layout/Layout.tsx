@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Header, Tab } from "./Header";
 import { createStyles, SimpleGrid } from "@mantine/core";
+import { useStore } from "../../store";
 
 interface Props {
   children: React.ReactNode;
@@ -36,17 +37,23 @@ const useStyles = createStyles((theme) => ({
 
 function Layout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
+  console.log(currentPage);
+  useEffect(() => {
+    if (!currentPage.includes("[project]")) {
+      useStore.setState({ selectedProject: "" });
+    }
+  }, [currentPage]);
 
   return (
     <div className={classes.root}>
       <Navbar />
       <div className={classes.body}>
-        <Header currentPage={currentPage} tabs={tabs} />
+        <Header tabs={tabs} currentPage={currentPage} />
         <div className={classes.content}>
           <SimpleGrid
             breakpoints={[
-              { minWidth: 1700, cols: 3, spacing: 40 },
-              { minWidth: 1200, cols: 2, spacing: 40 },
+              { minWidth: 1780, cols: 3, spacing: 40 },
+              { minWidth: 1210, cols: 2, spacing: 40 },
               { minWidth: 0, cols: 1, spacing: 30 },
             ]}
             cols={3}

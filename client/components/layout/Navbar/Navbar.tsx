@@ -37,7 +37,6 @@ function Navbar() {
     route === "/" ? "Home" : upperFirst(route.split("/")[1])
   );
 
-  console.log(active);
   const links = data.map((item) => (
     <Link href={item.link} key={item.label} passHref>
       <a

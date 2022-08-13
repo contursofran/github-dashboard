@@ -7,7 +7,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
-import { store } from "../store";
+import { useStore } from "../store";
 
 interface Props {
   title: string;
@@ -49,11 +49,12 @@ function Card({ title, text, language, languageColor, lastUpdated }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const link = `/repositories/public/${title}/features`;
+
   return (
     <Link href={link} key={title} passHref>
       <MantineCard
         onClick={() => {
-          store.setState({ selectedProject: title });
+          useStore.setState({ selectedProject: title });
         }}
         className={classes.root}
         shadow="md"
