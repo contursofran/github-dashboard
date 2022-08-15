@@ -1,9 +1,8 @@
+import { createStyles, SimpleGrid } from "@mantine/core";
 import React, { useEffect } from "react";
-import { Navbar } from "../../Navbar";
-import { Header, Tab } from "../../Header";
-import { SimpleGrid } from "@mantine/core";
-import { useStore } from "../../../store";
-import { useStyles } from "./RepositoriesLayout.styles";
+import { Header, Tab } from "../../components/Header";
+import { Navbar } from "../../components/Navbar";
+import { useStore } from "../../store";
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +10,32 @@ interface Props {
   tabs?: Tab[];
 }
 
-function RepositoriesLayout({ children, currentPage, tabs }: Props) {
+const useStyles = createStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  body: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    alignItems: "start",
+    alignSelf: "stretch",
+    backgroundColor:
+      theme.colorScheme === "light"
+        ? theme.colors.gray[0]
+        : theme.colors.dark[7],
+  },
+  content: {
+    alignSelf: "stretch",
+    padding: "0.5rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+
+function MainLayout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   useEffect(() => {
@@ -42,4 +66,4 @@ function RepositoriesLayout({ children, currentPage, tabs }: Props) {
   );
 }
 
-export { RepositoriesLayout };
+export { MainLayout };

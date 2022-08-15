@@ -1,13 +1,13 @@
 import {
   Card as MantineCard,
-  Text,
-  Group,
   ColorSwatch,
+  Group,
+  Text,
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
 import { useStore } from "../../store";
-import { useStyles } from "./Card.styles";
+import { useStyles } from "./ProjectCard.styles";
 
 interface Props {
   title: string;
@@ -18,7 +18,13 @@ interface Props {
   badge: string;
 }
 
-function Card({ title, text, language, languageColor, lastUpdated }: Props) {
+function ProjectCard({
+  title,
+  text,
+  language,
+  languageColor,
+  lastUpdated,
+}: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const link = `/repositories/public/${title}/features`;
@@ -63,4 +69,4 @@ function Card({ title, text, language, languageColor, lastUpdated }: Props) {
   );
 }
 
-export { Card };
+export { ProjectCard };

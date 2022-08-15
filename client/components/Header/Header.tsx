@@ -1,7 +1,7 @@
 import { Group, Title } from "@mantine/core";
+import { useStore } from "../../store";
 import { useStyles } from "./Header.styles";
 import { Tab, Tabs } from "./Tabs";
-import { useStore } from "../../store";
 
 interface Props {
   currentPage: string;

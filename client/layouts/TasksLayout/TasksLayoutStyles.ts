@@ -17,11 +17,21 @@ const useStyles = createStyles((theme) => ({
         : theme.colors.dark[7],
   },
   content: {
+    flex: 1,
     alignSelf: "stretch",
-    padding: "0.5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  grid: {
+    height: "100%",
+    width: "100%",
+    padding: theme.spacing.xl * 2.5,
+  },
+
+  gridItem: {
+    backgroundColor: theme.colors.dark[8],
   },
 }));
 

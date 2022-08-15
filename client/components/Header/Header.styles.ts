@@ -3,12 +3,12 @@ import { primaryColorShade } from "../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   header: {
-    height: "130px",
+    height: "70px",
     backgroundColor:
       theme.colorScheme === "light" ? "white" : theme.colors.dark[7],
     alignSelf: "stretch",
     justifyContent: "space-between",
-    padding: theme.spacing.xl,
+    padding: theme.spacing.xl * 1.5,
   },
 
   tab: {

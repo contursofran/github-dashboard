@@ -55,7 +55,7 @@ function Tabs({ tabs, selectedProject }: Props) {
     return tabsMap;
   };
 
-  return tabs && <Group pr={30}>{mapTabs(tabs)}</Group>;
+  return tabs && <Group>{mapTabs(tabs)}</Group>;
 }
 
 export { Tabs };
