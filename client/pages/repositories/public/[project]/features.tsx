@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Layout } from "../../../../components/layout/Layout";
+import { TasksLayout } from "../../../../layouts/TasksLayout/TasksLayout";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
@@ -18,14 +18,18 @@ const tabs = [
 ];
 
 const Home: NextPageWithLayout = () => {
-  return <>features</>;
+  return <>asd</>;
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout currentPage="Repositories/Public/[project]/features" tabs={tabs}>
+    <TasksLayout
+      currentTab="features"
+      currentPage="Repositories/Public/[project]/features"
+      tabs={tabs}
+    >
       {page}{" "}
-    </Layout>
+    </TasksLayout>
   );
 };
 

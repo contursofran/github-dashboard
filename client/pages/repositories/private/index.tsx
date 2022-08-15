@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Layout } from "../../../components/layout/Layout";
+import { RepositoriesLayout } from "../../../layouts/RepositoriesLayout";
 import { NextPageWithLayout } from "./../../_app";
 
 const tabs = [
@@ -19,9 +19,9 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout currentPage="Repositories/Private" tabs={tabs}>
+    <RepositoriesLayout currentPage="Repositories/Private" tabs={tabs}>
       {page}
-    </Layout>
+    </RepositoriesLayout>
   );
 };
 

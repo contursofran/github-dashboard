@@ -29,10 +29,6 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
     padding: theme.spacing.xl * 2.5,
   },
-
-  gridItem: {
-    backgroundColor: theme.colors.dark[8],
-  },
 }));
 
 export { useStyles };

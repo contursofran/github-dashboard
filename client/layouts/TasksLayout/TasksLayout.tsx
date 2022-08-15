@@ -9,6 +9,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import React, { useEffect } from "react";
+import { GridCard } from "../../components/GridCard";
 import { Header, Tab } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { useStore } from "../../store";
@@ -43,22 +44,9 @@ function TasksLayout({ children, currentPage, tabs, currentTab }: Props) {
             spacing={40}
             breakpoints={[{ maxWidth: "sm", cols: 1 }]}
           >
-            <Card p="lg" radius="md" withBorder className={classes.gridItem}>
-              <Group spacing="xs" mb="xs">
-                <Title order={4}>To Do</Title>
-                <ColorSwatch color={colors.gray[7]}>2</ColorSwatch>
-              </Group>
-            </Card>
-            <Card p="lg" radius="md" withBorder className={classes.gridItem}>
-              <Group mb="xs">
-                <Title order={4}>On progress</Title>
-              </Group>
-            </Card>
-            <Card p="lg" radius="md" withBorder className={classes.gridItem}>
-              <Group mb="xs">
-                <Title order={4}>Done</Title>
-              </Group>
-            </Card>
+            <GridCard title="To Do" counter={2} />
+            <GridCard title="On progress" counter={2} />
+            <GridCard title="Done" counter={5} />
           </SimpleGrid>
         </div>
       </div>
