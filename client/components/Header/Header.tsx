@@ -1,7 +1,7 @@
 import { Group, Title } from "@mantine/core";
 import { useStyles } from "./Header.styles";
 import { Tab, Tabs } from "./Tabs";
-import { useStore } from "../../../store";
+import { useStore } from "../../store";
 
 interface Props {
   currentPage: string;
@@ -13,7 +13,7 @@ function Header({ currentPage, tabs }: Props) {
   const selectedProject = useStore((state) => state.selectedProject);
 
   return (
-    <Group className={classes.header} position="center" align="center">
+    <Group className={classes.header} align="center">
       <Title order={2}>
         {selectedProject ? selectedProject : currentPage.split("/")[0]}
       </Title>

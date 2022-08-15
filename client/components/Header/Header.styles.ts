@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { primaryColorShade } from "../../../utils/mantine";
+import { primaryColorShade } from "../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   header: {

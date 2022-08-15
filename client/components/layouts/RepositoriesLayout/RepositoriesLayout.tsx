@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Navbar } from "./Navbar";
-import { Header, Tab } from "./Header";
-import { createStyles, SimpleGrid } from "@mantine/core";
-import { useStore } from "../../store";
+import { Navbar } from "../../Navbar";
+import { Header, Tab } from "../../Header";
+import { SimpleGrid } from "@mantine/core";
+import { useStore } from "../../../store";
+import { useStyles } from "./RepositoriesLayout.styles";
 
 interface Props {
   children: React.ReactNode;
@@ -10,32 +11,7 @@ interface Props {
   tabs?: Tab[];
 }
 
-const useStyles = createStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  body: {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
-    alignItems: "start",
-    alignSelf: "stretch",
-    backgroundColor:
-      theme.colorScheme === "light"
-        ? theme.colors.gray[0]
-        : theme.colors.dark[7],
-  },
-  content: {
-    alignSelf: "stretch",
-    padding: "0.5rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
-
-function Layout({ children, currentPage, tabs }: Props) {
+function RepositoriesLayout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   useEffect(() => {
@@ -66,4 +42,4 @@ function Layout({ children, currentPage, tabs }: Props) {
   );
 }
 
-export { Layout };
+export { RepositoriesLayout };
