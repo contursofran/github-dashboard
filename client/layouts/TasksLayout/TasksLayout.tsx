@@ -1,30 +1,40 @@
-import {
-  Card,
-  CardSection,
-  ColorSwatch,
-  Group,
-  SimpleGrid,
-  Text,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+import { SimpleGrid } from "@mantine/core";
+import { useListState } from "@mantine/hooks";
 import React, { useEffect } from "react";
-import { Grid } from "../../components/Grid";
+import { DragDropGrid } from "../../components/DragDropGrid";
+import {
+  DraggableCard,
+  DraggableCardProps,
+} from "../../components/DraggableCard";
 import { Header, Tab } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
-import { TaskCard } from "../../components/TaskCard";
 import { useStore } from "../../store";
-import { useStyles } from "./TasksLayoutStyles";
+import { Draggable } from "../../utils/dnd";
+import { useStyles } from "./TasksLayout.styles";
 
 interface Props {
   children: React.ReactNode;
   currentPage: string;
-  tabs?: Tab[];
   currentTab: string;
+  tabs?: Tab[];
 }
 
-function TasksLayout({ children, currentPage, tabs, currentTab }: Props) {
-  const { classes } = useStyles();
+const list: Omit<DraggableCardProps, "index">[] = [
+  {
+    tags: ["tag1", "tag2"],
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "Title 1",
+  },
+  {
+    tags: ["tag1", "tag2"],
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "Title 2",
+  },
+];
+
+function TasksLayout({ children, currentPage, currentTab, tabs }: Props) {
+  const { classes, cx } = useStyles();
+  const [state, listHandler] = useListState(list);
 
   useEffect(() => {
     if (!currentPage.includes("[project]")) {
@@ -32,49 +42,42 @@ function TasksLayout({ children, currentPage, tabs, currentTab }: Props) {
     }
   }, [currentPage]);
 
+  const items = state.map((item, index) => (
+    <Draggable
+      draggableId={index.toString()}
+      index={index}
+      key={index.toString()}
+    >
+      {(provided, snapshot) => (
+        <div
+          className={cx(classes.card, {
+            [classes.cardDragging]: snapshot.isDragging,
+          })}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          <DraggableCard tags={item.tags} text={item.text} title={item.title} />
+        </div>
+      )}
+    </Draggable>
+  ));
+
   return (
     <div className={classes.root}>
       <Navbar />
       <div className={classes.body}>
-        <Header tabs={tabs} currentPage={currentPage} />
+        <Header currentPage={currentPage} tabs={tabs} />
         <div className={classes.content}>
           <SimpleGrid
-            cols={3}
-            className={classes.grid}
-            spacing={40}
             breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+            className={classes.grid}
+            cols={3}
+            spacing={40}
           >
-            <Grid title="To Do" counter={2}>
-              <TaskCard
-                title="Task 1"
-                text="Finish the task 1"
-                tags={["tag1", "tag2"]}
-              />
-              <TaskCard
-                title="Task 1"
-                text="Finish the task 1"
-                tags={["tag1", "tag2"]}
-              />
-              <TaskCard
-                title="Task 1"
-                text="Finish the task 1"
-                tags={["tag1", "tag2"]}
-              />
-            </Grid>
-            <Grid title="On progress" counter={2}>
-              <TaskCard
-                title="Task 1"
-                text="Finish the task 1"
-                tags={["tag1", "tag2"]}
-              />
-            </Grid>
-            <Grid title="Done" counter={5}>
-              <TaskCard
-                title="Task 1"
-                text="Finish the task 1"
-                tags={["tag1", "tag2"]}
-              />
-            </Grid>
+            <DragDropGrid counter={2} listHandler={listHandler} title="To Do">
+              {items}
+            </DragDropGrid>
           </SimpleGrid>
         </div>
       </div>

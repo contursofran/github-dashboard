@@ -7,7 +7,7 @@ import {
 } from "@mantine/core";
 import Link from "next/link";
 import { useStore } from "../../store";
-import { useStyles } from "./ProjectCard.styles";
+import { useStyles } from "./Card.styles";
 
 interface Props {
   title: string;
@@ -18,49 +18,43 @@ interface Props {
   badge: string;
 }
 
-function ProjectCard({
-  title,
-  text,
-  language,
-  languageColor,
-  lastUpdated,
-}: Props) {
+function Card({ title, text, language, languageColor, lastUpdated }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const link = `/repositories/public/${title}/features`;
 
   return (
-    <Link href={link} key={title} passHref>
+    <Link passHref href={link} key={title}>
       <MantineCard
+        withBorder
+        className={classes.root}
+        p="lg"
+        radius="md"
+        shadow="md"
         onClick={() => {
           useStore.setState({ selectedProject: title });
         }}
-        className={classes.root}
-        shadow="md"
-        p="lg"
-        radius="md"
-        withBorder
       >
         <Group mb="xs">
-          <Text size={"lg"} color="blue.4">
+          <Text color="blue.4" size={"lg"}>
             {title}
           </Text>
         </Group>
-        <Text size="md" color="dimmed">
+        <Text color="dimmed" size="md">
           {text}
         </Text>
 
-        <Group pt={"md"} position="apart">
+        <Group position="apart" pt={"md"}>
           <Group align="center" position="center">
             <ColorSwatch
-              color={colors[languageColor][5]}
               className={classes.swatch}
+              color={colors[languageColor][5]}
             />
-            <Text size="sm" color="dimmed">
+            <Text color="dimmed" size="sm">
               {language}
             </Text>
           </Group>
-          <Text size="sm" color="dimmed">
+          <Text color="dimmed" size="sm">
             {lastUpdated}
           </Text>
         </Group>
@@ -69,4 +63,4 @@ function ProjectCard({
   );
 }
 
-export { ProjectCard };
+export { Card };

@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { ProjectCard } from "../../../components/ProjectCard";
+import { Card } from "../../../components/Card";
 import { RepositoriesLayout } from "../../../layouts/RepositoriesLayout";
 import { NextPageWithLayout } from "./../../_app";
 
@@ -17,7 +17,7 @@ const tabs = [
 const Home: NextPageWithLayout = () => {
   return (
     <>
-      <ProjectCard
+      <Card
         title="Github-dashboard"
         text="Dashboard to organize github projects"
         language="TypeScript"
@@ -25,7 +25,7 @@ const Home: NextPageWithLayout = () => {
         lastUpdated="Updated 7 hours ago"
         badge="Private"
       />
-      <ProjectCard
+      <Card
         title="Github-dashboard"
         text="Dashboard to organize github projects"
         language="TypeScript"
@@ -33,7 +33,7 @@ const Home: NextPageWithLayout = () => {
         lastUpdated="Updated 7 hours ago"
         badge="Private"
       />
-      <ProjectCard
+      <Card
         title="Github-dashboard"
         text="Dashboard to organize github projects"
         language="TypeScript"
@@ -41,7 +41,7 @@ const Home: NextPageWithLayout = () => {
         lastUpdated="Updated 7 hours ago"
         badge="Private"
       />
-      <ProjectCard
+      <Card
         title="Github-dashboard"
         text="Dashboard to organize github"
         language="TypeScript"

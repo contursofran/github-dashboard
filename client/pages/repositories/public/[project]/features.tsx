@@ -24,8 +24,8 @@ const Home: NextPageWithLayout = () => {
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
     <TasksLayout
-      currentTab="features"
       currentPage="Repositories/Public/[project]/features"
+      currentTab="features"
       tabs={tabs}
     >
       {page}{" "}
