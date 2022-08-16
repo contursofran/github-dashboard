@@ -9,9 +9,10 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import React, { useEffect } from "react";
-import { GridCard } from "../../components/GridCard";
+import { Grid } from "../../components/Grid";
 import { Header, Tab } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
+import { TaskCard } from "../../components/TaskCard";
 import { useStore } from "../../store";
 import { useStyles } from "./TasksLayoutStyles";
 
@@ -24,7 +25,6 @@ interface Props {
 
 function TasksLayout({ children, currentPage, tabs, currentTab }: Props) {
   const { classes } = useStyles();
-  const { colors } = useMantineTheme();
 
   useEffect(() => {
     if (!currentPage.includes("[project]")) {
@@ -44,9 +44,37 @@ function TasksLayout({ children, currentPage, tabs, currentTab }: Props) {
             spacing={40}
             breakpoints={[{ maxWidth: "sm", cols: 1 }]}
           >
-            <GridCard title="To Do" counter={2} />
-            <GridCard title="On progress" counter={2} />
-            <GridCard title="Done" counter={5} />
+            <Grid title="To Do" counter={2}>
+              <TaskCard
+                title="Task 1"
+                text="Finish the task 1"
+                tags={["tag1", "tag2"]}
+              />
+              <TaskCard
+                title="Task 1"
+                text="Finish the task 1"
+                tags={["tag1", "tag2"]}
+              />
+              <TaskCard
+                title="Task 1"
+                text="Finish the task 1"
+                tags={["tag1", "tag2"]}
+              />
+            </Grid>
+            <Grid title="On progress" counter={2}>
+              <TaskCard
+                title="Task 1"
+                text="Finish the task 1"
+                tags={["tag1", "tag2"]}
+              />
+            </Grid>
+            <Grid title="Done" counter={5}>
+              <TaskCard
+                title="Task 1"
+                text="Finish the task 1"
+                tags={["tag1", "tag2"]}
+              />
+            </Grid>
           </SimpleGrid>
         </div>
       </div>
