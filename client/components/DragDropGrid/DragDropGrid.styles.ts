@@ -1,7 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  card: {
+  root: {
     backgroundColor: theme.colors.dark[8],
   },
   title: {

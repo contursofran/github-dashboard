@@ -27,17 +27,7 @@ const useStyles = createStyles((theme) => ({
   grid: {
     height: "100%",
     width: "100%",
-    padding: theme.spacing.xl * 2,
-  },
-  card: {
-    ...theme.fn.focusStyles(),
-
-    backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-    marginBottom: theme.spacing.sm,
-  },
-  cardDragging: {
-    boxShadow: theme.shadows.sm,
+    padding: theme.spacing.xl * 1.5,
   },
 }));
 

@@ -10,15 +10,15 @@ import { useStore } from "../../store";
 import { useStyles } from "./Card.styles";
 
 interface Props {
-  title: string;
-  text: string;
+  badge: string;
   language: string;
   languageColor: string;
   lastUpdated: string;
-  badge: string;
+  text: string;
+  title: string;
 }
 
-function Card({ title, text, language, languageColor, lastUpdated }: Props) {
+function Card({ language, languageColor, lastUpdated, text, title }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const link = `/repositories/public/${title}/features`;

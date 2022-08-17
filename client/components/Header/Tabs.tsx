@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import { useStyles } from "./Header.styles";
 
 interface Props {
-  tabs: Tab[];
   selectedProject?: string;
+  tabs: Tab[];
 }
 
 export interface Tab {
-  link: string;
   label: string;
+  link: string;
 }
 
-function Tabs({ tabs, selectedProject }: Props) {
+function Tabs({ selectedProject, tabs }: Props) {
   const { classes, cx } = useStyles();
   const { route } = useRouter();
   const [active, setActive] = useState(route);
@@ -31,26 +31,21 @@ function Tabs({ tabs, selectedProject }: Props) {
   }
 
   const mapTabs = (tabs: Tab[]) => {
-    const tabsMap = tabs.map(
-      (tab) => (
-        console.log(tab.link.split("/").pop()),
-        (
-          <Link href={tab.link} key={tab.label} passHref>
-            <a
-              className={cx(classes.tabsLinks, {
-                [classes.linkActive]:
-                  active.split("/").pop() === tab.link.split("/").pop(),
-              })}
-              onClick={() => {
-                setActive(tab.link);
-              }}
-            >
-              {tab.label}
-            </a>
-          </Link>
-        )
-      )
-    );
+    const tabsMap = tabs.map((tab) => (
+      <Link passHref href={tab.link} key={tab.label}>
+        <a
+          className={cx(classes.tabsLinks, {
+            [classes.linkActive]:
+              active.split("/").pop() === tab.link.split("/").pop(),
+          })}
+          onClick={() => {
+            setActive(tab.link);
+          }}
+        >
+          {tab.label}
+        </a>
+      </Link>
+    ));
 
     return tabsMap;
   };
