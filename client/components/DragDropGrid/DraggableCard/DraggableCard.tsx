@@ -4,20 +4,14 @@ import { IconDots } from "@tabler/icons";
 import { useStyles } from "./DraggableCard.styles";
 
 export interface DraggableCardProps {
-  id?: string;
-  index?: number;
+  id: string;
+  index: number;
   tag: string;
   text: string;
   title: string;
 }
 
-function DraggableCard({
-  id = "0",
-  index = 0,
-  tag,
-  text,
-  title,
-}: DraggableCardProps) {
+function DraggableCard({ id, index, tag, text, title }: DraggableCardProps) {
   const { classes, cx } = useStyles();
 
   return (
@@ -38,7 +32,6 @@ function DraggableCard({
           <Card
             withBorder
             className={classes.root}
-            mt="md"
             p="md"
             radius="md"
             shadow="md"
@@ -50,7 +43,11 @@ function DraggableCard({
                     {title}
                   </Text>
                   <Badge color="grape" variant="light">
-                    {tag}
+                    {
+                      <Text size="sm" weight={600}>
+                        {tag}
+                      </Text>
+                    }
                   </Badge>
                 </Group>
               </Group>

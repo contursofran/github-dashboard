@@ -6,20 +6,22 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
+import { List } from "../../types/base";
 import { Droppable } from "../../utils/dnd";
 import { useStyles } from "./DragDropGrid.styles";
-import { DraggableCard, DraggableCardProps } from "./DraggableCard";
+import { DraggableCard } from "./DraggableCard";
 
 interface Props {
   counter: number;
   id: string;
-  itemsList: DraggableCardProps[];
+  itemsList: List;
   title: string;
 }
 
 function DragDropGrid({ counter, id, itemsList, title }: Props) {
   const { classes } = useStyles();
   const { colors, spacing } = useMantineTheme();
+
   return (
     <Card withBorder className={classes.root} p="lg" radius="md">
       <Group mb={"lg"} position="apart">

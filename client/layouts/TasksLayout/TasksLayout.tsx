@@ -1,12 +1,9 @@
-import { DropResult } from "@hello-pangea/dnd";
 import { SimpleGrid } from "@mantine/core";
-import { useListState } from "@mantine/hooks";
-import React, { useEffect } from "react";
 import { DragDropGrid } from "../../components/DragDropGrid";
-import { DraggableCardProps } from "../../components/DragDropGrid/DraggableCard";
 import { Header, Tab } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
-import { useStore } from "../../store";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { Lists } from "../../types/base";
 import { DragDropContext } from "../../utils/dnd";
 import { useStyles } from "./TasksLayout.styles";
 
@@ -15,11 +12,6 @@ interface Props {
   currentPage: string;
   currentTab: string;
   tabs?: Tab[];
-}
-
-interface Lists {
-  items: DraggableCardProps[];
-  listName: string;
 }
 
 const lists: Lists[] = [
@@ -62,58 +54,7 @@ const lists: Lists[] = [
 
 function TasksLayout({ currentPage, tabs }: Props) {
   const { classes } = useStyles();
-  const [toDoListState, toDoListStateHandler] = useListState(lists[0].items);
-  const [inProgressListState, inProgressListStateHandler] = useListState(
-    lists[1].items
-  );
-  const [DoneListState, DoneListStateHandler] = useListState(lists[2].items);
-
-  useEffect(() => {
-    if (!currentPage.includes("[project]")) {
-      useStore.setState({ selectedProject: "" });
-    }
-  }, [currentPage]);
-
-  const listsArray = [toDoListState, inProgressListState, DoneListState];
-  const listHandlers = [
-    toDoListStateHandler,
-    inProgressListStateHandler,
-    DoneListStateHandler,
-  ];
-
-  const onDragEnd = (result: DropResult) => {
-    const { destination, source } = result;
-
-    if (!destination) {
-      return;
-    }
-    const destinationObject = {
-      handler: listHandlers[parseInt(destination.droppableId)],
-      list: listsArray[parseInt(destination.droppableId)],
-    };
-    const sourceObject = {
-      handler: listHandlers[parseInt(source.droppableId)],
-      list: listsArray[parseInt(source.droppableId)],
-    };
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    } else if (destination.droppableId === source.droppableId) {
-      sourceObject.handler.reorder({
-        from: source.index,
-        to: destination.index,
-      });
-    } else {
-      destinationObject.handler.insert(
-        destination.index,
-        sourceObject.list[source.index]
-      );
-      sourceObject.handler.remove(source.index);
-    }
-  };
+  const { listsStateArray, onDragEnd } = useDragAndDrop(lists);
 
   return (
     <div className={classes.root}>
@@ -132,7 +73,7 @@ function TasksLayout({ currentPage, tabs }: Props) {
                 <DragDropGrid
                   counter={2}
                   id={index.toString()}
-                  itemsList={listsArray[index]}
+                  itemsList={listsStateArray[index]}
                   key={index}
                   title={lists[index].listName}
                 />

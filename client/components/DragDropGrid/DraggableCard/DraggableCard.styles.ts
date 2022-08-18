@@ -6,10 +6,9 @@ const useStyles = createStyles((theme) => ({
   },
   card: {
     ...theme.fn.focusStyles(),
-
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-    marginBottom: theme.spacing.sm,
+    marginBottom: theme.spacing.lg,
   },
   cardDragging: {
     boxShadow: theme.shadows.sm,
