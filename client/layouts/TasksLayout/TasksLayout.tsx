@@ -71,7 +71,6 @@ function TasksLayout({ currentPage, tabs }: Props) {
             <DragDropContext onDragEnd={onDragEnd}>
               {lists.map((grid, index) => (
                 <DragDropGrid
-                  counter={2}
                   id={index.toString()}
                   itemsList={listsStateArray[index]}
                   key={index}

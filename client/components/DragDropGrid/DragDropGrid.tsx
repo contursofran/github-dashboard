@@ -12,15 +12,16 @@ import { useStyles } from "./DragDropGrid.styles";
 import { DraggableCard } from "./DraggableCard";
 
 interface Props {
-  counter: number;
   id: string;
   itemsList: List;
   title: string;
 }
 
-function DragDropGrid({ counter, id, itemsList, title }: Props) {
+function DragDropGrid({ id, itemsList, title }: Props) {
   const { classes } = useStyles();
   const { colors, spacing } = useMantineTheme();
+
+  const counter = itemsList.length;
 
   return (
     <Card withBorder className={classes.root} p="lg" radius="md">
@@ -38,7 +39,11 @@ function DragDropGrid({ counter, id, itemsList, title }: Props) {
       </Group>
       <Droppable droppableId={id}>
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
+          <div
+            style={{ height: "100%" }}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
             {itemsList.map((item, index) => (
               <DraggableCard
                 id={id}
