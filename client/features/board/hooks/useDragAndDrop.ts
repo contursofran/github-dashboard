@@ -1,5 +1,5 @@
 import { useListState } from "@mantine/hooks";
-import { Lists } from "../types/base";
+import { Lists } from "../types";
 
 function useDragAndDrop(lists: Lists[]) {
   const [toDoListState, toDoListStateHandler] = useListState(lists[0].items);

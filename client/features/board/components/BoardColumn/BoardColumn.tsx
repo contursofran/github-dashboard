@@ -6,10 +6,11 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
-import { List } from "../../types/base";
-import { Droppable } from "../../utils/dnd";
-import { useStyles } from "./DragDropGrid.styles";
-import { DraggableCard } from "./DraggableCard";
+
+import { Droppable } from "../../../../utils/dnd";
+import { List } from "../../types";
+import { DraggableCard } from "../DraggableCard";
+import { useStyles } from "./BoardColumn.styles";
 
 interface Props {
   id: string;
@@ -17,7 +18,7 @@ interface Props {
   title: string;
 }
 
-function DragDropGrid({ id, itemsList, title }: Props) {
+function BoardColumn({ id, itemsList, title }: Props) {
   const { classes } = useStyles();
   const { colors, spacing } = useMantineTheme();
 
@@ -62,4 +63,4 @@ function DragDropGrid({ id, itemsList, title }: Props) {
   );
 }
 
-export { DragDropGrid };
+export { BoardColumn };

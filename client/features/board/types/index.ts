@@ -1,4 +1,4 @@
-import { DraggableCardProps } from "../components/DragDropGrid/DraggableCard";
+import { DraggableCardProps } from "../components/DraggableCard";
 
 export type List = Omit<DraggableCardProps, "index" | "id">[];
 
