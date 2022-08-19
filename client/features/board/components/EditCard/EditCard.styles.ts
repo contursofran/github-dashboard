@@ -18,9 +18,10 @@ const useStyles = createStyles((theme) => ({
   titleTag: {
     display: "flex",
     gap: theme.spacing.md,
+    alignItems: "center",
   },
-  title: { width: "70%" },
-  tag: { width: "30%" },
+  title: { width: "65%" },
+  tag: { width: "35%" },
   textArea: { width: "100%" },
 }));
 

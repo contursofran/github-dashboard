@@ -48,7 +48,7 @@ function MainLayout({ children, currentPage, tabs }: Props) {
     <div className={classes.root}>
       <Navbar />
       <div className={classes.body}>
-        <Header tabs={tabs} currentPage={currentPage} />
+        <Header currentPage={currentPage} tabs={tabs} />
         <div className={classes.content}>
           <SimpleGrid
             breakpoints={[

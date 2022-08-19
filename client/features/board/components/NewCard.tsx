@@ -1,7 +1,7 @@
 import { Group, Text, useMantineTheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons";
-import { EditableCard } from "./NewCard/EditableCard";
+import { EditCard } from "./EditCard/EditCard";
 
 function NewCard() {
   const [opened, handlers] = useDisclosure(false);
@@ -10,7 +10,7 @@ function NewCard() {
   return (
     <>
       {opened ? (
-        <EditableCard />
+        <EditCard />
       ) : (
         <Group
           align="center"

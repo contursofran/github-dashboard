@@ -1,6 +1,7 @@
 import { Draggable } from "@hello-pangea/dnd";
-import { Badge, Card, Group, Text } from "@mantine/core";
-import { IconDots } from "@tabler/icons";
+import { Badge, Card, Group, Menu, Text } from "@mantine/core";
+import { useClickOutside, useDisclosure } from "@mantine/hooks";
+import { IconDots, IconEdit, IconPencil, IconTrash } from "@tabler/icons";
 import { useStyles } from "./DraggableCard.styles";
 
 export interface DraggableCardProps {
@@ -13,10 +14,12 @@ export interface DraggableCardProps {
 
 function DraggableCard({ id, index, tag, text, title }: DraggableCardProps) {
   const { classes, cx } = useStyles();
+  const [opened, handlers] = useDisclosure(false);
+  const ref = useClickOutside(() => handlers.close());
 
   return (
     <Draggable
-      draggableId={id + "-" + index}
+      draggableId={id + "-" + index.toString()}
       index={index}
       key={index.toString()}
     >
@@ -36,22 +39,20 @@ function DraggableCard({ id, index, tag, text, title }: DraggableCardProps) {
             radius="md"
             shadow="md"
           >
-            <Group mb="xs" position="apart">
+            <Group align="center" mb="xs" position="apart">
               <Group>
                 <Group>
                   <Text size={"md"} weight={600}>
                     {title}
                   </Text>
                   <Badge color="grape" variant="light">
-                    {
-                      <Text size="sm" weight={600}>
-                        {tag}
-                      </Text>
-                    }
+                    <Text size="sm" weight={600}>
+                      {tag}
+                    </Text>
                   </Badge>
                 </Group>
               </Group>
-              <IconDots />
+              <IconPencil color="gray" size={22} />
             </Group>
             <Text color="dimmed" size="md">
               {text}

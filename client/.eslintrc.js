@@ -1,21 +1,17 @@
 module.exports = {
+  root: true,
   extends: [
     "next",
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-    "airbnb-typescript",
-    "plugin:prettier/recommended",
+    "prettier",
   ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "typescript-sort-keys",
     "sort-destructure-keys",
     "@typescript-eslint",
-    "prettier",
   ],
   globals: { React: true },
   rules: {
@@ -31,9 +27,9 @@ module.exports = {
     "typescript-sort-keys/interface": 1,
     "typescript-sort-keys/string-enum": 1,
     "sort-destructure-keys/sort-destructure-keys": 1,
-  },
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: ["./tsconfig.json"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    quotes: "off",
+    "@typescript-eslint/quotes": "off",
   },
 };
