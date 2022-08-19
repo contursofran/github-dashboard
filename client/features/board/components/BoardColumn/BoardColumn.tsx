@@ -10,6 +10,7 @@ import { IconPlus } from "@tabler/icons";
 import { Droppable } from "../../../../utils/dnd";
 import { List } from "../../types";
 import { DraggableCard } from "../DraggableCard";
+import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
 
 function BoardColumn({ id, itemsList, title }: Props) {
   const { classes } = useStyles();
-  const { colors, spacing } = useMantineTheme();
+  const { colors } = useMantineTheme();
 
   const counter = itemsList.length;
 
@@ -33,18 +34,11 @@ function BoardColumn({ id, itemsList, title }: Props) {
           </Title>
           <ColorSwatch color={colors.gray[7]}>{counter}</ColorSwatch>
         </Group>
-        <Group spacing="xs">
-          <IconPlus size={spacing.lg} />
-          <Title order={4}>Add new</Title>
-        </Group>
       </Group>
+
       <Droppable droppableId={id}>
         {(provided) => (
-          <div
-            style={{ height: "100%" }}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+          <div {...provided.droppableProps} ref={provided.innerRef}>
             {itemsList.map((item, index) => (
               <DraggableCard
                 id={id}
@@ -59,6 +53,7 @@ function BoardColumn({ id, itemsList, title }: Props) {
           </div>
         )}
       </Droppable>
+      <NewCard />
     </Card>
   );
 }
