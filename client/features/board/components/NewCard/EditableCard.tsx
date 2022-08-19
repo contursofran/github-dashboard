@@ -1,6 +1,5 @@
-import { Card, Group, Text, Textarea, TextInput } from "@mantine/core";
-import { useDisclosure, useFocusTrap } from "@mantine/hooks";
-import { IconPlus } from "@tabler/icons";
+import { Card, Group, Textarea, TextInput } from "@mantine/core";
+import { useFocusTrap } from "@mantine/hooks";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {

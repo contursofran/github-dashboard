@@ -1,3 +1,4 @@
+import { DropResult } from "@hello-pangea/dnd";
 import { useListState } from "@mantine/hooks";
 import { Lists } from "../types";
 
@@ -15,7 +16,7 @@ function useDragAndDrop(lists: Lists[]) {
     DoneListStateHandler,
   ];
 
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
 
     if (!destination) {

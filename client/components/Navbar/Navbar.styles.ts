@@ -10,7 +10,6 @@ const useStyles = createStyles((theme, _params, getRef) => {
       border: "none",
     },
     link: {
-      ...theme.fn.focusStyles(),
       display: "flex",
       alignItems: "center",
       textDecoration: "none",

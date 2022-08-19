@@ -18,36 +18,36 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <Card
-        title="Github-dashboard"
-        text="Dashboard to organize github projects"
+        badge="Private"
         language="TypeScript"
         languageColor="blue"
         lastUpdated="Updated 7 hours ago"
-        badge="Private"
+        text="Dashboard to organize github projects"
+        title="Github-dashboard"
       />
       <Card
-        title="Github-dashboard"
-        text="Dashboard to organize github projects"
+        badge="Private"
         language="TypeScript"
         languageColor="blue"
         lastUpdated="Updated 7 hours ago"
-        badge="Private"
+        text="Dashboard to organize github projects"
+        title="Github-dashboard"
       />
       <Card
-        title="Github-dashboard"
-        text="Dashboard to organize github projects"
+        badge="Private"
         language="TypeScript"
         languageColor="blue"
         lastUpdated="Updated 7 hours ago"
-        badge="Private"
+        text="Dashboard to organize github projects"
+        title="Github-dashboard"
       />
       <Card
-        title="Github-dashboard"
+        badge="Private"
+        language="TypeScript"
+        languageColor="blue"
+        lastUpdated="Updated 7 hours ago"
         text="Dashboard to organize github"
-        language="TypeScript"
-        languageColor="blue"
-        lastUpdated="Updated 7 hours ago"
-        badge="Private"
+        title="Github-dashboard"
       />
     </>
   );

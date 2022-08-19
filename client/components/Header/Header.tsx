@@ -13,7 +13,7 @@ function Header({ currentPage, tabs }: Props) {
   const selectedProject = useStore((state) => state.selectedProject);
 
   return (
-    <Group className={classes.header} align="center">
+    <Group align="center" className={classes.header}>
       <Title order={2}>
         {selectedProject ? selectedProject : currentPage.split("/")[0]}
       </Title>

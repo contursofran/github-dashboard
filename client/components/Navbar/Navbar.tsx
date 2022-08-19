@@ -1,15 +1,15 @@
 import { Avatar, Navbar as MantineNavbar, Stack, Text } from "@mantine/core";
+import { upperFirst } from "@mantine/hooks";
 import {
   IconBrandGithub,
   IconHome,
   IconLogout,
   IconSettings,
 } from "@tabler/icons";
-import { useState } from "react";
 import Link from "next/link";
-import { useStyles } from "./Navbar.styles";
 import { useRouter } from "next/router";
-import { upperFirst } from "@mantine/hooks";
+import { useState } from "react";
+import { useStyles } from "./Navbar.styles";
 
 const data = [
   {
@@ -38,7 +38,7 @@ function Navbar() {
   );
 
   const links = data.map((item) => (
-    <Link href={item.link} key={item.label} passHref>
+    <Link passHref href={item.link} key={item.label}>
       <a
         className={cx(classes.link, {
           [classes.linkActive]: item.label === active,
@@ -52,21 +52,21 @@ function Navbar() {
   ));
 
   return (
-    <MantineNavbar width={{ sm: 300 }} p={"sm"} className={classes.navbar}>
+    <MantineNavbar className={classes.navbar} p={"sm"} width={{ sm: 300 }}>
       <MantineNavbar.Section grow mt="xl">
         <Stack className={classes.header}>
           <Avatar
+            mx="auto"
+            radius={120}
+            size={80}
             src={
               "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
             }
-            size={80}
-            radius={120}
-            mx="auto"
           />
           <Text align="center" size="lg" weight={500}>
             {"John Doe"}
           </Text>
-          <Text align="center" color="dimmed" size="sm" mt="-sm">
+          <Text align="center" color="dimmed" mt="-sm" size="sm">
             {"johndow@gmail.com"}
           </Text>
         </Stack>
@@ -75,8 +75,8 @@ function Navbar() {
       <MantineNavbar.Section className={classes.footer}>
         <MantineNavbar.Section>
           <a
-            href="#"
             className={classes.link}
+            href="#"
             onClick={(event) => event.preventDefault()}
           >
             <IconLogout className={classes.linkIcon} stroke={1.5} />

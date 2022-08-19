@@ -30,7 +30,7 @@ function Tabs({ selectedProject, tabs }: Props) {
     tabs = fixTabs;
   }
 
-  const mapTabs = (tabs: Tab[]) => {
+  const mapTabs = () => {
     const tabsMap = tabs.map((tab) => (
       <Link passHref href={tab.link} key={tab.label}>
         <a
@@ -50,7 +50,7 @@ function Tabs({ selectedProject, tabs }: Props) {
     return tabsMap;
   };
 
-  return tabs && <Group>{mapTabs(tabs)}</Group>;
+  return tabs && <Group>{mapTabs()}</Group>;
 }
 
 export { Tabs };
