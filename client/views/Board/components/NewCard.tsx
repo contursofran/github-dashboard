@@ -10,7 +10,7 @@ function NewCard() {
   return (
     <>
       {opened ? (
-        <EditCard />
+        <EditCard open />
       ) : (
         <Group
           align="center"

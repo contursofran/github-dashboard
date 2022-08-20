@@ -20,8 +20,15 @@ const useStyles = createStyles((theme) => ({
     gap: theme.spacing.md,
     alignItems: "center",
   },
-  title: { width: "65%" },
-  tag: { width: "35%" },
+  title: { width: "60%" },
+  tag: { width: "40%" },
+  tagDropdown: { backgroundColor: "#1a1b1e", position: "fixed", zIndex: 400 },
+  input: { backgroundColor: "#1a1b1e" },
+  tagSelect: {
+    "&[data-selected]": {
+      backgroundColor: theme.colors.dark[8],
+    },
+  },
   textArea: { width: "100%" },
 }));
 

@@ -9,11 +9,12 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useDisclosure, useFocusTrap } from "@mantine/hooks";
-import { IconEdit, IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { forwardRef } from "react";
 import { useStyles } from "./EditCard.styles";
 
 interface Props {
+  open?: boolean;
   tag?: string;
   text?: string;
   title?: string;
@@ -57,10 +58,10 @@ const SelectTag = forwardRef<HTMLDivElement, TagsProps>(
   }
 );
 
-function EditCard({ tag, text, title }: Props) {
+function EditCard({ open, tag, text, title }: Props) {
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
-  const [opened, handlers] = useDisclosure(false);
+  const [opened, handlers] = useDisclosure(open ? true : false);
 
   return (
     <>
@@ -78,23 +79,29 @@ function EditCard({ tag, text, title }: Props) {
               <TextInput
                 aria-label="Title"
                 className={classes.title}
+                classNames={{ input: classes.input }}
                 placeholder={title ? title : "Title"}
-                size="xs"
               />
               <Select
                 searchable
                 className={classes.tag}
+                classNames={{
+                  dropdown: classes.tagDropdown,
+                  input: classes.input,
+                }}
                 data={tags}
                 itemComponent={SelectTag}
-                maxDropdownHeight={70}
+                maxDropdownHeight={300}
                 placeholder="Tag"
-                size="xs"
               />
               <IconTrash color="gray" size={25} />
             </div>
             <Textarea
               aria-label="Text"
               className={classes.textArea}
+              classNames={{
+                input: classes.input,
+              }}
               placeholder={text ? text : "Text"}
             />
           </Stack>

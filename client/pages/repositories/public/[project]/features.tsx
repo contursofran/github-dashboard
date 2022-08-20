@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { TasksLayout } from "../../../../layouts/TasksLayout/TasksLayout";
+import { TabsLayout } from "../../../../layouts/TabsLayout";
+import { Board } from "../../../../views/Board";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
@@ -17,20 +18,16 @@ const tabs = [
   },
 ];
 
-const Home: NextPageWithLayout = () => {
-  return <>asd</>;
-};
-
-Home.getLayout = function getLayout(page: ReactElement) {
+const FeaturesPage: NextPageWithLayout = () => {
   return (
-    <TasksLayout
-      currentPage="Repositories/Public/[project]/features"
-      currentTab="features"
-      tabs={tabs}
-    >
-      {page}{" "}
-    </TasksLayout>
+    <>
+      <Board />
+    </>
   );
 };
 
-export default Home;
+FeaturesPage.getLayout = function getLayout(page: ReactElement) {
+  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
+};
+
+export default FeaturesPage;

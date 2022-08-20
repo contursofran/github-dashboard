@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
-import { Card } from "../../../components/Card";
-import { RepositoriesLayout } from "../../../layouts/RepositoriesLayout";
+import { TabsLayout } from "../../../layouts/TabsLayout";
+import { Repositories } from "../../../views/Repositories";
 import { NextPageWithLayout } from "./../../_app";
 
 const tabs = [
@@ -14,51 +14,16 @@ const tabs = [
   },
 ];
 
-const Home: NextPageWithLayout = () => {
+const PublicRepositoriesPage: NextPageWithLayout = () => {
   return (
     <>
-      <Card
-        badge="Private"
-        language="TypeScript"
-        languageColor="blue"
-        lastUpdated="Updated 7 hours ago"
-        text="Dashboard to organize github projects"
-        title="Github-dashboard"
-      />
-      <Card
-        badge="Private"
-        language="TypeScript"
-        languageColor="blue"
-        lastUpdated="Updated 7 hours ago"
-        text="Dashboard to organize github projects"
-        title="Github-dashboard"
-      />
-      <Card
-        badge="Private"
-        language="TypeScript"
-        languageColor="blue"
-        lastUpdated="Updated 7 hours ago"
-        text="Dashboard to organize github projects"
-        title="Github-dashboard"
-      />
-      <Card
-        badge="Private"
-        language="TypeScript"
-        languageColor="blue"
-        lastUpdated="Updated 7 hours ago"
-        text="Dashboard to organize github"
-        title="Github-dashboard"
-      />
+      <Repositories currentPage="Repositories/" />
     </>
   );
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <RepositoriesLayout currentPage="Repositories/" tabs={tabs}>
-      {page}
-    </RepositoriesLayout>
-  );
+PublicRepositoriesPage.getLayout = function getLayout(page: ReactElement) {
+  return <TabsLayout tabs={tabs}>{page}</TabsLayout>;
 };
 
-export default Home;
+export default PublicRepositoriesPage;

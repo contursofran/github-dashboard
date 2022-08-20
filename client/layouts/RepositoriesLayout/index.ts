@@ -1,1 +1,0 @@
-export { RepositoriesLayout } from "./RepositoriesLayout";

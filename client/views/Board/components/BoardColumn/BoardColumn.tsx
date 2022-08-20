@@ -5,13 +5,12 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { IconPlus } from "@tabler/icons";
 
 import { Droppable } from "../../../../utils/dnd";
 import { List } from "../../types";
-import { DraggableCard } from "../DraggableCard";
 import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
+import { DraggableCard } from "./DraggableCard";
 
 interface Props {
   id: string;

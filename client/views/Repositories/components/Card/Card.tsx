@@ -6,7 +6,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
-import { useStore } from "../../store";
+import { useStore } from "../../../../store";
 import { useStyles } from "./Card.styles";
 
 interface Props {

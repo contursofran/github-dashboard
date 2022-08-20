@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { RepositoriesLayout } from "../../../layouts/RepositoriesLayout";
+import { TabsLayout } from "../../../layouts/TabsLayout";
+import { Repositories } from "../../../views/Repositories";
 import { NextPageWithLayout } from "./../../_app";
 
 const tabs = [
@@ -13,16 +14,16 @@ const tabs = [
   },
 ];
 
-const Home: NextPageWithLayout = () => {
-  return <div>Private repos</div>;
-};
-
-Home.getLayout = function getLayout(page: ReactElement) {
+const PrivateRepositoriesPage: NextPageWithLayout = () => {
   return (
-    <RepositoriesLayout currentPage="Repositories/Private" tabs={tabs}>
-      {page}
-    </RepositoriesLayout>
+    <>
+      <Repositories currentPage="Repositories/[project]/" />
+    </>
   );
 };
 
-export default Home;
+PrivateRepositoriesPage.getLayout = function getLayout(page: ReactElement) {
+  return <TabsLayout tabs={tabs}>{page}</TabsLayout>;
+};
+
+export default PrivateRepositoriesPage;
