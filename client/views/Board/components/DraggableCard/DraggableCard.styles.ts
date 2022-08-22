@@ -2,6 +2,7 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   root: {
+    cursor: "grab",
     backgroundColor: theme.colors.dark[7],
   },
   card: {

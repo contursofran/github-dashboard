@@ -25,7 +25,7 @@ const lists: Lists[] = [
     listName: "In Progress",
     items: [
       {
-        tag: "Testing",
+        tag: "HIGH",
         text: "Lorem ",
         title: "Working",
       },

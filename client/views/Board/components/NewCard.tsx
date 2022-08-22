@@ -1,22 +1,23 @@
 import { Group, Text, useMantineTheme } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons";
-import { EditCard } from "./EditCard/EditCard";
+import { useState } from "react";
+import { EditableCard } from "./EditableCard";
 
 function NewCard() {
-  const [opened, handlers] = useDisclosure(false);
+  const [editingCard, setEditingCard] = useState(false);
   const { spacing } = useMantineTheme();
 
   return (
     <>
-      {opened ? (
-        <EditCard open />
+      {editingCard ? (
+        <EditableCard setEditingCard={setEditingCard} />
       ) : (
         <Group
           align="center"
           position="center"
           spacing="xs"
-          onClick={handlers.open}
+          style={{ cursor: "pointer" }}
+          onClick={() => setEditingCard(true)}
         >
           <IconPlus size={spacing.lg} />
           <Text color="gray.5" size="md">

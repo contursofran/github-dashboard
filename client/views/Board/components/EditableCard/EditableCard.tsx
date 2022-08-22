@@ -1,20 +1,19 @@
 import {
   Badge,
   Card,
-  Group,
   Select,
   Stack,
   Text,
   Textarea,
   TextInput,
 } from "@mantine/core";
-import { useDisclosure, useFocusTrap } from "@mantine/hooks";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { useClickOutside, useFocusTrap } from "@mantine/hooks";
+import { IconTrash } from "@tabler/icons";
 import { forwardRef } from "react";
-import { useStyles } from "./EditCard.styles";
+import { useStyles } from "./EditableCard.styles";
 
 interface Props {
-  open?: boolean;
+  setEditingCard: (arg0: boolean) => void;
   tag?: string;
   text?: string;
   title?: string;
@@ -58,14 +57,14 @@ const SelectTag = forwardRef<HTMLDivElement, TagsProps>(
   }
 );
 
-function EditCard({ open, tag, text, title }: Props) {
+function EditableCard({ setEditingCard, tag, text, title }: Props) {
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
-  const [opened, handlers] = useDisclosure(open ? true : false);
+  const ref = useClickOutside(() => setEditingCard(false));
 
   return (
     <>
-      {opened ? (
+      <div ref={ref}>
         <Card
           withBorder
           className={classes.root}
@@ -81,6 +80,7 @@ function EditCard({ open, tag, text, title }: Props) {
                 className={classes.title}
                 classNames={{ input: classes.input }}
                 placeholder={title ? title : "Title"}
+                value={title ? title : ""}
               />
               <Select
                 searchable
@@ -93,6 +93,7 @@ function EditCard({ open, tag, text, title }: Props) {
                 itemComponent={SelectTag}
                 maxDropdownHeight={300}
                 placeholder="Tag"
+                value={tag ? tag : ""}
               />
               <IconTrash color="gray" size={25} />
             </div>
@@ -103,14 +104,13 @@ function EditCard({ open, tag, text, title }: Props) {
                 input: classes.input,
               }}
               placeholder={text ? text : "Text"}
+              value={text ? text : ""}
             />
           </Stack>
         </Card>
-      ) : (
-        <IconPencil size={20} onClick={handlers.open} />
-      )}
+      </div>
     </>
   );
 }
 
-export { EditCard };
+export { EditableCard };
