@@ -1,8 +1,10 @@
-import { createStyles, SimpleGrid } from "@mantine/core";
+import { SimpleGrid } from "@mantine/core";
 import React, { useEffect } from "react";
-import { Header, Tab } from "../../components/Header";
+import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
+import { Tab } from "../../components/Tabs";
 import { useStore } from "../../store";
+import { useStyles } from "./MainLayout.styles";
 
 interface Props {
   children: React.ReactNode;
@@ -10,39 +12,12 @@ interface Props {
   tabs?: Tab[];
 }
 
-const useStyles = createStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  body: {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
-    alignItems: "start",
-    alignSelf: "stretch",
-    backgroundColor:
-      theme.colorScheme === "light"
-        ? theme.colors.gray[0]
-        : theme.colors.dark[7],
-  },
-  content: {
-    alignSelf: "stretch",
-    padding: "0.5rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
-
 function MainLayout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   useEffect(() => {
-    if (!currentPage.includes("[project]")) {
-      useStore.setState({ selectedProject: "" });
-    }
-  }, [currentPage]);
+    useStore.setState({ selectedProject: "" });
+  }, []);
 
   return (
     <div className={classes.root}>

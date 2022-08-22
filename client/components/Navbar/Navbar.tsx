@@ -22,12 +22,6 @@ const data = [
     label: "Repositories",
     icon: IconBrandGithub,
   },
-
-  {
-    link: "/settings",
-    label: "Settings",
-    icon: IconSettings,
-  },
 ];
 
 function Navbar() {
@@ -73,6 +67,16 @@ function Navbar() {
         {links}
       </MantineNavbar.Section>
       <MantineNavbar.Section className={classes.footer}>
+        <MantineNavbar.Section>
+          <a
+            className={classes.link}
+            href="#"
+            onClick={(event) => event.preventDefault()}
+          >
+            <IconSettings className={classes.linkIcon} stroke={1.5} />
+            <span>Settings</span>
+          </a>
+        </MantineNavbar.Section>
         <MantineNavbar.Section>
           <a
             className={classes.link}

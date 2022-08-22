@@ -4,18 +4,24 @@ import { Tab, Tabs } from "../Tabs";
 import { useStyles } from "./Header.styles";
 
 interface Props {
+  currentPage: string;
   tabs?: Tab[];
 }
 
-function Header({ tabs }: Props) {
+function Header({ currentPage, tabs }: Props) {
   const { classes } = useStyles();
   const selectedProject = useStore((state) => state.selectedProject);
-  const currentPage = useStore((state) => state.currentPage);
+
+  if (currentPage === "[project]") {
+    currentPage = selectedProject;
+  }
 
   return (
     <Group align="center" className={classes.header}>
       <Title order={2}>
-        {selectedProject ? selectedProject : currentPage.split("/")[0]}
+        {currentPage.includes("[project]")
+          ? currentPage
+          : currentPage.split("/")[0]}
       </Title>
       {tabs && <Tabs selectedProject={selectedProject} tabs={tabs} />}
     </Group>

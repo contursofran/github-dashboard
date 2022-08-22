@@ -27,7 +27,11 @@ const FeaturesPage: NextPageWithLayout = () => {
 };
 
 FeaturesPage.getLayout = function getLayout(page: ReactElement) {
-  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
+  return (
+    <TabsLayout currentPage="[project]" tabs={tabs}>
+      {page}{" "}
+    </TabsLayout>
+  );
 };
 
 export default FeaturesPage;

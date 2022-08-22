@@ -1,9 +1,10 @@
 import { ReactElement } from "react";
 import { MainLayout } from "../layouts/MainLayout/MainLayout";
+import { Home as HomeComponent } from "../views/Home";
 import { NextPageWithLayout } from "./_app";
 
 const Home: NextPageWithLayout = () => {
-  return <>Home</>;
+  return <HomeComponent />;
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {

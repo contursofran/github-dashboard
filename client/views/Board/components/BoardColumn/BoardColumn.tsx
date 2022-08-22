@@ -9,7 +9,6 @@ import {
 import { Droppable } from "../../../../utils/dnd";
 import { List } from "../../types";
 import { DraggableCard } from "../DraggableCard";
-import { EditableCard } from "../EditableCard";
 import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
 

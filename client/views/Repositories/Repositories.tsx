@@ -11,12 +11,6 @@ interface Props {
 function Repositories({ currentPage }: Props) {
   const { classes } = useStyles();
 
-  useEffect(() => {
-    if (!currentPage.includes("[project]")) {
-      useStore.setState({ selectedProject: "" });
-    }
-  }, [currentPage]);
-
   return (
     <>
       <div className={classes.content}>

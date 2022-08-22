@@ -5,17 +5,18 @@ import { useStyles } from "./TabsLayout.styles";
 
 interface Props {
   children: React.ReactNode;
+  currentPage: string;
   tabs: Tab[];
 }
 
-function TabsLayout({ children, tabs }: Props) {
+function TabsLayout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   return (
     <div className={classes.root}>
       <Navbar />
       <div className={classes.body}>
-        <Header tabs={tabs} />
+        <Header currentPage={currentPage} tabs={tabs} />
 
         {children}
       </div>
