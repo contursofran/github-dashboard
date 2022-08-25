@@ -2,7 +2,7 @@ import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import GithubIcon from "../../public/github.png";
+import GithubIcon from "../../../public/github.png";
 import { useStore } from "../../store";
 import { trpc } from "../../utils/trpc";
 import { useStyles } from "./Home.styles";
