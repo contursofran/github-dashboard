@@ -1,14 +1,8 @@
 import { SimpleGrid } from "@mantine/core";
-import { useEffect } from "react";
-import { useStore } from "../../store";
 import { Card } from "./components/Card";
 import { useStyles } from "./Repositories.styles";
 
-interface Props {
-  currentPage: string;
-}
-
-function Repositories({ currentPage }: Props) {
+function Repositories() {
   const { classes } = useStyles();
 
   return (

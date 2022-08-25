@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { TabsLayout } from "../../../layouts/TabsLayout";
 import { Repositories } from "../../../views/Repositories";
-import { NextPageWithLayout } from "./../../_app";
+import { NextPageWithLayout } from "../../_app";
 
 const tabs = [
   {
@@ -17,7 +17,7 @@ const tabs = [
 const PublicRepositoriesPage: NextPageWithLayout = () => {
   return (
     <>
-      <Repositories currentPage="Repositories/" />
+      <Repositories />
     </>
   );
 };
