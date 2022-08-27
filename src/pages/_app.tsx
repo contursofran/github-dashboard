@@ -3,6 +3,7 @@ import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { NextPage } from "next";
+import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { ReactElement, ReactNode } from "react";
@@ -40,7 +41,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           fontFamily: "Poppins, Roboto",
         }}
       >
-        {getLayout(<Component {...pageProps} />)}
+        <SessionProvider session={pageProps.session}>
+          {getLayout(<Component {...pageProps} />)}
+        </SessionProvider>
       </MantineProvider>
     </>
   );

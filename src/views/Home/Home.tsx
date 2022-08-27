@@ -1,28 +1,25 @@
 import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import GithubIcon from "../../../public/github.png";
 import { useStore } from "../../store";
-import { trpc } from "../../utils/trpc";
 import { useStyles } from "./Home.styles";
 
 function Home() {
   const [opened, setOpened] = useState(true);
   const { classes } = useStyles();
-  const { data, error, isLoading } = trpc.useQuery(["userhello"]);
+  const { data, status } = useSession();
+  console.log(data);
 
   useEffect(() => {
     useStore.setState({ currentPage: "Home" });
   }, []);
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
-      {/* <Modal centered opened={opened} onClose={() => setOpened(false)}>
+      <Modal centered opened={opened} onClose={() => setOpened(false)}>
         <div className={classes.container}>
           <div className={classes.img}>
             <Image alt="github" layout="fill" src={GithubIcon} />
@@ -36,12 +33,12 @@ function Home() {
             }}
             color="dark.9"
             leftIcon={<IconBrandGithub />}
+            onClick={() => signIn("github")}
           >
             Continue with GitHub
           </Button>
         </div>
-      </Modal> */}
-      <p>{data}</p>
+      </Modal>
     </>
   );
 }

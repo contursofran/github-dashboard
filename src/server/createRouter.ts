@@ -1,9 +1,9 @@
 import superjson from "superjson";
 import { createRouter } from "./context";
-import { userRouter } from "./routers/user";
+import { authRouter } from "./routers/auth";
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .merge("user", userRouter);
+  .merge("auth.", authRouter);
 
 export type AppRouter = typeof appRouter;
