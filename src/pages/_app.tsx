@@ -72,7 +72,7 @@ export default withTRPC<AppRouter>({
     const url = `${getBaseUrl()}/api/trpc`;
 
     const links = [
-      loggerLink(),
+      // loggerLink(),
       httpBatchLink({
         maxBatchSize: 10,
         url,
@@ -101,5 +101,5 @@ export default withTRPC<AppRouter>({
       transformer: superjson,
     };
   },
-  ssr: false, // we set it to false to be able to see the request in the network tab
+  ssr: true, // we set it to false to be able to see the request in the network tab
 })(App);
