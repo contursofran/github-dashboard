@@ -5,6 +5,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.dark[8],
     width: "450px",
     "&:hover": {
+      border: "1px solid",
       borderColor: theme.colors.blue[4],
       cursor: "pointer",
     },
@@ -17,6 +18,11 @@ const useStyles = createStyles((theme) => ({
       width: "300px",
     },
   },
+  skeleton: {
+    backgroundColor: theme.colors.dark[8],
+    width: "450px",
+    height: "170.3px",
+  },
   title: {
     fontSize: "1.1rem",
   },
@@ -24,6 +30,9 @@ const useStyles = createStyles((theme) => ({
     width: "0.6rem",
     height: "0.6rem",
     marginRight: "-0.3rem",
+  },
+  text: {
+    minHeight: "49.6px",
   },
 }));
 

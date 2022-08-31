@@ -2,16 +2,19 @@ import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
-import GithubIcon from "../../../../../public/github.png";
+import GithubIcon from "../../../../public/github.png";
 import { useStyles } from "./Login.styles";
 
-function Login() {
-  const [opened, setOpened] = useState(true);
+interface LoginProps {
+  close: () => void;
+  opened: boolean;
+}
+
+function Login({ close, opened }: LoginProps) {
   const { classes } = useStyles();
 
   return (
-    <Modal centered opened={opened} onClose={() => setOpened(false)}>
+    <Modal centered opened={opened} onClose={close}>
       <div className={classes.container}>
         <div className={classes.img}>
           <Image alt="github" layout="fill" src={GithubIcon} />

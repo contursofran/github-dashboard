@@ -72,7 +72,7 @@ export default withTRPC<AppRouter>({
     const url = `${getBaseUrl()}/api/trpc`;
 
     const links = [
-      // loggerLink(),
+      loggerLink(),
       httpBatchLink({
         maxBatchSize: 10,
         url,
@@ -81,25 +81,18 @@ export default withTRPC<AppRouter>({
 
     return {
       url: `${getBaseUrl()}/api/trpc`,
-      queryClientConfig: {
-        defaultOptions: {
-          queries: {
-            staleTime: 60,
-          },
-        },
-      },
       headers() {
-        if (ctx?.req) {
-          return {
-            ...ctx.req.headers,
-            "x-ssr": "1",
-          };
-        }
+        // if (ctx?.req) {
+        //   return {
+        //     ...ctx.req.headers,
+        //     "x-ssr": "1",
+        //   };
+        // }
         return {};
       },
       links,
       transformer: superjson,
     };
   },
-  ssr: true, // we set it to false to be able to see the request in the network tab
+  ssr: false, // we set it to false to be able to see the request in the network tab
 })(App);
