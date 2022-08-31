@@ -1,4 +1,4 @@
-import { Paper, SimpleGrid, Skeleton } from "@mantine/core";
+import { SimpleGrid } from "@mantine/core";
 import { Octokit } from "@octokit/core";
 import { Endpoints } from "@octokit/types";
 import { useEffect, useState } from "react";

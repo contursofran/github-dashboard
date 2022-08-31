@@ -2,10 +2,7 @@ import {
   Card as MantineCard,
   ColorSwatch,
   Group,
-  Paper,
-  SimpleGrid,
   Skeleton,
-  Space,
   Text,
   useMantineTheme,
 } from "@mantine/core";
