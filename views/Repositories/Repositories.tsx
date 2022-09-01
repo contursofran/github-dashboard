@@ -1,15 +1,15 @@
 import { SimpleGrid } from "@mantine/core";
 import { Card } from "./components/Card";
 import { SkeletonCard } from "./components/SkeletonCard";
-import { useRepositories } from "./hooks/useRepositories";
+import { useRepositories, Visibility } from "./hooks/useRepositories";
 import { useStyles } from "./Repositories.styles";
 
 const MAX_REPOS_PER_PAGE = 9;
 
-function Repositories() {
+function Repositories({ visibility }: { visibility: Visibility }) {
   const { classes } = useStyles();
-  const { mapRepositories, repositories, sortRepositories, status } =
-    useRepositories();
+  const { filterRepositories, mapRepositories, repositories, status } =
+    useRepositories(visibility);
 
   const getSkeletons = () => {
     const skeletons = [];
@@ -50,8 +50,8 @@ function Repositories() {
         className={classes.grid}
         cols={3}
       >
-        {sortRepositories.length > 0 &&
-          mapRepositories(sortRepositories).map((repo) => (
+        {filterRepositories.length > 0 &&
+          mapRepositories(filterRepositories).map((repo) => (
             <Card
               badge={repo.visibility}
               key={repo.name}

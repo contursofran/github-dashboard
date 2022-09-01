@@ -17,7 +17,7 @@ const tabs = [
 const PublicRepositoriesPage: NextPageWithLayout = () => {
   return (
     <>
-      <Repositories visibility="public" />
+      <Repositories visibility="private" />
     </>
   );
 };

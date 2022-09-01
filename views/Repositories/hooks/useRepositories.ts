@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { trpc } from "../../../utils/trpc";
 
 type UserRepositories = Endpoints["GET /user/repos"]["response"]["data"];
+export type Visibility = "public" | "private";
 
-function useRepositories() {
+function useRepositories(visibility: Visibility) {
   const [repositories, setRepositories] = useState<UserRepositories>([]);
   const { data: token, status } = trpc.useQuery(["auth.getToken"]);
 
@@ -50,6 +51,16 @@ function useRepositories() {
     return 0;
   });
 
+  const filterRepositories = sortRepositories.filter((repo) => {
+    if (visibility === "public") {
+      return repo.visibility === "public";
+    }
+    if (visibility === "private") {
+      return repo.visibility === "private";
+    }
+    return repo;
+  });
+
   const mapRepositories = (repos: UserRepositories) => {
     return repos.map((repo) => {
       return {
@@ -64,7 +75,7 @@ function useRepositories() {
 
   return {
     repositories,
-    sortRepositories,
+    filterRepositories,
     mapRepositories,
     status,
   };
