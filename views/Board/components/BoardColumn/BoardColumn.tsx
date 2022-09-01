@@ -7,10 +7,11 @@ import {
 } from "@mantine/core";
 
 import { Droppable } from "../../../../utils/dnd";
-import { List } from "../../types";
-import { DraggableCard } from "../DraggableCard";
+import { DraggableCard, DraggableCardProps } from "../DraggableCard";
 import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
+
+type List = Omit<DraggableCardProps, "index" | "id">[];
 
 interface Props {
   id: string;

@@ -2,7 +2,6 @@ import {
   Card as MantineCard,
   ColorSwatch,
   Group,
-  Skeleton,
   Text,
   useMantineTheme,
 } from "@mantine/core";
@@ -14,7 +13,6 @@ interface Props {
   badge?: string;
   language?: string | null;
   lastUpdated?: string | null;
-  skeleton?: boolean;
   text?: string | null;
   title?: string;
 }
@@ -33,7 +31,7 @@ const languageColors: LanguageColors = {
   C: "gray",
 };
 
-function Card({ language, lastUpdated, skeleton, text, title }: Props) {
+function Card({ language, lastUpdated, text, title }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const link = `/repositories/public/${title}/features`;
@@ -58,35 +56,6 @@ function Card({ language, lastUpdated, skeleton, text, title }: Props) {
     return `Updated on ${month} ${day}, ${year}`;
   };
 
-  if (skeleton) {
-    return (
-      <MantineCard className={classes.skeleton} p="lg" radius="md" shadow="md">
-        <Group mb="sm">
-          <Skeleton width={"50%"}>
-            <Text color="blue.4" size={"lg"}>
-              {"text"}
-            </Text>
-          </Skeleton>
-        </Group>
-        <Skeleton>
-          <Text className={classes.text} color="dimmed" size="md">
-            {"No description"}
-          </Text>
-        </Skeleton>
-        <Group position="apart" pt={"md"}>
-          <Skeleton width="30%">
-            <Group align="center" position="center">
-              <ColorSwatch className={classes.swatch} color={"red"} />
-              <Text color="dimmed" size="sm">
-                {"language"}
-              </Text>
-            </Group>
-          </Skeleton>
-          <Skeleton height={24.8} width="45%" />
-        </Group>
-      </MantineCard>
-    );
-  }
   return (
     <Link passHref href={link} key={title}>
       <MantineCard

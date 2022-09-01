@@ -1,6 +1,11 @@
 import { DropResult } from "@hello-pangea/dnd";
 import { useListState } from "@mantine/hooks";
-import { Lists } from "../types";
+import { DraggableCardProps } from "../components/DraggableCard";
+
+export interface Lists {
+  items: Omit<DraggableCardProps, "index" | "id">[];
+  listName: string;
+}
 
 function useDragAndDrop(lists: Lists[]) {
   const [toDoListState, toDoListStateHandler] = useListState(lists[0].items);

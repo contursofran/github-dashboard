@@ -2,8 +2,7 @@ import { SimpleGrid } from "@mantine/core";
 import { DragDropContext } from "../../utils/dnd";
 import { useStyles } from "./Board.styles";
 import { BoardColumn } from "./components/BoardColumn";
-import { useDragAndDrop } from "./hooks/useDragAndDrop";
-import { Lists } from "./types";
+import { Lists, useDragAndDrop } from "./hooks/useDragAndDrop";
 
 const lists: Lists[] = [
   {
