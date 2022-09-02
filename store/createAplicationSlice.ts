@@ -5,7 +5,7 @@ export interface AplicationSlice {
   selectedProject: string;
 }
 
-const createAplicationSlice: StateCreator<AplicationSlice> = (set) => ({
+const createAplicationSlice: StateCreator<AplicationSlice> = () => ({
   currentPage: "",
   selectedProject: "",
 });

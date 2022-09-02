@@ -3,12 +3,14 @@ import { DragDropContext } from "../../utils/dnd";
 import { useStyles } from "./Board.styles";
 import { BoardColumn } from "./components/BoardColumn";
 import { useDragAndDrop } from "./hooks/useDragAndDrop";
+import { useLists } from "./hooks/useLists";
+import { useQueryBoard } from "./hooks/useQueryBoard";
 
 function Board({ activeTab }: { activeTab: "Features" }) {
   const { classes } = useStyles();
-  const { lists, listsStateArray, onDragEnd, status } = useDragAndDrop({
-    activeTab,
-  });
+  const { listHandlersArray, lists, listsStateArray } = useLists();
+  const { onDragEnd } = useDragAndDrop({ listHandlersArray, listsStateArray });
+  const { status } = useQueryBoard({ activeTab, listHandlersArray });
 
   if (status === "loading") {
     return <div>Loading...</div>;
