@@ -12,7 +12,7 @@ function Header({ currentPage, tabs }: Props) {
   const { classes } = useStyles();
   const selectedProject = useStore((state) => state.selectedProject);
 
-  if (currentPage === "[project]") {
+  if (currentPage === "[repository]") {
     currentPage = selectedProject;
   }
 

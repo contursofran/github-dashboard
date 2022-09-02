@@ -2,50 +2,17 @@ import { SimpleGrid } from "@mantine/core";
 import { DragDropContext } from "../../utils/dnd";
 import { useStyles } from "./Board.styles";
 import { BoardColumn } from "./components/BoardColumn";
-import { Lists, useDragAndDrop } from "./hooks/useDragAndDrop";
+import { useDragAndDrop } from "./hooks/useDragAndDrop";
 
-const lists: Lists[] = [
-  {
-    listName: "To Do",
-    items: [
-      {
-        tag: "Important",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        title: "Title 1",
-      },
-      {
-        tag: "tag2",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        title: "Title 2",
-      },
-    ],
-  },
-  {
-    listName: "In Progress",
-    items: [
-      {
-        tag: "HIGH",
-        text: "Lorem ",
-        title: "Working",
-      },
-    ],
-  },
-  {
-    listName: "Done",
-    items: [
-      {
-        tag: "Done",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        title: "Title 3",
-      },
-    ],
-  },
-];
-
-function Board() {
-  const { listsStateArray, onDragEnd } = useDragAndDrop(lists);
+function Board({ activeTab }: { activeTab: "Features" }) {
   const { classes } = useStyles();
+  const { lists, listsStateArray, onDragEnd, status } = useDragAndDrop({
+    activeTab,
+  });
 
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={classes.content}>
       <SimpleGrid

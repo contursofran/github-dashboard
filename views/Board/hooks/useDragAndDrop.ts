@@ -1,5 +1,8 @@
 import { DropResult } from "@hello-pangea/dnd";
 import { useListState } from "@mantine/hooks";
+import { useEffect, useState } from "react";
+import { useStore } from "../../../store";
+import { trpc } from "../../../utils/trpc";
 import { DraggableCardProps } from "../components/DraggableCard";
 
 export interface Lists {
@@ -7,19 +10,54 @@ export interface Lists {
   listName: string;
 }
 
-function useDragAndDrop(lists: Lists[]) {
+const emptyLists: Lists[] = [
+  {
+    listName: "To Do",
+    items: [],
+  },
+  {
+    listName: "In Progress",
+    items: [],
+  },
+  {
+    listName: "Done",
+    items: [],
+  },
+];
+
+function useDragAndDrop({ activeTab }: { activeTab: "Features" }) {
+  const [lists] = useState(emptyLists);
   const [toDoListState, toDoListStateHandler] = useListState(lists[0].items);
   const [inProgressListState, inProgressListStateHandler] = useListState(
     lists[1].items
   );
   const [DoneListState, DoneListStateHandler] = useListState(lists[2].items);
-
   const listsStateArray = [toDoListState, inProgressListState, DoneListState];
   const listHandlersArray = [
     toDoListStateHandler,
     inProgressListStateHandler,
     DoneListStateHandler,
   ];
+
+  const selectedProject = useStore((state) => state.selectedProject);
+  const { data, status } = trpc.useQuery([
+    `repositories.get${activeTab}`,
+    { repository: selectedProject },
+  ]);
+
+  useEffect(() => {
+    if (data) {
+      toDoListStateHandler.setState(
+        data.filter((feature) => feature.type === "todo")
+      );
+      inProgressListStateHandler.setState(
+        data.filter((feature) => feature.type === "in-progress")
+      );
+      DoneListStateHandler.setState(
+        data.filter((feature) => feature.type === "done")
+      );
+    }
+  }, [data]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -59,6 +97,8 @@ function useDragAndDrop(lists: Lists[]) {
   return {
     onDragEnd,
     listsStateArray,
+    status,
+    lists,
   };
 }
 

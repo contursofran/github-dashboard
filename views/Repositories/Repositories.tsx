@@ -53,12 +53,12 @@ function Repositories({ visibility }: { visibility: Visibility }) {
         {filterRepositories.length > 0 &&
           mapRepositories(filterRepositories).map((repo) => (
             <Card
-              badge={repo.visibility}
               key={repo.name}
               language={repo.language}
               lastUpdated={repo.pushed_at}
               text={repo.description}
               title={repo.name}
+              visibility={repo.visibility}
             />
           ))}
       </SimpleGrid>

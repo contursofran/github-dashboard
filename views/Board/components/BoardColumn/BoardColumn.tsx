@@ -24,7 +24,6 @@ function BoardColumn({ id, itemsList, title }: Props) {
   const { colors } = useMantineTheme();
 
   const counter = itemsList.length;
-
   return (
     <Card withBorder className={classes.root} p="lg" radius="md">
       <Group mb={"lg"} position="apart">

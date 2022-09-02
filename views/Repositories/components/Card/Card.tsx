@@ -10,11 +10,11 @@ import { useStore } from "../../../../store";
 import { useStyles } from "./Card.styles";
 
 interface Props {
-  badge?: string;
-  language?: string | null;
-  lastUpdated?: string | null;
-  text?: string | null;
-  title?: string;
+  language: string | null;
+  lastUpdated: string | null;
+  text: string | null;
+  title: string;
+  visibility?: string;
 }
 
 interface LanguageColors {
@@ -31,10 +31,10 @@ const languageColors: LanguageColors = {
   C: "gray",
 };
 
-function Card({ language, lastUpdated, text, title }: Props) {
+function Card({ language, lastUpdated, text, title, visibility }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
-  const link = `/repositories/public/${title}/features`;
+  const link = `/repositories/${visibility?.toLowerCase()}/${title}/features`;
 
   const getLanguageColor = () => {
     if (language && languageColors[language]) {
