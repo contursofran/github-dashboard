@@ -5,18 +5,17 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-
+import { Type } from "@prisma/client";
 import { Droppable } from "../../../../utils/dnd";
-import { DraggableCard, DraggableCardProps } from "../DraggableCard";
+import { List } from "../../types";
+import { DraggableCard } from "../DraggableCard";
 import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
 
-type List = Omit<DraggableCardProps, "index" | "id">[];
-
 interface Props {
   id: string;
-  itemsList: List;
-  title: string;
+  itemsList: List[];
+  title: Type;
 }
 
 function BoardColumn({ id, itemsList, title }: Props) {
@@ -46,13 +45,14 @@ function BoardColumn({ id, itemsList, title }: Props) {
                 tag={item.tag}
                 text={item.text}
                 title={item.title}
+                type={item.type}
               />
             ))}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <NewCard />
+      <NewCard type={title} />
     </Card>
   );
 }

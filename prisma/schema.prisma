@@ -67,10 +67,10 @@ model VerificationToken {
 model Features {
   id             String @id @default(cuid())
   title          String
-  text           String?
+  text           String
   tag            String?
   repositoryName String
-  type           String
+  type           Type
   userId         String @map("user_id")
 
   @@map("features")
@@ -79,9 +79,9 @@ model Features {
 model Tasks {
   id             String @id @default(cuid())
   title          String
-  text           String?
+  text           String
   tag            String?
-  type           String
+  type           Type
   repositoryName String
   userId         String @map("user_id")
 
@@ -91,11 +91,17 @@ model Tasks {
 model Issues {
   id             String @id @default(cuid())
   title          String
-  text           String?
+  text           String
   tag            String?
-  type           String
+  type           Type
   repositoryName String
   userId         String @map("user_id")
 
   @@map("issue")
+}
+
+enum Type {
+  Todo
+  InProgress
+  Done
 }

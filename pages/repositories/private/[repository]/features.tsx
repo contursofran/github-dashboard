@@ -21,7 +21,7 @@ const tabs = [
 const FeaturesPage: NextPageWithLayout = () => {
   return (
     <>
-      <Board activeTab="Features" />
+      <Board activeTab="features" />
     </>
   );
 };

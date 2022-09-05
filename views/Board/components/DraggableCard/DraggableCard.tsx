@@ -2,18 +2,22 @@ import { Draggable } from "@hello-pangea/dnd";
 import { Badge, Card, Group, Text } from "@mantine/core";
 import { IconPencil } from "@tabler/icons";
 import { useState } from "react";
+import { List } from "../../types";
 import { EditableCard } from "../EditableCard";
 import { useStyles } from "./DraggableCard.styles";
 
-export interface DraggableCardProps {
-  id: string;
+export interface DraggableCardProps extends List {
   index: number;
-  tag: string;
-  text: string;
-  title: string;
 }
 
-function DraggableCard({ id, index, tag, text, title }: DraggableCardProps) {
+function DraggableCard({
+  id,
+  index,
+  tag,
+  text,
+  title,
+  type,
+}: DraggableCardProps) {
   const { classes, cx } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
 
@@ -34,10 +38,12 @@ function DraggableCard({ id, index, tag, text, title }: DraggableCardProps) {
         >
           {editingCard ? (
             <EditableCard
+              newCard={false}
               setEditingCard={setEditingCard}
               tag={tag}
               text={text}
               title={title}
+              type={type}
             />
           ) : (
             <Card

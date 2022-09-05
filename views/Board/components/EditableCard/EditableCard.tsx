@@ -8,15 +8,20 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useClickOutside, useFocusTrap } from "@mantine/hooks";
+import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import { useStore } from "../../../../store";
+import { trpc } from "../../../../utils/trpc";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
+  newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
-  tag?: string;
+  tag: string | null;
   text?: string;
   title?: string;
+  type: Type;
 }
 
 interface TagsProps extends React.ComponentPropsWithoutRef<"div"> {
@@ -57,11 +62,40 @@ const SelectTag = forwardRef<HTMLDivElement, TagsProps>(
   }
 );
 
-function EditableCard({ setEditingCard, tag, text, title }: Props) {
+function EditableCard({
+  newCard,
+  setEditingCard,
+  tag,
+  text = "",
+  title = "",
+  type,
+}: Props) {
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
-  const ref = useClickOutside(() => setEditingCard(false));
+  const ref = useClickOutside(() => handleClickOutside());
+  const [tagSelect, setTagSelect] = useState<string | null>(tag);
+  const [titleForm, setTitleForm] = useState(title);
+  const [textForm, setTextForm] = useState(text);
+  const selectedTab = useStore((state) => state.selectedTab);
+  const selectedProject = useStore((state) => state.selectedProject);
+  const createCardMutation = trpc.useMutation([`${selectedTab}.create`]);
 
+  const handleClickOutside = () => {
+    if (newCard && titleForm?.length > 0) {
+      createCardMutation.mutate({
+        title: titleForm,
+        text: textForm,
+        tag: tagSelect,
+        type: type,
+        repositoryName: selectedProject,
+      });
+    } else if (titleForm) {
+      // update card
+    }
+    setEditingCard(false);
+  };
+
+  console.log(titleForm);
   return (
     <>
       <div ref={ref}>
@@ -80,7 +114,8 @@ function EditableCard({ setEditingCard, tag, text, title }: Props) {
                 className={classes.title}
                 classNames={{ input: classes.input }}
                 placeholder={title ? title : "Title"}
-                value={title ? title : ""}
+                value={titleForm}
+                onChange={(e) => setTitleForm(e.currentTarget.value)}
               />
               <Select
                 searchable
@@ -93,7 +128,8 @@ function EditableCard({ setEditingCard, tag, text, title }: Props) {
                 itemComponent={SelectTag}
                 maxDropdownHeight={300}
                 placeholder="Tag"
-                value={tag ? tag : ""}
+                value={tagSelect}
+                onChange={setTagSelect}
               />
               <IconTrash color="gray" size={25} />
             </div>
@@ -104,7 +140,8 @@ function EditableCard({ setEditingCard, tag, text, title }: Props) {
                 input: classes.input,
               }}
               placeholder={text ? text : "Text"}
-              value={text ? text : ""}
+              value={textForm}
+              onChange={(e) => setTextForm(e.currentTarget.value)}
             />
           </Stack>
         </Card>

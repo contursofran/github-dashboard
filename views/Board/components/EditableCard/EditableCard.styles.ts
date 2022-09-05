@@ -8,7 +8,6 @@ const useStyles = createStyles((theme) => ({
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
     marginBottom: theme.spacing.lg,
-    // dot border
     borderRadius: theme.spacing.md,
     border: `1px solid ${theme.colors.dark[5]}`,
   },

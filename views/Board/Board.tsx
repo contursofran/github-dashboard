@@ -1,4 +1,6 @@
 import { SimpleGrid } from "@mantine/core";
+import { useEffect } from "react";
+import { useStore } from "../../store";
 import { DragDropContext } from "../../utils/dnd";
 import { useStyles } from "./Board.styles";
 import { BoardColumn } from "./components/BoardColumn";
@@ -6,11 +8,17 @@ import { useDragAndDrop } from "./hooks/useDragAndDrop";
 import { useLists } from "./hooks/useLists";
 import { useQueryBoard } from "./hooks/useQueryBoard";
 
-function Board({ activeTab }: { activeTab: "Features" }) {
+export type BoardTabs = "features" | "tasks" | "issues";
+
+function Board({ activeTab }: { activeTab: BoardTabs }) {
   const { classes } = useStyles();
   const { listHandlersArray, lists, listsStateArray } = useLists();
   const { onDragEnd } = useDragAndDrop({ listHandlersArray, listsStateArray });
   const { status } = useQueryBoard({ activeTab, listHandlersArray });
+
+  useEffect(() => {
+    useStore.setState({ selectedTab: activeTab });
+  }, [activeTab]);
 
   if (status === "loading") {
     return <div>Loading...</div>;

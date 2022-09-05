@@ -34,15 +34,15 @@ export const issuesRouter = createRouter()
     input: z.object({
       repositoryName: z.string(),
       title: z.string(),
-      text: z.string().optional(),
-      type: z.string(),
+      text: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string().nullable(),
     }),
     async resolve({ ctx, input }) {
       const { repositoryName, tag, text, title, type } = input;
 
       try {
-        const task = await ctx.prisma.issues.create({
+        const issue = await ctx.prisma.issues.create({
           data: {
             title,
             text,
@@ -52,7 +52,7 @@ export const issuesRouter = createRouter()
             userId: ctx.session?.user?.id ? ctx.session?.user?.id : "",
           },
         });
-        return task;
+        return issue;
       } catch (err) {
         console.log(err);
         return null;

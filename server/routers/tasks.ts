@@ -34,8 +34,8 @@ export const tasksRouter = createRouter()
     input: z.object({
       repositoryName: z.string(),
       title: z.string(),
-      text: z.string().optional(),
-      type: z.string(),
+      text: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string().nullable(),
     }),
     async resolve({ ctx, input }) {

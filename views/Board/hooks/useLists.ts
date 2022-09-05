@@ -1,22 +1,17 @@
 import { useListState } from "@mantine/hooks";
 import { useState } from "react";
-import { DraggableCardProps } from "../components/DraggableCard";
-
-export interface Lists {
-  items: Omit<DraggableCardProps, "index" | "id">[];
-  listName: string;
-}
+import { Lists } from "../types";
 
 export type ListHandlers = ReturnType<typeof useLists>["listHandlersArray"];
 export type ListState = ReturnType<typeof useLists>["listsStateArray"];
 
 const emptyLists: Lists[] = [
   {
-    listName: "To Do",
+    listName: "Todo",
     items: [],
   },
   {
-    listName: "In Progress",
+    listName: "InProgress",
     items: [],
   },
   {
@@ -38,11 +33,9 @@ function useLists() {
     inProgressListStateHandler,
     doneListStateHandler,
   ];
+
   return {
     listsStateArray,
-    toDoListStateHandler,
-    inProgressListStateHandler,
-    doneListStateHandler,
     listHandlersArray,
     lists,
   };
