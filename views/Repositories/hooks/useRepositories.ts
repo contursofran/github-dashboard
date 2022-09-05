@@ -19,7 +19,6 @@ function useRepositories(visibility: Visibility) {
         .catch((err) => console.log(err));
 
       if (repositories) {
-        1;
         setRepositories(repositories);
       }
     };

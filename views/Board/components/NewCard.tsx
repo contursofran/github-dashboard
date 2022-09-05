@@ -11,12 +11,7 @@ function NewCard({ type }: { type: Type }) {
   return (
     <>
       {editingCard ? (
-        <EditableCard
-          newCard
-          setEditingCard={setEditingCard}
-          tag={null}
-          type={type}
-        />
+        <EditableCard newCard setEditingCard={setEditingCard} type={type} />
       ) : (
         <Group
           align="center"

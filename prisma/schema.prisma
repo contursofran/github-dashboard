@@ -68,7 +68,7 @@ model Features {
   id             String @id @default(cuid())
   title          String
   text           String
-  tag            String?
+  tag            String
   repositoryName String
   type           Type
   userId         String @map("user_id")
@@ -80,7 +80,7 @@ model Tasks {
   id             String @id @default(cuid())
   title          String
   text           String
-  tag            String?
+  tag            String
   type           Type
   repositoryName String
   userId         String @map("user_id")
@@ -92,7 +92,7 @@ model Issues {
   id             String @id @default(cuid())
   title          String
   text           String
-  tag            String?
+  tag            String
   type           Type
   repositoryName String
   userId         String @map("user_id")

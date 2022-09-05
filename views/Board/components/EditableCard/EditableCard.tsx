@@ -10,7 +10,7 @@ import {
 import { useClickOutside, useFocusTrap } from "@mantine/hooks";
 import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../../../store";
 import { trpc } from "../../../../utils/trpc";
 import { useStyles } from "./EditableCard.styles";
@@ -18,7 +18,7 @@ import { useStyles } from "./EditableCard.styles";
 interface Props {
   newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
-  tag: string | null;
+  tag?: string;
   text?: string;
   title?: string;
   type: Type;
@@ -47,25 +47,10 @@ const tags = [
   },
 ];
 
-// eslint-disable-next-line react/display-name
-const SelectTag = forwardRef<HTMLDivElement, TagsProps>(
-  ({ color, label, ...props }, ref) => {
-    return (
-      <div ref={ref} {...props}>
-        <Badge color={color} size="xs" variant="light">
-          <Text size="xs" weight={500}>
-            {label}
-          </Text>
-        </Badge>
-      </div>
-    );
-  }
-);
-
 function EditableCard({
   newCard,
   setEditingCard,
-  tag,
+  tag = "",
   text = "",
   title = "",
   type,
@@ -73,19 +58,31 @@ function EditableCard({
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
   const ref = useClickOutside(() => handleClickOutside());
-  const [tagSelect, setTagSelect] = useState<string | null>(tag);
+  const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedProject = useStore((state) => state.selectedProject);
-  const createCardMutation = trpc.useMutation([`${selectedTab}.create`]);
+
+  const utils = trpc.useContext();
+
+  const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
+    onSuccess: () => {
+      utils.invalidateQueries([
+        `${selectedTab}.get`,
+        { repository: selectedProject },
+      ]);
+    },
+  });
+
+  console.log(tagForm);
 
   const handleClickOutside = () => {
     if (newCard && titleForm?.length > 0) {
       createCardMutation.mutate({
         title: titleForm,
         text: textForm,
-        tag: tagSelect,
+        tag: tagForm,
         type: type,
         repositoryName: selectedProject,
       });
@@ -95,7 +92,6 @@ function EditableCard({
     setEditingCard(false);
   };
 
-  console.log(titleForm);
   return (
     <>
       <div ref={ref}>
@@ -117,19 +113,13 @@ function EditableCard({
                 value={titleForm}
                 onChange={(e) => setTitleForm(e.currentTarget.value)}
               />
-              <Select
-                searchable
+              <TextInput
+                aria-label="Tag"
                 className={classes.tag}
-                classNames={{
-                  dropdown: classes.tagDropdown,
-                  input: classes.input,
-                }}
-                data={tags}
-                itemComponent={SelectTag}
-                maxDropdownHeight={300}
-                placeholder="Tag"
-                value={tagSelect}
-                onChange={setTagSelect}
+                classNames={{ input: classes.input }}
+                placeholder={tag ? tag : "Tag"}
+                value={tagForm}
+                onChange={(e) => setTagForm(e.currentTarget.value)}
               />
               <IconTrash color="gray" size={25} />
             </div>

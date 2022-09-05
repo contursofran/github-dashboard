@@ -36,7 +36,7 @@ export const issuesRouter = createRouter()
       title: z.string(),
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
-      tag: z.string().nullable(),
+      tag: z.string(),
     }),
     async resolve({ ctx, input }) {
       const { repositoryName, tag, text, title, type } = input;

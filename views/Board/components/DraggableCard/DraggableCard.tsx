@@ -1,5 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
-import { Badge, Card, Group, Text } from "@mantine/core";
+import { Badge, Card, Group, Space, Text } from "@mantine/core";
 import { IconPencil } from "@tabler/icons";
 import { useState } from "react";
 import { List } from "../../types";
@@ -59,11 +59,13 @@ function DraggableCard({
                     <Text size={"md"} weight={600}>
                       {title}
                     </Text>
-                    <Badge color="grape" variant="light">
-                      <Text size="sm" weight={600}>
-                        {tag}
-                      </Text>
-                    </Badge>
+                    {tag && (
+                      <Badge color="grape" variant="light">
+                        <Text size="sm" weight={600}>
+                          {tag}
+                        </Text>
+                      </Badge>
+                    )}
                   </Group>
                 </Group>
                 <IconPencil
@@ -72,9 +74,13 @@ function DraggableCard({
                   onClick={() => setEditingCard(true)}
                 />
               </Group>
-              <Text color="dimmed" size="md">
-                {text}
-              </Text>
+              {text ? (
+                <Text color="dimmed" size="md">
+                  {text}
+                </Text>
+              ) : (
+                <Space mt={-9} />
+              )}
             </Card>
           )}
         </div>

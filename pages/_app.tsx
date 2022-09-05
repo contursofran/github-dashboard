@@ -81,15 +81,7 @@ export default withTRPC<AppRouter>({
 
     return {
       url: `${getBaseUrl()}/api/trpc`,
-      headers() {
-        // if (ctx?.req) {
-        //   return {
-        //     ...ctx.req.headers,
-        //     "x-ssr": "1",
-        //   };
-        // }
-        return {};
-      },
+
       links,
       transformer: superjson,
     };
