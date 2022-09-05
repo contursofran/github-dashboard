@@ -1,18 +1,9 @@
-import {
-  Badge,
-  Card,
-  Select,
-  Stack,
-  Text,
-  Textarea,
-  TextInput,
-} from "@mantine/core";
+import { Card, Stack, Textarea, TextInput } from "@mantine/core";
 import { useClickOutside, useFocusTrap } from "@mantine/hooks";
 import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
-import { useStore } from "../../../../store";
-import { trpc } from "../../../../utils/trpc";
+import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
@@ -23,29 +14,6 @@ interface Props {
   title?: string;
   type: Type;
 }
-
-interface TagsProps extends React.ComponentPropsWithoutRef<"div"> {
-  color: string;
-  label: string;
-}
-
-const tags = [
-  {
-    label: "HIGH",
-    value: "HIGH",
-    color: "red",
-  },
-  {
-    label: "MEDIUM",
-    value: "MEDIUM",
-    color: "yellow",
-  },
-  {
-    label: "LOW",
-    value: "LOW",
-    color: "green",
-  },
-];
 
 function EditableCard({
   newCard,
@@ -61,21 +29,7 @@ function EditableCard({
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const selectedTab = useStore((state) => state.selectedTab);
-  const selectedProject = useStore((state) => state.selectedProject);
-
-  const utils = trpc.useContext();
-
-  const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
-    onSuccess: () => {
-      utils.invalidateQueries([
-        `${selectedTab}.get`,
-        { repository: selectedProject },
-      ]);
-    },
-  });
-
-  console.log(tagForm);
+  const { createCardMutation, selectedProject } = useCard();
 
   const handleClickOutside = () => {
     if (newCard && titleForm?.length > 0) {

@@ -10,6 +10,21 @@ export interface DraggableCardProps extends List {
   index: number;
 }
 
+const tags = [
+  {
+    name: "HIGH",
+    color: "red",
+  },
+  {
+    name: "MEDIUM",
+    color: "yellow",
+  },
+  {
+    name: "LOW",
+    color: "green",
+  },
+];
+
 function DraggableCard({
   id,
   index,
@@ -20,6 +35,11 @@ function DraggableCard({
 }: DraggableCardProps) {
   const { classes, cx } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
+
+  const getTagColor = () => {
+    const tagColor = tags.find((t) => t.name === tag);
+    return tagColor?.color;
+  };
 
   return (
     <Draggable
@@ -60,7 +80,10 @@ function DraggableCard({
                       {title}
                     </Text>
                     {tag && (
-                      <Badge color="grape" variant="light">
+                      <Badge
+                        color={getTagColor() ? getTagColor() : "indigo"}
+                        variant="light"
+                      >
                         <Text size="sm" weight={600}>
                           {tag}
                         </Text>
