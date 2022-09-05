@@ -2,11 +2,12 @@ import { Draggable } from "@hello-pangea/dnd";
 import { Badge, Card, Group, Space, Text } from "@mantine/core";
 import { IconPencil } from "@tabler/icons";
 import { useState } from "react";
-import { List } from "../../types";
+import { BoardCard } from "../../types";
 import { EditableCard } from "../EditableCard";
 import { useStyles } from "./DraggableCard.styles";
 
-export interface DraggableCardProps extends List {
+export interface DraggableCardProps extends BoardCard {
+  cardId: string;
   index: number;
 }
 
@@ -26,6 +27,7 @@ const tags = [
 ];
 
 function DraggableCard({
+  cardId,
   id,
   index,
   tag,
@@ -58,6 +60,7 @@ function DraggableCard({
         >
           {editingCard ? (
             <EditableCard
+              cardId={cardId}
               newCard={false}
               setEditingCard={setEditingCard}
               tag={tag}

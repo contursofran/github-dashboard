@@ -1,8 +1,8 @@
 import { Features, Type } from "@prisma/client";
 
-export type List = Omit<Features, "repositoryName" | "userId">;
+export type BoardCard = Omit<Features, "repositoryName" | "userId">;
 
 export interface Lists {
-  items: List[];
+  items: BoardCard[];
   listName: Type;
 }

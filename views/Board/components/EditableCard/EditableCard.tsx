@@ -7,6 +7,7 @@ import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
+  cardId: string;
   newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
   tag?: string;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 function EditableCard({
+  cardId,
   newCard,
   setEditingCard,
   tag = "",
@@ -29,21 +31,46 @@ function EditableCard({
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const { createCardMutation, selectedProject } = useCard();
+  const {
+    createCardMutation,
+    deleteCardMutation,
+    selectedProject,
+    updateCardMutation,
+  } = useCard();
+
+  const createNewCard = () => {
+    createCardMutation.mutate({
+      title: titleForm,
+      text: textForm,
+      tag: tagForm,
+      type: type,
+      repositoryName: selectedProject,
+    });
+  };
+
+  const updateCard = () => {
+    updateCardMutation.mutate({
+      id: cardId,
+      title: titleForm,
+      text: textForm,
+      tag: tagForm,
+      type: type,
+    });
+  };
+
+  const deleteCard = () => {
+    deleteCardMutation.mutate({
+      id: cardId,
+    });
+  };
 
   const handleClickOutside = () => {
-    if (newCard && titleForm?.length > 0) {
-      createCardMutation.mutate({
-        title: titleForm,
-        text: textForm,
-        tag: tagForm,
-        type: type,
-        repositoryName: selectedProject,
-      });
-    } else if (titleForm) {
-      // update card
-    }
     setEditingCard(false);
+    if (newCard && titleForm?.length > 0) {
+      createNewCard();
+    } else if (titleForm) {
+      updateCard();
+    }
   };
 
   return (
@@ -75,7 +102,12 @@ function EditableCard({
                 value={tagForm}
                 onChange={(e) => setTagForm(e.currentTarget.value)}
               />
-              <IconTrash color="gray" size={25} />
+              <IconTrash
+                color="gray"
+                size={25}
+                style={{ cursor: "pointer" }}
+                onClick={() => deleteCard()}
+              />
             </div>
             <Textarea
               aria-label="Text"

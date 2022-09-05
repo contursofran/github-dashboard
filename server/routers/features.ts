@@ -58,4 +58,54 @@ export const featuresRouter = createRouter()
         return null;
       }
     },
+  })
+  .mutation("update", {
+    input: z.object({
+      id: z.string(),
+      title: z.string(),
+      text: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
+      tag: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { id, tag, text, title, type } = input;
+
+      try {
+        const feature = await ctx.prisma.features.update({
+          where: {
+            id,
+          },
+          data: {
+            title,
+            text,
+            type,
+            tag,
+          },
+        });
+        return feature;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    },
+  })
+  .mutation("delete", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { id } = input;
+
+      try {
+        const feature = await ctx.prisma.features.delete({
+          where: {
+            id,
+          },
+        });
+        return feature;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    },
   });

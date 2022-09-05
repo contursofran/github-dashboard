@@ -58,4 +58,56 @@ export const tasksRouter = createRouter()
         return null;
       }
     },
+  })
+  .mutation("update", {
+    input: z.object({
+      id: z.string(),
+      repositoryName: z.string(),
+      title: z.string(),
+      text: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
+      tag: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { id, repositoryName, tag, text, title, type } = input;
+
+      try {
+        const task = await ctx.prisma.tasks.update({
+          where: {
+            id,
+          },
+          data: {
+            title,
+            text,
+            type,
+            tag,
+            repositoryName,
+          },
+        });
+        return task;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    },
+  })
+  .mutation("delete", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { id } = input;
+
+      try {
+        const feature = await ctx.prisma.features.delete({
+          where: {
+            id,
+          },
+        });
+        return feature;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    },
   });

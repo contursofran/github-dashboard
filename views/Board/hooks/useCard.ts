@@ -16,9 +16,29 @@ function useCard() {
     },
   });
 
+  const updateCardMutation = trpc.useMutation([`${selectedTab}.update`], {
+    onSuccess: () => {
+      utils.invalidateQueries([
+        `${selectedTab}.get`,
+        { repository: selectedProject },
+      ]);
+    },
+  });
+
+  const deleteCardMutation = trpc.useMutation([`${selectedTab}.delete`], {
+    onSuccess: () => {
+      utils.invalidateQueries([
+        `${selectedTab}.get`,
+        { repository: selectedProject },
+      ]);
+    },
+  });
+
   return {
     createCardMutation,
     selectedProject,
+    updateCardMutation,
+    deleteCardMutation,
   };
 }
 

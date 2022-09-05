@@ -9,7 +9,7 @@ interface Props {
   listHandlersArray: ListHandlers;
 }
 
-function useQueryBoard({ activeTab, listHandlersArray }: Props) {
+function useBoard({ activeTab, listHandlersArray }: Props) {
   const selectedProject = useStore((state) => state.selectedProject);
   const { data, status } = trpc.useQuery([
     `${activeTab}.get`,
@@ -33,4 +33,4 @@ function useQueryBoard({ activeTab, listHandlersArray }: Props) {
   return { data, status };
 }
 
-export { useQueryBoard };
+export { useBoard };

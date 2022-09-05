@@ -7,14 +7,14 @@ import {
 } from "@mantine/core";
 import { Type } from "@prisma/client";
 import { Droppable } from "../../../../utils/dnd";
-import { List } from "../../types";
+import { BoardCard } from "../../types";
 import { DraggableCard } from "../DraggableCard";
 import { NewCard } from "../NewCard";
 import { useStyles } from "./BoardColumn.styles";
 
 interface Props {
   id: string;
-  itemsList: List[];
+  itemsList: BoardCard[];
   title: Type;
 }
 
@@ -39,6 +39,7 @@ function BoardColumn({ id, itemsList, title }: Props) {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {itemsList.map((item, index) => (
               <DraggableCard
+                cardId={item.id}
                 id={id}
                 index={index}
                 key={index.toString()}
