@@ -3,7 +3,9 @@ import { useClickOutside, useFocusTrap } from "@mantine/hooks";
 import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
+import { useStore } from "../../../../store";
 import { useCard } from "../../hooks/useCard";
+import { SkeletonCard } from "../SkeletonCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
@@ -31,7 +33,8 @@ function EditableCard({
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const { createNewCard, deleteCard, updateCard } = useCard({
+  const loadingCard = useStore((state) => state.loadingCard);
+  const card = useCard({
     cardId,
     tagForm,
     textForm,
@@ -40,13 +43,21 @@ function EditableCard({
   });
 
   const handleClickOutside = () => {
-    setEditingCard(false);
     if (newCard && titleForm?.length > 0) {
-      createNewCard();
-    } else if (titleForm) {
-      updateCard();
+      card.createCard();
+    } else if (titleForm !== title || textForm !== text || tagForm !== tag) {
+      card.updateCard();
     }
   };
+
+  if (loadingCard) {
+    return <SkeletonCard />;
+  }
+
+  if (card.updateCardMutation.isSuccess || card.createCardMutation.isSuccess) {
+    useStore.setState({ loadingCard: false });
+    setEditingCard(false);
+  }
 
   return (
     <>
@@ -81,7 +92,10 @@ function EditableCard({
                 color="gray"
                 size={25}
                 style={{ cursor: "pointer" }}
-                onClick={() => deleteCard()}
+                onClick={() => {
+                  setEditingCard(false);
+                  card.deleteCard();
+                }}
               />
             </div>
             <Textarea

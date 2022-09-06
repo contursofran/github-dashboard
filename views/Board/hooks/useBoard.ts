@@ -11,6 +11,7 @@ interface Props {
 
 function useBoard({ activeTab, listHandlersArray }: Props) {
   const selectedProject = useStore((state) => state.selectedProject);
+
   const { data, status } = trpc.useQuery([
     `${activeTab}.get`,
     { repository: selectedProject },
@@ -27,6 +28,10 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
       listHandlersArray[2].setState(
         data.filter((item) => item.type === "Done")
       );
+    }
+
+    if (status === "success") {
+      useStore.setState({ loadingCard: false });
     }
   }, [data]);
 

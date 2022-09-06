@@ -4,7 +4,7 @@ import { IconPlus } from "@tabler/icons";
 import { useState } from "react";
 import { EditableCard } from "./EditableCard";
 
-function NewCard({ type }: { type: Type }) {
+function NewCard({ disabled, type }: { disabled?: boolean; type: Type }) {
   const [editingCard, setEditingCard] = useState(false);
   const { spacing } = useMantineTheme();
 
@@ -17,11 +17,11 @@ function NewCard({ type }: { type: Type }) {
           align="center"
           position="center"
           spacing="xs"
-          style={{ cursor: "pointer" }}
+          style={disabled ? { cursor: "not-allowed" } : { cursor: "pointer" }}
           onClick={() => setEditingCard(true)}
         >
-          <IconPlus size={spacing.lg} />
-          <Text color="gray.5" size="md">
+          <IconPlus color={disabled ? "gray" : "white"} size={spacing.lg} />
+          <Text color={disabled ? "gray.7" : "gray.5"} size="md">
             Add new
           </Text>
         </Group>

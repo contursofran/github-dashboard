@@ -10,19 +10,31 @@ import { useLists } from "./hooks/useLists";
 
 export type BoardTabs = "features" | "tasks" | "issues";
 
+const MAX_CARDS_PER_PAGE = 5;
+
 function Board({ activeTab }: { activeTab: BoardTabs }) {
   const { classes } = useStyles();
   const { listHandlersArray, lists, listsStateArray } = useLists();
   const { onDragEnd } = useDragAndDrop({ listHandlersArray, listsStateArray });
-  const { status } = useBoard({ activeTab, listHandlersArray });
+  const { status } = useBoard({
+    activeTab,
+    listHandlersArray,
+  });
 
   useEffect(() => {
     useStore.setState({ selectedTab: activeTab });
   }, [activeTab]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+  const getSkeletons = () => {
+    const skeletons = [];
+
+    for (let i = 0; i < MAX_CARDS_PER_PAGE; i++) {
+      skeletons.push("skeleton");
+    }
+
+    return skeletons;
+  };
+
   return (
     <div className={classes.content}>
       <SimpleGrid
@@ -32,11 +44,13 @@ function Board({ activeTab }: { activeTab: BoardTabs }) {
         spacing={30}
       >
         <DragDropContext onDragEnd={onDragEnd}>
-          {lists.map((grid, index) => (
+          {lists.map((list, index) => (
             <BoardColumn
               id={index.toString()}
               itemsList={listsStateArray[index]}
               key={index}
+              loading={status === "loading" ? true : false}
+              skeletons={getSkeletons()}
               title={lists[index].listName}
             />
           ))}

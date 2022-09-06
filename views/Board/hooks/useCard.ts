@@ -13,6 +13,7 @@ interface Props {
 function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedProject = useStore((state) => state.selectedProject);
+  const loadingCard = useStore((state) => state.loadingCard);
 
   const utils = trpc.useContext();
 
@@ -43,7 +44,8 @@ function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
     },
   });
 
-  const createNewCard = () => {
+  const createCard = () => {
+    useStore.setState({ loadingCard: true });
     createCardMutation.mutate({
       title: titleForm,
       text: textForm,
@@ -54,6 +56,7 @@ function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
   };
 
   const updateCard = () => {
+    useStore.setState({ loadingCard: true });
     updateCardMutation.mutate({
       id: cardId,
       title: titleForm,
@@ -70,9 +73,12 @@ function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
   };
 
   return {
-    createNewCard,
+    createCard,
     deleteCard,
     updateCard,
+    loadingCard,
+    updateCardMutation,
+    createCardMutation,
   };
 }
 

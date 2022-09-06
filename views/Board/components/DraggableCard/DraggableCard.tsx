@@ -37,7 +37,6 @@ function DraggableCard({
 }: DraggableCardProps) {
   const { classes, cx } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
-
   const getTagColor = () => {
     const tagColor = tags.find((t) => t.name === tag);
     return tagColor?.color;
