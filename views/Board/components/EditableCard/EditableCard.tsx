@@ -7,7 +7,7 @@ import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
-  cardId: string;
+  cardId?: string;
   newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
   tag?: string;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 function EditableCard({
-  cardId,
+  cardId = "",
   newCard,
   setEditingCard,
   tag = "",
@@ -31,38 +31,13 @@ function EditableCard({
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const {
-    createCardMutation,
-    deleteCardMutation,
-    selectedProject,
-    updateCardMutation,
-  } = useCard();
-
-  const createNewCard = () => {
-    createCardMutation.mutate({
-      title: titleForm,
-      text: textForm,
-      tag: tagForm,
-      type: type,
-      repositoryName: selectedProject,
-    });
-  };
-
-  const updateCard = () => {
-    updateCardMutation.mutate({
-      id: cardId,
-      title: titleForm,
-      text: textForm,
-      tag: tagForm,
-      type: type,
-    });
-  };
-
-  const deleteCard = () => {
-    deleteCardMutation.mutate({
-      id: cardId,
-    });
-  };
+  const { createNewCard, deleteCard, updateCard } = useCard({
+    cardId,
+    tagForm,
+    textForm,
+    titleForm,
+    type,
+  });
 
   const handleClickOutside = () => {
     setEditingCard(false);

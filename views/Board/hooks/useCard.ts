@@ -1,7 +1,16 @@
+import { Type } from "@prisma/client";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 
-function useCard() {
+interface Props {
+  cardId: string;
+  tagForm: string;
+  textForm: string;
+  titleForm: string;
+  type: Type;
+}
+
+function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedProject = useStore((state) => state.selectedProject);
 
@@ -34,11 +43,36 @@ function useCard() {
     },
   });
 
+  const createNewCard = () => {
+    createCardMutation.mutate({
+      title: titleForm,
+      text: textForm,
+      tag: tagForm,
+      type: type,
+      repositoryName: selectedProject,
+    });
+  };
+
+  const updateCard = () => {
+    updateCardMutation.mutate({
+      id: cardId,
+      title: titleForm,
+      text: textForm,
+      tag: tagForm,
+      type: type,
+    });
+  };
+
+  const deleteCard = () => {
+    deleteCardMutation.mutate({
+      id: cardId,
+    });
+  };
+
   return {
-    createCardMutation,
-    selectedProject,
-    updateCardMutation,
-    deleteCardMutation,
+    createNewCard,
+    deleteCard,
+    updateCard,
   };
 }
 
