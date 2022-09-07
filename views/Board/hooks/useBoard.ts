@@ -30,9 +30,9 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
       );
     }
 
-    if (status === "success") {
-      useStore.setState({ loadingCard: false });
-    }
+    // if (status === "success") {
+    //   useStore.setState({ loadingCard: false });
+    // }
   }, [data]);
 
   return { data, status };

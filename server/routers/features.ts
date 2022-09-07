@@ -34,16 +34,18 @@ export const featuresRouter = createRouter()
     input: z.object({
       repositoryName: z.string(),
       title: z.string(),
+      index: z.number(),
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { repositoryName, tag, text, title, type } = input;
+      const { index, repositoryName, tag, text, title, type } = input;
 
       try {
         const feature = await ctx.prisma.features.create({
           data: {
+            index,
             title,
             text,
             type,
@@ -52,10 +54,10 @@ export const featuresRouter = createRouter()
             userId: ctx.session?.user?.id ? ctx.session?.user?.id : "",
           },
         });
+        console.log(feature);
         return feature;
       } catch (err) {
-        console.log(err);
-        return null;
+        return err;
       }
     },
   })
@@ -63,12 +65,13 @@ export const featuresRouter = createRouter()
     input: z.object({
       id: z.string(),
       title: z.string(),
+      index: z.number(),
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { id, tag, text, title, type } = input;
+      const { id, index, tag, text, title, type } = input;
 
       try {
         const feature = await ctx.prisma.features.update({
@@ -78,6 +81,7 @@ export const featuresRouter = createRouter()
           data: {
             title,
             text,
+            index,
             type,
             tag,
           },
@@ -104,8 +108,7 @@ export const featuresRouter = createRouter()
         });
         return feature;
       } catch (err) {
-        console.log(err);
-        return null;
+        return err;
       }
     },
   });

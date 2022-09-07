@@ -4,12 +4,14 @@ import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { useStore } from "../../../../store";
+
 import { useCard } from "../../hooks/useCard";
 import { SkeletonCard } from "../SkeletonCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
   cardId?: string;
+  index: number;
   newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
   tag?: string;
@@ -20,12 +22,10 @@ interface Props {
 
 function EditableCard({
   cardId = "",
-  newCard,
-  setEditingCard,
   tag = "",
   text = "",
   title = "",
-  type,
+  ...props
 }: Props) {
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
@@ -33,31 +33,29 @@ function EditableCard({
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const loadingCard = useStore((state) => state.loadingCard);
-  const card = useCard({
-    cardId,
-    tagForm,
-    textForm,
-    titleForm,
-    type,
-  });
+  const card = useCard();
 
-  const handleClickOutside = () => {
-    if (newCard && titleForm?.length > 0) {
-      card.createCard();
+  const handleClickOutside = async () => {
+    if (props.newCard && titleForm?.length > 0) {
+      await card.createCard({
+        tagForm,
+        textForm,
+        titleForm,
+        cardId,
+        index: props.index,
+        type: props.type,
+      });
     } else if (titleForm !== title || textForm !== text || tagForm !== tag) {
-      card.updateCard();
+      card.updateCard({
+        tagForm,
+        textForm,
+        titleForm,
+        cardId,
+        index: props.index,
+        type: props.type,
+      });
     }
   };
-
-  if (loadingCard) {
-    return <SkeletonCard />;
-  }
-
-  if (card.updateCardMutation.isSuccess || card.createCardMutation.isSuccess) {
-    useStore.setState({ loadingCard: false });
-    setEditingCard(false);
-  }
 
   return (
     <>
@@ -93,8 +91,8 @@ function EditableCard({
                 size={25}
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  setEditingCard(false);
-                  card.deleteCard();
+                  props.setEditingCard(false);
+                  card.deleteCard({ cardId });
                 }}
               />
             </div>

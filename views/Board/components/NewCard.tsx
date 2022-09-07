@@ -2,16 +2,28 @@ import { Group, Text, useMantineTheme } from "@mantine/core";
 import { Type } from "@prisma/client";
 import { IconPlus } from "@tabler/icons";
 import { useState } from "react";
+import { BoardCard } from "../types";
 import { EditableCard } from "./EditableCard";
 
-function NewCard({ disabled, type }: { disabled?: boolean; type: Type }) {
+interface Props {
+  cards: BoardCard[];
+  disabled?: boolean;
+  type: Type;
+}
+function NewCard({ cards, disabled, type }: Props) {
   const [editingCard, setEditingCard] = useState(false);
   const { spacing } = useMantineTheme();
 
+  const index = cards.length;
   return (
     <>
       {editingCard ? (
-        <EditableCard newCard setEditingCard={setEditingCard} type={type} />
+        <EditableCard
+          newCard
+          index={index}
+          setEditingCard={setEditingCard}
+          type={type}
+        />
       ) : (
         <Group
           align="center"

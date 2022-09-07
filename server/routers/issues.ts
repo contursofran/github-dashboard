@@ -37,15 +37,17 @@ export const issuesRouter = createRouter()
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
+      index: z.number(),
     }),
     async resolve({ ctx, input }) {
-      const { repositoryName, tag, text, title, type } = input;
+      const { index, repositoryName, tag, text, title, type } = input;
 
       try {
         const issue = await ctx.prisma.issues.create({
           data: {
             title,
             text,
+            index,
             type,
             tag,
             repositoryName,
@@ -66,9 +68,10 @@ export const issuesRouter = createRouter()
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
+      index: z.number(),
     }),
     async resolve({ ctx, input }) {
-      const { id, tag, text, title, type } = input;
+      const { id, index, tag, text, title, type } = input;
 
       try {
         const issue = await ctx.prisma.issues.update({
@@ -77,6 +80,7 @@ export const issuesRouter = createRouter()
           },
           data: {
             title,
+            index,
             text,
             type,
             tag,

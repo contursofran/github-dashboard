@@ -1,22 +1,22 @@
 import { Type } from "@prisma/client";
+import { useEffect } from "react";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 
-interface Props {
+interface CardInput {
   cardId: string;
+  index: number;
   tagForm: string;
   textForm: string;
   titleForm: string;
   type: Type;
 }
 
-function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
+function useCard() {
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedProject = useStore((state) => state.selectedProject);
-  const loadingCard = useStore((state) => state.loadingCard);
 
   const utils = trpc.useContext();
-
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
     onSuccess: () => {
       utils.invalidateQueries([
@@ -44,41 +44,46 @@ function useCard({ cardId, tagForm, textForm, titleForm, type }: Props) {
     },
   });
 
-  const createCard = () => {
-    useStore.setState({ loadingCard: true });
+  const createCard = (props: CardInput) => {
     createCardMutation.mutate({
-      title: titleForm,
-      text: textForm,
-      tag: tagForm,
-      type: type,
+      title: props.titleForm,
+      text: props.textForm,
+      tag: props.tagForm,
+      type: props.type,
+      index: props.index,
       repositoryName: selectedProject,
     });
   };
 
-  const updateCard = () => {
-    useStore.setState({ loadingCard: true });
+  const updateCard = (props: CardInput) => {
     updateCardMutation.mutate({
-      id: cardId,
-      title: titleForm,
-      text: textForm,
-      tag: tagForm,
-      type: type,
+      id: props.cardId,
+      title: props.titleForm,
+      text: props.textForm,
+      tag: props.tagForm,
+      type: props.type,
+      index: props.index,
     });
   };
 
-  const deleteCard = () => {
+  const deleteCard = ({ cardId }: { cardId: string }) => {
     deleteCardMutation.mutate({
       id: cardId,
     });
   };
 
+  useEffect(() => {
+    if (createCardMutation.isLoading) {
+      useStore.setState({ loadingCard: true });
+    } else {
+      useStore.setState({ loadingCard: false });
+    }
+  }, [createCardMutation.isLoading]);
+
   return {
     createCard,
     deleteCard,
     updateCard,
-    loadingCard,
-    updateCardMutation,
-    createCardMutation,
   };
 }
 

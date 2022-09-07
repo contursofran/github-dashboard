@@ -60,6 +60,7 @@ function DraggableCard({
           {editingCard ? (
             <EditableCard
               cardId={cardId}
+              index={index}
               newCard={false}
               setEditingCard={setEditingCard}
               tag={tag}

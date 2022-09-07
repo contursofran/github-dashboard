@@ -48,7 +48,7 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
                 <DraggableCard
                   cardId={item.id}
                   id={id}
-                  index={index}
+                  index={item.index}
                   key={index.toString()}
                   tag={item.tag}
                   text={item.text}
@@ -61,7 +61,11 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
           )}
         </Droppable>
       )}
-      {loading ? <NewCard disabled type={title} /> : <NewCard type={title} />}
+      {loading ? (
+        <NewCard disabled cards={itemsList} type={title} />
+      ) : (
+        <NewCard cards={itemsList} type={title} />
+      )}
     </Card>
   );
 }

@@ -35,11 +35,12 @@ export const tasksRouter = createRouter()
       repositoryName: z.string(),
       title: z.string(),
       text: z.string(),
+      index: z.number(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { repositoryName, tag, text, title, type } = input;
+      const { index, repositoryName, tag, text, title, type } = input;
 
       try {
         const task = await ctx.prisma.tasks.create({
@@ -48,6 +49,7 @@ export const tasksRouter = createRouter()
             text,
             type,
             tag,
+            index,
             repositoryName,
             userId: ctx.session?.user?.id ? ctx.session?.user?.id : "",
           },
@@ -67,9 +69,10 @@ export const tasksRouter = createRouter()
       text: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       tag: z.string(),
+      index: z.number(),
     }),
     async resolve({ ctx, input }) {
-      const { id, repositoryName, tag, text, title, type } = input;
+      const { id, index, repositoryName, tag, text, title, type } = input;
 
       try {
         const task = await ctx.prisma.tasks.update({
@@ -78,6 +81,7 @@ export const tasksRouter = createRouter()
           },
           data: {
             title,
+            index,
             text,
             type,
             tag,
