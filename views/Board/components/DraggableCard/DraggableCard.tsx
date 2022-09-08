@@ -41,7 +41,6 @@ function DraggableCard({
     const tagColor = tags.find((t) => t.name === tag);
     return tagColor?.color;
   };
-
   return (
     <Draggable
       draggableId={id + "-" + index.toString()}

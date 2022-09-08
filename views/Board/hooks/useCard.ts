@@ -1,5 +1,4 @@
 import { Type } from "@prisma/client";
-import { useEffect } from "react";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 
@@ -12,35 +11,55 @@ interface CardInput {
   type: Type;
 }
 
-function useCard() {
+interface Props {
+  setEditingCard: (arg: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
+}
+
+function useCard({ setEditingCard, setIsLoading }: Props) {
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedProject = useStore((state) => state.selectedProject);
 
   const utils = trpc.useContext();
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
     onSuccess: () => {
-      utils.invalidateQueries([
-        `${selectedTab}.get`,
-        { repository: selectedProject },
-      ]);
+      utils
+        .invalidateQueries([
+          `${selectedTab}.get`,
+          { repository: selectedProject },
+        ])
+        .then(() => {
+          setEditingCard(false);
+          setIsLoading(false);
+        });
     },
   });
 
   const updateCardMutation = trpc.useMutation([`${selectedTab}.update`], {
     onSuccess: () => {
-      utils.invalidateQueries([
-        `${selectedTab}.get`,
-        { repository: selectedProject },
-      ]);
+      utils
+        .invalidateQueries([
+          `${selectedTab}.get`,
+          { repository: selectedProject },
+        ])
+        .then(() => {
+          setEditingCard(false);
+          setIsLoading(false);
+        });
     },
   });
 
   const deleteCardMutation = trpc.useMutation([`${selectedTab}.delete`], {
     onSuccess: () => {
-      utils.invalidateQueries([
-        `${selectedTab}.get`,
-        { repository: selectedProject },
-      ]);
+      utils
+        .invalidateQueries([
+          `${selectedTab}.get`,
+          { repository: selectedProject },
+        ])
+        .then(() => {
+          setEditingCard(false);
+          setIsLoading(false);
+        });
     },
   });
 
@@ -72,16 +91,10 @@ function useCard() {
     });
   };
 
-  useEffect(() => {
-    if (createCardMutation.isLoading) {
-      useStore.setState({ loadingCard: true });
-    } else {
-      useStore.setState({ loadingCard: false });
-    }
-  }, [createCardMutation.isLoading]);
-
   return {
     createCard,
+    createCardMutation,
+    updateCardMutation,
     deleteCard,
     updateCard,
   };

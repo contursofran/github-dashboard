@@ -28,11 +28,13 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
       listHandlersArray[2].setState(
         data.filter((item) => item.type === "Done")
       );
-    }
 
-    // if (status === "success") {
-    //   useStore.setState({ loadingCard: false });
-    // }
+      listHandlersArray.forEach((list) => {
+        list.setState((prev) => {
+          return prev.sort((a, b) => a.index - b.index);
+        });
+      });
+    }
   }, [data]);
 
   return { data, status };

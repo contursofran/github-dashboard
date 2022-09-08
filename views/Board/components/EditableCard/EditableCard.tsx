@@ -3,7 +3,6 @@ import { useClickOutside, useFocusTrap } from "@mantine/hooks";
 import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
-import { useStore } from "../../../../store";
 
 import { useCard } from "../../hooks/useCard";
 import { SkeletonCard } from "../SkeletonCard";
@@ -30,14 +29,17 @@ function EditableCard({
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
   const ref = useClickOutside(() => handleClickOutside());
+  const [isLoading, setIsLoading] = useState(false);
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const card = useCard();
+  const card = useCard({ setIsLoading, setEditingCard: props.setEditingCard });
+  console.log(props.index);
 
   const handleClickOutside = async () => {
     if (props.newCard && titleForm?.length > 0) {
-      await card.createCard({
+      setIsLoading(true);
+      card.createCard({
         tagForm,
         textForm,
         titleForm,
@@ -46,6 +48,7 @@ function EditableCard({
         type: props.type,
       });
     } else if (titleForm !== title || textForm !== text || tagForm !== tag) {
+      setIsLoading(true);
       card.updateCard({
         tagForm,
         textForm,
@@ -54,8 +57,14 @@ function EditableCard({
         index: props.index,
         type: props.type,
       });
+    } else {
+      props.setEditingCard(false);
     }
   };
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
 
   return (
     <>

@@ -48,7 +48,7 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
                 <DraggableCard
                   cardId={item.id}
                   id={id}
-                  index={item.index}
+                  index={index}
                   key={index.toString()}
                   tag={item.tag}
                   text={item.text}
