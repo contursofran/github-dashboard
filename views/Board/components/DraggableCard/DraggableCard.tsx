@@ -28,10 +28,10 @@ const tags = [
 
 function DraggableCard({
   cardId,
+  description,
   id,
   index,
   tag,
-  text,
   title,
   type,
 }: DraggableCardProps) {
@@ -63,7 +63,7 @@ function DraggableCard({
               newCard={false}
               setEditingCard={setEditingCard}
               tag={tag}
-              text={text}
+              text={description}
               title={title}
               type={type}
             />
@@ -99,9 +99,9 @@ function DraggableCard({
                   onClick={() => setEditingCard(true)}
                 />
               </Group>
-              {text ? (
+              {description ? (
                 <Text color="dimmed" size="md">
-                  {text}
+                  {description}
                 </Text>
               ) : (
                 <Space mt={-9} />
