@@ -10,15 +10,40 @@ interface Props {
 }
 
 function useBoard({ activeTab, listHandlersArray }: Props) {
-  const selectedProject = useStore((state) => state.selectedProject);
+  const selectedRepository = useStore((state) => state.selectedRepository);
+  const utils = trpc.useContext();
+  const createRepositoryMutation = trpc.useMutation(["repository.create"], {
+    onSuccess: () => {
+      utils.invalidateQueries(["repository.get", { name: selectedRepository }]);
+    },
+  });
 
-  const { data, status } = trpc.useQuery([
-    `${activeTab}.get`,
-    { repository: selectedProject },
+  const { data: repositories, status: repositoriesStatus } = trpc.useQuery([
+    `repository.get`,
+    { name: selectedRepository },
   ]);
 
   useEffect(() => {
-    if (data) {
+    if (repositoriesStatus === "success") {
+      if (!repositories?.repository?.id) {
+        createRepositoryMutation.mutate({
+          name: selectedRepository,
+        });
+      } else {
+        useStore.setState({
+          selectedRepositoryId: repositories.repository.id,
+        });
+      }
+    }
+  }, [repositories]);
+
+  const { data, status } = trpc.useQuery([
+    `${activeTab}.get`,
+    { repository: selectedRepository },
+  ]);
+
+  useEffect(() => {
+    if (data && status === "success") {
       listHandlersArray[0].setState(
         data.filter((item) => item.type === "Todo")
       );

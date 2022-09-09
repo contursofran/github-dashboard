@@ -11,5 +11,6 @@ export default trpcNext.createNextApiHandler({
       // send to bug reporting
       console.error("Something went wrong", error);
     }
+    console.log(error);
   },
 });

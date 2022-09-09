@@ -72,9 +72,7 @@ export default withTRPC<AppRouter>({
     const url = `${getBaseUrl()}/api/trpc`;
 
     const links = [
-      loggerLink(),
       httpBatchLink({
-        maxBatchSize: 10,
         url,
       }),
     ];
