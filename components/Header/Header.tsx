@@ -10,10 +10,10 @@ interface Props {
 
 function Header({ currentPage, tabs }: Props) {
   const { classes } = useStyles();
-  const selectedProject = useStore((state) => state.selectedProject);
+  const selectedRepository = useStore((state) => state.selectedRepository);
 
   if (currentPage === "[repository]") {
-    currentPage = selectedProject;
+    currentPage = selectedRepository;
   }
 
   return (
@@ -23,7 +23,7 @@ function Header({ currentPage, tabs }: Props) {
           ? currentPage
           : currentPage.split("/")[0]}
       </Title>
-      {tabs && <Tabs selectedProject={selectedProject} tabs={tabs} />}
+      {tabs && <Tabs selectedRepository={selectedRepository} tabs={tabs} />}
     </Group>
   );
 }

@@ -65,7 +65,7 @@ function Card({ language, lastUpdated, text, title, visibility }: Props) {
         radius="md"
         shadow="md"
         onClick={() => {
-          useStore.setState({ selectedProject: title });
+          useStore.setState({ selectedRepository: title });
         }}
       >
         <Group mb="xs">

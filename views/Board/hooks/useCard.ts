@@ -18,7 +18,7 @@ interface Props {
 
 function useCard({ setEditingCard, setIsLoading }: Props) {
   const selectedTab = useStore((state) => state.selectedTab);
-  const selectedProject = useStore((state) => state.selectedProject);
+  const selectedRepository = useStore((state) => state.selectedRepository);
 
   const utils = trpc.useContext();
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
@@ -26,7 +26,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedProject },
+          { repository: selectedRepository },
         ])
         .then(() => {
           setEditingCard(false);
@@ -40,7 +40,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedProject },
+          { repository: selectedRepository },
         ])
         .then(() => {
           setEditingCard(false);
@@ -54,7 +54,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedProject },
+          { repository: selectedRepository },
         ])
         .then(() => {
           setEditingCard(false);
@@ -70,7 +70,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       tag: props.tagForm,
       type: props.type,
       index: props.index,
-      repositoryName: selectedProject,
+      repositoryName: selectedRepository,
     });
   };
 

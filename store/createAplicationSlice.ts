@@ -10,13 +10,13 @@ export interface AplicationSlice {
   };
   currentPage: string;
   loadingCard: boolean;
-  selectedProject: string;
+  selectedRepository: string;
   selectedTab: BoardTabs;
 }
 
 const createAplicationSlice: StateCreator<AplicationSlice> = () => ({
   currentPage: "",
-  selectedProject: "",
+  selectedRepository: "",
   selectedTab: "features",
   loadingCard: false,
   cards: {
