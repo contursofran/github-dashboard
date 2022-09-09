@@ -11,105 +11,98 @@ export const issuesRouter = createRouter()
   })
   .query("get", {
     input: z.object({
-      repository: z.string(),
+      repositoryId: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { repository } = input;
+      const { repositoryId } = input;
 
-      try {
-        const issues = await ctx.prisma.issues.findMany({
-          where: {
-            repositoryName: repository,
-            userId: ctx.session?.user?.id,
-          },
-        });
-        return issues;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+      const data = await ctx.prisma.issues.findMany({
+        where: {
+          repositoryId,
+        },
+      });
+
+      return data;
     },
   })
   .mutation("create", {
     input: z.object({
-      repositoryName: z.string(),
       title: z.string(),
-      text: z.string(),
-      type: z.enum(["Todo", "InProgress", "Done"]),
+      description: z.string(),
       tag: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
       index: z.number(),
+      repositoryId: z.string(),
     }),
-    async resolve({ ctx, input }) {
-      const { index, repositoryName, tag, text, title, type } = input;
 
-      try {
-        const issue = await ctx.prisma.issues.create({
-          data: {
-            title,
-            text,
-            index,
-            type,
-            tag,
-            repositoryName,
-            userId: ctx.session?.user?.id ? ctx.session?.user?.id : "",
-          },
-        });
-        return issue;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+    async resolve({ ctx, input }) {
+      const { description, index, repositoryId, tag, title, type } = input;
+
+      const issue = await ctx.prisma.issues.create({
+        data: {
+          title,
+          description,
+          tag,
+          type,
+          index,
+          repositoryId,
+        },
+      });
+
+      return issue;
     },
   })
   .mutation("update", {
     input: z.object({
       id: z.string(),
       title: z.string(),
-      text: z.string(),
-      type: z.enum(["Todo", "InProgress", "Done"]),
+      description: z.string(),
       tag: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
       index: z.number(),
+      repositoryId: z.string(),
     }),
-    async resolve({ ctx, input }) {
-      const { id, index, tag, text, title, type } = input;
 
-      try {
-        const issue = await ctx.prisma.issues.update({
-          where: {
-            id,
-          },
-          data: {
-            title,
-            index,
-            text,
-            type,
-            tag,
-          },
-        });
-        return issue;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+    async resolve({ ctx, input }) {
+      const { description, id, index, repositoryId, tag, title, type } = input;
+
+      const issue = await ctx.prisma.issues.update({
+        where: {
+          id,
+        },
+        data: {
+          title,
+          description,
+          tag,
+          type,
+          index,
+          repositoryId,
+        },
+      });
+
+      return issue;
     },
   })
   .mutation("delete", {
     input: z.object({
       id: z.string(),
     }),
+
     async resolve({ ctx, input }) {
       const { id } = input;
 
-      try {
-        const feature = await ctx.prisma.features.delete({
-          where: {
-            id,
-          },
-        });
-        return feature;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+      const issue = await ctx.prisma.issues.delete({
+        where: {
+          id,
+        },
+      });
+
+      return issue;
     },
   });
+
+// Language: typescript
+// Path: server/routers/projects.ts
+// Compare this snippet from pages/api/trpc/[trpc].ts:
+// import * as trpcNext from "@trpc/server/adapters/next";
+// import { createContext } from

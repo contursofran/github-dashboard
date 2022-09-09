@@ -18,7 +18,7 @@ interface Props {
 
 function useCard({ setEditingCard, setIsLoading }: Props) {
   const selectedTab = useStore((state) => state.selectedTab);
-  const selectedRepository = useStore((state) => state.selectedRepository);
+  const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
 
   const utils = trpc.useContext();
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
@@ -26,7 +26,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedRepository },
+          { repositoryId: selectedRepositoryId },
         ])
         .then(() => {
           setEditingCard(false);
@@ -40,7 +40,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedRepository },
+          { repositoryId: selectedRepositoryId },
         ])
         .then(() => {
           setEditingCard(false);
@@ -54,7 +54,7 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
       utils
         .invalidateQueries([
           `${selectedTab}.get`,
-          { repository: selectedRepository },
+          { repositoryId: selectedRepositoryId },
         ])
         .then(() => {
           setEditingCard(false);
@@ -66,11 +66,11 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
   const createCard = (props: CardInput) => {
     createCardMutation.mutate({
       title: props.titleForm,
-      text: props.textForm,
+      description: props.textForm,
       tag: props.tagForm,
       type: props.type,
       index: props.index,
-      repositoryName: selectedRepository,
+      repositoryId: selectedRepositoryId,
     });
   };
 
@@ -78,10 +78,11 @@ function useCard({ setEditingCard, setIsLoading }: Props) {
     updateCardMutation.mutate({
       id: props.cardId,
       title: props.titleForm,
-      text: props.textForm,
+      description: props.textForm,
       tag: props.tagForm,
       type: props.type,
       index: props.index,
+      repositoryId: selectedRepositoryId,
     });
   };
 

@@ -11,6 +11,7 @@ interface Props {
 
 function useBoard({ activeTab, listHandlersArray }: Props) {
   const selectedRepository = useStore((state) => state.selectedRepository);
+  const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const utils = trpc.useContext();
   const createRepositoryMutation = trpc.useMutation(["repository.create"], {
     onSuccess: () => {
@@ -39,7 +40,7 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
 
   const { data, status } = trpc.useQuery([
     `${activeTab}.get`,
-    { repository: selectedRepository },
+    { repositoryId: selectedRepositoryId },
   ]);
 
   useEffect(() => {

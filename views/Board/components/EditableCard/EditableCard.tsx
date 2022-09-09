@@ -34,7 +34,6 @@ function EditableCard({
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
   const card = useCard({ setIsLoading, setEditingCard: props.setEditingCard });
-  console.log(props.index);
 
   const handleClickOutside = async () => {
     if (props.newCard && titleForm?.length > 0) {
