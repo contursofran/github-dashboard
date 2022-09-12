@@ -1,14 +1,10 @@
-import { TRPCError } from "@trpc/server";
+import { Subscription, TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createRouter } from "../context";
 
+// create a global event emitter (could be replaced by redis, etc)
+
 export const repositoryRouter = createRouter()
-  .middleware(async ({ ctx, next }) => {
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next();
-  })
   .query("get", {
     input: z.object({
       name: z.string(),

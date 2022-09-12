@@ -59,12 +59,10 @@ export const featuresRouter = createRouter()
       description: z.string(),
       tag: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
-      index: z.number(),
-      repositoryId: z.string(),
     }),
 
     async resolve({ ctx, input }) {
-      const { description, id, index, repositoryId, tag, title, type } = input;
+      const { description, id, tag, title, type } = input;
 
       const feature = await ctx.prisma.features.update({
         where: {
@@ -75,8 +73,6 @@ export const featuresRouter = createRouter()
           description,
           tag,
           type,
-          index,
-          repositoryId,
         },
       });
 
@@ -98,5 +94,74 @@ export const featuresRouter = createRouter()
       });
 
       return feature;
+    },
+  })
+  .mutation("move", {
+    input: z.object({
+      id: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { id, type } = input;
+
+      const feature = await ctx.prisma.features.update({
+        where: {
+          id,
+        },
+
+        data: {
+          type,
+        },
+      });
+
+      return feature;
+    },
+  })
+
+  .mutation("updateIndex", {
+    input: z.object({
+      id: z.string(),
+      index: z.number(),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { id, index } = input;
+
+      const feature = await ctx.prisma.features.update({
+        where: {
+          id,
+        },
+        data: {
+          index,
+        },
+      });
+
+      return feature;
+    },
+  })
+  .mutation("updateIndexArray", {
+    input: z.object({
+      listFeatures: z.array(
+        z.object({
+          id: z.string(),
+          index: z.number(),
+        })
+      ),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { listFeatures } = input;
+
+      listFeatures.forEach(async (feature) => {
+        await ctx.prisma.features.update({
+          where: {
+            id: feature.id,
+          },
+          data: {
+            index: feature.index,
+          },
+        });
+      });
     },
   });

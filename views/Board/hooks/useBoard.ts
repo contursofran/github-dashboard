@@ -44,6 +44,8 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
   ]);
 
   useEffect(() => {
+    console.log("data", data);
+
     if (data && status === "success") {
       listHandlersArray[0].setState(
         data.filter((item) => item.type === "Todo")
@@ -55,9 +57,9 @@ function useBoard({ activeTab, listHandlersArray }: Props) {
         data.filter((item) => item.type === "Done")
       );
 
-      listHandlersArray.forEach((list) => {
-        list.setState((prev) => {
-          return prev.sort((a, b) => a.index - b.index);
+      listHandlersArray.map((list, index) => {
+        listHandlersArray[index].setState((state) => {
+          return state.sort((a, b) => a.index - b.index);
         });
       });
     }

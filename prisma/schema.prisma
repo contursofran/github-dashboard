@@ -82,8 +82,8 @@ model Repository {
 model Features {
   id           String     @id @default(cuid())
   title        String
-  description  String
-  tag          String
+  description  String?
+  tag          String?
   type         Type
   index        Int
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
@@ -95,8 +95,8 @@ model Features {
 model Tasks {
   id           String     @id @default(cuid())
   title        String
-  description  String
-  tag          String
+  description  String?
+  tag          String?
   type         Type
   index        Int
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
@@ -108,8 +108,8 @@ model Tasks {
 model Issues {
   id           String     @id @default(cuid())
   title        String
-  description  String
-  tag          String
+  description  String?
+  tag          String?
   type         Type
   index        Int
   repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
