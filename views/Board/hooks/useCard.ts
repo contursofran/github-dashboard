@@ -5,8 +5,8 @@ import { trpc } from "../../../utils/trpc";
 interface CardInput {
   cardId: string;
   index: number;
-  tagForm: string;
-  textForm: string;
+  tagForm: string | undefined;
+  textForm: string | undefined;
   titleForm: string;
   type: Type;
 }

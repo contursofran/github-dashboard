@@ -62,8 +62,8 @@ function DraggableCard({
               index={index}
               newCard={false}
               setEditingCard={setEditingCard}
-              tag={tag}
-              text={description}
+              tag={tag ? tag : undefined}
+              text={description ? description : undefined}
               title={title}
               type={type}
             />

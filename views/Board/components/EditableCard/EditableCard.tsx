@@ -39,9 +39,9 @@ function EditableCard({
     if (props.newCard && titleForm?.length > 0) {
       setIsLoading(true);
       card.createCard({
-        tagForm,
-        textForm,
-        titleForm,
+        tagForm: tagForm ? tagForm : "",
+        textForm: textForm ? textForm : "",
+        titleForm: titleForm,
         cardId,
         index: props.index,
         type: props.type,

@@ -29,8 +29,8 @@ export const tasksRouter = createRouter()
   .mutation("create", {
     input: z.object({
       title: z.string(),
-      description: z.string(),
-      tag: z.string(),
+      description: z.string().optional(),
+      tag: z.string().optional(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       index: z.number(),
       repositoryId: z.string(),
@@ -57,8 +57,8 @@ export const tasksRouter = createRouter()
     input: z.object({
       id: z.string(),
       title: z.string(),
-      description: z.string(),
-      tag: z.string(),
+      description: z.string().optional(),
+      tag: z.string().optional(),
       type: z.enum(["Todo", "InProgress", "Done"]),
       index: z.number(),
       repositoryId: z.string(),
