@@ -16,7 +16,7 @@ function MainLayout({ children, currentPage, tabs }: Props) {
   const { classes } = useStyles();
 
   useEffect(() => {
-    useStore.setState({ selectedProject: "" });
+    useStore.setState({ selectedRepository: "" });
   }, []);
 
   return (

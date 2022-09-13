@@ -1,29 +1,23 @@
 import { StateCreator } from "zustand";
 import { BoardTabs } from "../views/Board/Board";
-import { BoardCard } from "../views/Board/types";
+import { ListHandlers, ListState } from "../views/Board/hooks/useLists";
 
 export interface AplicationSlice {
-  cards: {
-    Done: BoardCard[];
-    InProgress: BoardCard[];
-    Todo: BoardCard[];
-  };
+  cards: ListState;
+  cardsHandlers: ListHandlers;
   currentPage: string;
-  loadingCard: boolean;
-  selectedProject: string;
+  selectedRepository: string;
+  selectedRepositoryId: string;
   selectedTab: BoardTabs;
 }
 
 const createAplicationSlice: StateCreator<AplicationSlice> = () => ({
   currentPage: "",
-  selectedProject: "",
+  cards: [],
+  cardsHandlers: [],
+  selectedRepository: "",
+  selectedRepositoryId: "",
   selectedTab: "features",
-  loadingCard: false,
-  cards: {
-    Todo: [],
-    InProgress: [],
-    Done: [],
-  },
 });
 
 export { createAplicationSlice };

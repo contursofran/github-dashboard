@@ -44,11 +44,12 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String?      @unique
+  emailVerified DateTime?    @map("email_verified")
   image         String?
+  repositories  Repository[]
   accounts      Account[]
   sessions      Session[]
 
@@ -64,43 +65,57 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
+model Repository {
+  id       String     @id @default(cuid())
+  name     String
+  owner    String
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String     @map("user_id")
+  features Features[]
+  tasks    Tasks[]
+  issues   Issues[]
+
+  @@unique([owner, name])
+  @@map("repositories")
+}
+
 model Features {
-  id             String @id @default(cuid())
-  title          String
-  index          Int
-  text           String
-  tag            String
-  repositoryName String
-  type           Type
-  userId         String @map("user_id")
+  id           String     @id @default(cuid())
+  title        String
+  description  String?
+  tag          String?
+  type         Type
+  index        Int
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repositoryId String     @map("repository_id")
 
   @@map("features")
 }
 
 model Tasks {
-  id             String @id @default(cuid())
-  title          String
-  index          Int
-  text           String
-  tag            String
-  type           Type
-  repositoryName String
-  userId         String @map("user_id")
+  id           String     @id @default(cuid())
+  title        String
+  description  String?
+  tag          String?
+  type         Type
+  index        Int
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repositoryId String     @map("repository_id")
 
   @@map("tasks")
 }
 
 model Issues {
-  id             String @id @default(cuid())
-  title          String
-  index          Int
-  text           String
-  tag            String
-  type           Type
-  repositoryName String
-  userId         String @map("user_id")
+  id           String     @id @default(cuid())
+  title        String
+  description  String?
+  tag          String?
+  type         Type
+  index        Int
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repositoryId String     @map("repository_id")
 
-  @@map("issue")
+  @@map("issues")
 }
 
 enum Type {

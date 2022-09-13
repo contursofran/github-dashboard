@@ -2,42 +2,69 @@ import { useEffect } from "react";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 import { BoardTabs } from "../Board";
-import { ListHandlers } from "./useLists";
+import { useLists } from "./useLists";
 
 interface Props {
   activeTab: BoardTabs;
-  listHandlersArray: ListHandlers;
 }
 
-function useBoard({ activeTab, listHandlersArray }: Props) {
-  const selectedProject = useStore((state) => state.selectedProject);
+function useBoard({ activeTab }: Props) {
+  const selectedRepository = useStore((state) => state.selectedRepository);
+  const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
+  const { lists, listsHandlersArray, listsStateArray } = useLists();
 
-  const { data, status } = trpc.useQuery([
-    `${activeTab}.get`,
-    { repository: selectedProject },
+  const utils = trpc.useContext();
+  const createRepositoryMutation = trpc.useMutation(["repository.create"], {
+    onSuccess: () => {
+      utils.invalidateQueries(["repository.get", { name: selectedRepository }]);
+    },
+  });
+
+  const { data: repositories, status: repositoriesStatus } = trpc.useQuery([
+    `repository.get`,
+    { name: selectedRepository },
   ]);
 
   useEffect(() => {
-    if (data) {
-      listHandlersArray[0].setState(
+    if (repositoriesStatus === "success") {
+      if (!repositories?.repository?.id) {
+        createRepositoryMutation.mutate({
+          name: selectedRepository,
+        });
+      } else {
+        useStore.setState({
+          selectedRepositoryId: repositories.repository.id,
+        });
+      }
+    }
+  }, [repositories]);
+
+  const { data, status } = trpc.useQuery([
+    `${activeTab}.get`,
+    { repositoryId: selectedRepositoryId },
+  ]);
+
+  useEffect(() => {
+    if (data && status === "success") {
+      listsHandlersArray[0].setState(
         data.filter((item) => item.type === "Todo")
       );
-      listHandlersArray[1].setState(
+      listsHandlersArray[1].setState(
         data.filter((item) => item.type === "InProgress")
       );
-      listHandlersArray[2].setState(
+      listsHandlersArray[2].setState(
         data.filter((item) => item.type === "Done")
       );
 
-      listHandlersArray.forEach((list) => {
-        list.setState((prev) => {
-          return prev.sort((a, b) => a.index - b.index);
+      listsHandlersArray.map((list, index) => {
+        listsHandlersArray[index].setState((state) => {
+          return state.sort((a, b) => a.index - b.index);
         });
       });
     }
   }, [data]);
 
-  return { data, status };
+  return { data, lists, status, listsStateArray, listsHandlersArray };
 }
 
 export { useBoard };

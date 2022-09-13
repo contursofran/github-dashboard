@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useStyles } from "./Tabs.styles";
 
 interface Props {
-  selectedProject?: string;
+  selectedRepository?: string;
   tabs: Tab[];
 }
 
@@ -14,7 +14,7 @@ export interface Tab {
   link: string;
 }
 
-function Tabs({ selectedProject, tabs }: Props) {
+function Tabs({ selectedRepository, tabs }: Props) {
   const { classes, cx } = useStyles();
   const { route } = useRouter();
   const [active, setActive] = useState(route);
@@ -23,9 +23,12 @@ function Tabs({ selectedProject, tabs }: Props) {
     setActive(route);
   }, [route]);
 
-  if (selectedProject) {
+  if (selectedRepository) {
     const fixTabs = tabs.map((tab) => {
-      return { ...tab, link: tab.link.replace("[project]", selectedProject) };
+      return {
+        ...tab,
+        link: tab.link.replace("[project]", selectedRepository),
+      };
     });
     tabs = fixTabs;
   }

@@ -74,7 +74,6 @@ export default withTRPC<AppRouter>({
     const links = [
       loggerLink(),
       httpBatchLink({
-        maxBatchSize: 10,
         url,
       }),
     ];
@@ -84,6 +83,15 @@ export default withTRPC<AppRouter>({
 
       links,
       transformer: superjson,
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            useErrorBoundary: true,
+            refetchOnWindowFocus: false,
+            retry: false,
+          },
+        },
+      },
     };
   },
   ssr: false, // we set it to false to be able to see the request in the network tab

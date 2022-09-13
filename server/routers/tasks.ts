@@ -9,109 +9,95 @@ export const tasksRouter = createRouter()
     }
     return next();
   })
+  // same as featuresRouter
   .query("get", {
     input: z.object({
-      repository: z.string(),
+      repositoryId: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { repository } = input;
+      const { repositoryId } = input;
 
-      try {
-        const tasks = await ctx.prisma.tasks.findMany({
-          where: {
-            repositoryName: repository,
-            userId: ctx.session?.user?.id,
-          },
-        });
-        return tasks;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+      const data = await ctx.prisma.tasks.findMany({
+        where: {
+          repositoryId,
+        },
+      });
+
+      return data;
     },
   })
   .mutation("create", {
     input: z.object({
-      repositoryName: z.string(),
       title: z.string(),
-      text: z.string(),
-      index: z.number(),
+      description: z.string().optional(),
+      tag: z.string().optional(),
       type: z.enum(["Todo", "InProgress", "Done"]),
-      tag: z.string(),
+      index: z.number(),
+      repositoryId: z.string(),
     }),
-    async resolve({ ctx, input }) {
-      const { index, repositoryName, tag, text, title, type } = input;
 
-      try {
-        const task = await ctx.prisma.tasks.create({
-          data: {
-            title,
-            text,
-            type,
-            tag,
-            index,
-            repositoryName,
-            userId: ctx.session?.user?.id ? ctx.session?.user?.id : "",
-          },
-        });
-        return task;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+    async resolve({ ctx, input }) {
+      const { description, index, repositoryId, tag, title, type } = input;
+
+      const task = await ctx.prisma.tasks.create({
+        data: {
+          title,
+          description,
+          tag,
+          type,
+          index,
+          repositoryId,
+        },
+      });
+
+      return task;
     },
   })
   .mutation("update", {
     input: z.object({
       id: z.string(),
-      repositoryName: z.string(),
       title: z.string(),
-      text: z.string(),
+      description: z.string().optional(),
+      tag: z.string().optional(),
       type: z.enum(["Todo", "InProgress", "Done"]),
-      tag: z.string(),
       index: z.number(),
+      repositoryId: z.string(),
     }),
-    async resolve({ ctx, input }) {
-      const { id, index, repositoryName, tag, text, title, type } = input;
 
-      try {
-        const task = await ctx.prisma.tasks.update({
-          where: {
-            id,
-          },
-          data: {
-            title,
-            index,
-            text,
-            type,
-            tag,
-            repositoryName,
-          },
-        });
-        return task;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+    async resolve({ ctx, input }) {
+      const { description, id, index, repositoryId, tag, title, type } = input;
+
+      const task = await ctx.prisma.tasks.update({
+        where: {
+          id,
+        },
+        data: {
+          title,
+          description,
+          tag,
+          type,
+          index,
+          repositoryId,
+        },
+      });
+
+      return task;
     },
   })
   .mutation("delete", {
     input: z.object({
       id: z.string(),
     }),
+
     async resolve({ ctx, input }) {
       const { id } = input;
 
-      try {
-        const feature = await ctx.prisma.features.delete({
-          where: {
-            id,
-          },
-        });
-        return feature;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
+      const task = await ctx.prisma.tasks.delete({
+        where: {
+          id,
+        },
+      });
+
+      return task;
     },
   });

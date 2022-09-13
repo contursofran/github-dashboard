@@ -14,16 +14,18 @@ const MAX_CARDS_PER_PAGE = 5;
 
 function Board({ activeTab }: { activeTab: BoardTabs }) {
   const { classes } = useStyles();
-  const { listHandlersArray, lists, listsStateArray } = useLists();
-  const { onDragEnd } = useDragAndDrop({ listHandlersArray, listsStateArray });
-  const { status } = useBoard({
+  const { lists, listsHandlersArray, listsStateArray, status } = useBoard({
     activeTab,
-    listHandlersArray,
   });
+  const { onDragEnd } = useDragAndDrop({ listsHandlersArray, listsStateArray });
 
   useEffect(() => {
     useStore.setState({ selectedTab: activeTab });
-  }, [activeTab]);
+    useStore.setState({
+      cards: listsStateArray,
+      cardsHandlers: listsHandlersArray,
+    });
+  }, [activeTab, listsStateArray, listsHandlersArray]);
 
   const getSkeletons = () => {
     const skeletons = [];
