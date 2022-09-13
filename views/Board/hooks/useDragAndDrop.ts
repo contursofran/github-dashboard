@@ -1,9 +1,7 @@
 import { DropResult } from "@hello-pangea/dnd";
-import { useEffect, useState } from "react";
-import { useStore } from "../../../store";
-import { trpc } from "../../../utils/trpc";
+import { useEffect } from "react";
 import { ListHandlers, ListState } from "./useLists";
-import { useTrackParallelMutations } from "./useTrackParallelMutations";
+import { useMoveCard } from "./useMoveCard";
 
 interface Props {
   listsHandlersArray: ListHandlers;
@@ -11,102 +9,15 @@ interface Props {
 }
 
 function useDragAndDrop({ listsHandlersArray, listsStateArray }: Props) {
-  const [updateCardType, setUpdateCardType] = useState(false);
-  const [updateCardIndex, setUpdateCardIndex] = useState(false);
-  const [sourceListIndex, setSourceListIndex] = useState("0");
-  const [destinationListIndex, setDestinationListIndex] = useState("0");
-  const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
-
-  const mutationTracker = useTrackParallelMutations();
-  const utils = trpc.useContext();
-
-  const updateIndexMutation = trpc.useMutation(["features.updateIndex"], {
-    onMutate: async () => mutationTracker.startOne(),
-    onSettled: () => {
-      mutationTracker.endOne();
-      if (mutationTracker.allEnded()) {
-        utils.invalidateQueries([
-          "features.get",
-          { repositoryId: selectedRepositoryId },
-        ]);
-      }
-    },
-  });
-
-  const updateTypeMutation = trpc.useMutation(["features.updateType"], {
-    onMutate: async () => mutationTracker.startOne(),
-    onSettled: () => {
-      mutationTracker.endOne();
-      if (mutationTracker.allEnded()) {
-        utils.invalidateQueries([
-          "features.get",
-          { repositoryId: selectedRepositoryId },
-        ]);
-      }
-    },
-  });
+  const card = useMoveCard({ listsStateArray });
 
   useEffect(() => {
-    if (updateCardIndex) {
-      const sourceList = listsStateArray[Number(sourceListIndex)];
-      console.log(sourceList);
-
-      const cards = sourceList.map((item) => {
-        return {
-          id: item.id,
-          index: sourceList.indexOf(item),
-        };
-      });
-
-      cards.forEach((card) => {
-        updateIndexMutation.mutate({
-          id: card.id,
-          index: card.index,
-        });
-      });
-
-      setUpdateCardIndex(false);
-    } else if (updateCardType) {
-      const sourceList = listsStateArray[Number(sourceListIndex)];
-      const destinationList = listsStateArray[Number(destinationListIndex)];
-
-      const cards = sourceList.map((item) => {
-        return {
-          id: item.id,
-          index: sourceList.indexOf(item),
-        };
-      });
-
-      const detinationCards = destinationList.map((item) => {
-        return {
-          id: item.id,
-          index: destinationList.indexOf(item),
-        };
-      });
-
-      cards.forEach((card) => {
-        updateIndexMutation.mutate({
-          id: card.id,
-          index: card.index,
-        });
-      });
-
-      detinationCards.forEach((card) => {
-        updateIndexMutation.mutate({
-          id: card.id,
-          index: card.index,
-        });
-      });
-      setUpdateCardType(false);
+    if (card.shouldUpdateCardIndex) {
+      card.updateCardIndex();
+    } else if (card.shouldUpdateCardType) {
+      card.updateCardType();
     }
-  }, [
-    updateCardIndex,
-    updateCardType,
-    listsStateArray,
-    updateIndexMutation,
-    sourceListIndex,
-    destinationListIndex,
-  ]);
+  }, [card]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -115,8 +26,8 @@ function useDragAndDrop({ listsHandlersArray, listsStateArray }: Props) {
       return;
     }
 
-    setSourceListIndex(source.droppableId);
-    setDestinationListIndex(destination.droppableId);
+    card.setSourceListIndex(source.droppableId);
+    card.setDestinationListIndex(destination.droppableId);
 
     const getType = () => {
       if (destination.droppableId === "0") {
@@ -140,19 +51,19 @@ function useDragAndDrop({ listsHandlersArray, listsStateArray }: Props) {
         from: source.index,
         to: destination.index,
       });
-      setUpdateCardIndex(true);
+      card.setShouldUpdateCardIndex(true);
     } else {
       listsHandlersArray[parseInt(destination.droppableId)].insert(
         destination.index,
         listsStateArray[parseInt(source.droppableId)][source.index]
       );
 
-      updateTypeMutation.mutate({
+      card.updateTypeMutation.mutate({
         id: listsStateArray[parseInt(source.droppableId)][source.index].id,
         type: getType(),
       });
       listsHandlersArray[parseInt(source.droppableId)].remove(source.index);
-      setUpdateCardType(true);
+      card.setShouldUpdateCardType(true);
     }
   };
 

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 import { BoardTabs } from "../Board";
-import { ListHandlers, useLists } from "./useLists";
+import { useLists } from "./useLists";
 
 interface Props {
   activeTab: BoardTabs;

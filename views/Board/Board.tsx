@@ -21,7 +21,11 @@ function Board({ activeTab }: { activeTab: BoardTabs }) {
 
   useEffect(() => {
     useStore.setState({ selectedTab: activeTab });
-  }, [activeTab]);
+    useStore.setState({
+      cards: listsStateArray,
+      cardsHandlers: listsHandlersArray,
+    });
+  }, [activeTab, listsStateArray, listsHandlersArray]);
 
   const getSkeletons = () => {
     const skeletons = [];
