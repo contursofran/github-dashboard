@@ -96,7 +96,7 @@ export const featuresRouter = createRouter()
       return feature;
     },
   })
-  .mutation("move", {
+  .mutation("updateType", {
     input: z.object({
       id: z.string(),
       type: z.enum(["Todo", "InProgress", "Done"]),
@@ -118,7 +118,6 @@ export const featuresRouter = createRouter()
       return feature;
     },
   })
-
   .mutation("updateIndex", {
     input: z.object({
       id: z.string(),
@@ -138,30 +137,5 @@ export const featuresRouter = createRouter()
       });
 
       return feature;
-    },
-  })
-  .mutation("updateIndexArray", {
-    input: z.object({
-      listFeatures: z.array(
-        z.object({
-          id: z.string(),
-          index: z.number(),
-        })
-      ),
-    }),
-
-    async resolve({ ctx, input }) {
-      const { listFeatures } = input;
-
-      listFeatures.forEach(async (feature) => {
-        await ctx.prisma.features.update({
-          where: {
-            id: feature.id,
-          },
-          data: {
-            index: feature.index,
-          },
-        });
-      });
     },
   });

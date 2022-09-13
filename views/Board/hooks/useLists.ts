@@ -2,7 +2,7 @@ import { useListState } from "@mantine/hooks";
 import { useState } from "react";
 import { Lists } from "../types";
 
-export type ListHandlers = ReturnType<typeof useLists>["listHandlersArray"];
+export type ListHandlers = ReturnType<typeof useLists>["listsHandlersArray"];
 export type ListState = ReturnType<typeof useLists>["listsStateArray"];
 
 const emptyLists: Lists[] = [
@@ -27,8 +27,9 @@ function useLists() {
     lists[1].items
   );
   const [doneListState, doneListStateHandler] = useListState(lists[2].items);
+
   const listsStateArray = [toDoListState, inProgressListState, doneListState];
-  const listHandlersArray = [
+  const listsHandlersArray = [
     toDoListStateHandler,
     inProgressListStateHandler,
     doneListStateHandler,
@@ -36,7 +37,7 @@ function useLists() {
 
   return {
     listsStateArray,
-    listHandlersArray,
+    listsHandlersArray,
     lists,
   };
 }

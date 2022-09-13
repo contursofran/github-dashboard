@@ -14,12 +14,10 @@ const MAX_CARDS_PER_PAGE = 5;
 
 function Board({ activeTab }: { activeTab: BoardTabs }) {
   const { classes } = useStyles();
-  const { listHandlersArray, lists, listsStateArray, onDragEnd } =
-    useDragAndDrop();
-  const { status } = useBoard({
+  const { lists, listsHandlersArray, listsStateArray, status } = useBoard({
     activeTab,
-    listHandlersArray,
   });
+  const { onDragEnd } = useDragAndDrop({ listsHandlersArray, listsStateArray });
 
   useEffect(() => {
     useStore.setState({ selectedTab: activeTab });
