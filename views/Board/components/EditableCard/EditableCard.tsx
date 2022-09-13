@@ -5,7 +5,6 @@ import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
 
 import { useCard } from "../../hooks/useCard";
-import { SkeletonCard } from "../SkeletonCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
@@ -29,15 +28,13 @@ function EditableCard({
   const { classes } = useStyles();
   const focusTrapRef = useFocusTrap();
   const ref = useClickOutside(() => handleClickOutside());
-  const [isLoading, setIsLoading] = useState(false);
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const card = useCard({ setIsLoading, setEditingCard: props.setEditingCard });
+  const card = useCard({ setEditingCard: props.setEditingCard });
 
   const handleClickOutside = async () => {
     if (props.newCard && titleForm?.length > 0) {
-      setIsLoading(true);
       card.createCard({
         tagForm: tagForm ? tagForm : "",
         textForm: textForm ? textForm : "",
@@ -47,7 +44,6 @@ function EditableCard({
         type: props.type,
       });
     } else if (titleForm !== title || textForm !== text || tagForm !== tag) {
-      setIsLoading(true);
       card.updateCard({
         tagForm,
         textForm,
@@ -60,10 +56,6 @@ function EditableCard({
       props.setEditingCard(false);
     }
   };
-
-  if (isLoading) {
-    return <SkeletonCard />;
-  }
 
   return (
     <>
