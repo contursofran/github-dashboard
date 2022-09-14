@@ -1,29 +1,20 @@
 import { Group, Title } from "@mantine/core";
-import { useStore } from "../../store";
+import { useRouter } from "next/router";
 import { Tab, Tabs } from "../Tabs";
 import { useStyles } from "./Header.styles";
 
 interface Props {
-  currentPage: string;
   tabs?: Tab[];
 }
 
-function Header({ currentPage, tabs }: Props) {
+function Header({ tabs }: Props) {
   const { classes } = useStyles();
-  const selectedRepository = useStore((state) => state.selectedRepository);
-
-  if (currentPage === "[repository]") {
-    currentPage = selectedRepository;
-  }
+  const { query } = useRouter();
 
   return (
     <Group align="center" className={classes.header}>
-      <Title order={2}>
-        {currentPage.includes("[project]")
-          ? currentPage
-          : currentPage.split("/")[0]}
-      </Title>
-      {tabs && <Tabs selectedRepository={selectedRepository} tabs={tabs} />}
+      <Title order={2}>{query.repository as string}</Title>
+      {tabs && <Tabs tabs={tabs} />}
     </Group>
   );
 }

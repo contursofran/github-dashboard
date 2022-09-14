@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useStyles } from "./Tabs.styles";
 
 interface Props {
-  selectedRepository?: string;
   tabs: Tab[];
 }
 
@@ -14,20 +13,20 @@ export interface Tab {
   link: string;
 }
 
-function Tabs({ selectedRepository, tabs }: Props) {
+function Tabs({ tabs }: Props) {
   const { classes, cx } = useStyles();
-  const { route } = useRouter();
-  const [active, setActive] = useState(route);
+  const { asPath, query } = useRouter();
+  const [active, setActive] = useState(asPath);
 
   useEffect(() => {
-    setActive(route);
-  }, [route]);
+    setActive(asPath);
+  }, [asPath]);
 
-  if (selectedRepository) {
+  if (query.repository) {
     const fixTabs = tabs.map((tab) => {
       return {
         ...tab,
-        link: tab.link.replace("[project]", selectedRepository),
+        link: tab.link.replace("[project]", query.repository as string),
       };
     });
     tabs = fixTabs;
@@ -35,7 +34,16 @@ function Tabs({ selectedRepository, tabs }: Props) {
 
   const mapTabs = () => {
     const tabsMap = tabs.map((tab) => (
-      <Link passHref href={tab.link} key={tab.label}>
+      <Link
+        passHref
+        href={{
+          pathname: tab.link,
+          query: {
+            repository: query.repository,
+          },
+        }}
+        key={tab.label}
+      >
         <a
           className={cx(classes.tabsLinks, {
             [classes.linkActive]:

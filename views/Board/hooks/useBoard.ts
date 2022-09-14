@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
@@ -9,27 +10,30 @@ interface Props {
 }
 
 function useBoard({ activeTab }: Props) {
-  const selectedRepository = useStore((state) => state.selectedRepository);
+  const { query } = useRouter();
   const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const { lists, listsHandlersArray, listsStateArray } = useLists();
-
+  console.log(activeTab);
   const utils = trpc.useContext();
   const createRepositoryMutation = trpc.useMutation(["repository.create"], {
     onSuccess: () => {
-      utils.invalidateQueries(["repository.get", { name: selectedRepository }]);
+      utils.invalidateQueries([
+        "repository.get",
+        { name: query.repository as string },
+      ]);
     },
   });
 
   const { data: repositories, status: repositoriesStatus } = trpc.useQuery([
     `repository.get`,
-    { name: selectedRepository },
+    { name: query.repository as string },
   ]);
 
   useEffect(() => {
     if (repositoriesStatus === "success") {
       if (!repositories?.repository?.id) {
         createRepositoryMutation.mutate({
-          name: selectedRepository,
+          name: query.repository as string,
         });
       } else {
         useStore.setState({

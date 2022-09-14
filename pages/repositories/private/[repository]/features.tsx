@@ -5,15 +5,15 @@ import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
   {
-    link: "/repositories/public/[repository]/features",
+    link: "/repositories/private/[repository]/features",
     label: "Features",
   },
   {
-    link: "/repositories/public/[repository]/tasks",
+    link: "/repositories/private/[repository]/tasks",
     label: "Tasks",
   },
   {
-    link: "/repositories/public/[repository]/issues",
+    link: "/repositories/private/[repository]/issues",
     label: "Issues",
   },
 ];
@@ -27,11 +27,7 @@ const FeaturesPage: NextPageWithLayout = () => {
 };
 
 FeaturesPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <TabsLayout currentPage="[repository]" tabs={tabs}>
-      {page}{" "}
-    </TabsLayout>
-  );
+  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
 };
 
 export default FeaturesPage;

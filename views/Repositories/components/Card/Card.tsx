@@ -6,7 +6,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
-import { useStore } from "../../../../store";
 import { useStyles } from "./Card.styles";
 
 interface Props {
@@ -64,9 +63,6 @@ function Card({ language, lastUpdated, text, title, visibility }: Props) {
         p="lg"
         radius="md"
         shadow="md"
-        onClick={() => {
-          useStore.setState({ selectedRepository: title });
-        }}
       >
         <Group mb="xs">
           <Text color="blue.4" size={"lg"}>

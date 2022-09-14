@@ -1,32 +1,33 @@
 import { ReactElement } from "react";
-import { MainLayout } from "../../../../layouts/MainLayout";
+import { TabsLayout } from "../../../../layouts/TabsLayout";
+import { Board } from "../../../../views/Board";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
   {
-    link: "/repositories/public/[project]/features",
+    link: "/repositories/private/[repository]/features",
     label: "Features",
   },
   {
-    link: "/repositories/public/[project]/tasks",
+    link: "/repositories/private/[repository]/tasks",
     label: "Tasks",
   },
   {
-    link: "/repositories/public/[project]/issues",
+    link: "/repositories/private/[repository]/issues",
     label: "Issues",
   },
 ];
 
-const Home: NextPageWithLayout = () => {
-  return <>tasks</>;
-};
-
-Home.getLayout = function getLayout(page: ReactElement) {
+const FeaturesPage: NextPageWithLayout = () => {
   return (
-    <MainLayout currentPage="Repositories/Public/[project]/tasks" tabs={tabs}>
-      {page}{" "}
-    </MainLayout>
+    <>
+      <Board activeTab="tasks" />
+    </>
   );
 };
 
-export default Home;
+FeaturesPage.getLayout = function getLayout(page: ReactElement) {
+  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
+};
+
+export default FeaturesPage;
