@@ -26,22 +26,24 @@ function EditableCard({
   ...props
 }: Props) {
   const { classes } = useStyles();
-  const focusTrapRef = useFocusTrap();
-  const ref = useClickOutside(() => handleClickOutside());
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
-  const card = useCard({ setEditingCard: props.setEditingCard });
+  const focusTrapRef = useFocusTrap();
+  const ref = useClickOutside(() => handleClickOutside());
+  const card = useCard(props.setEditingCard);
+
+  const { index, newCard, type } = props;
 
   const handleClickOutside = async () => {
-    if (props.newCard && titleForm?.length > 0) {
+    if (newCard && titleForm?.length > 0) {
       card.createCard({
         tagForm: tagForm ? tagForm : "",
         textForm: textForm ? textForm : "",
         titleForm: titleForm,
         cardId,
-        index: props.index,
-        type: props.type,
+        index: index,
+        type: type,
       });
     } else if (titleForm !== title || textForm !== text || tagForm !== tag) {
       card.updateCard({
@@ -49,8 +51,8 @@ function EditableCard({
         textForm,
         titleForm,
         cardId,
-        index: props.index,
-        type: props.type,
+        index: index,
+        type: type,
       });
     } else {
       props.setEditingCard(false);
@@ -92,7 +94,7 @@ function EditableCard({
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   props.setEditingCard(false);
-                  card.deleteCard({ cardId });
+                  card.deleteCard({ cardId, type: type });
                 }}
               />
             </div>

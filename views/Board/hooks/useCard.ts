@@ -12,15 +12,11 @@ interface CardInput {
   type: Type;
 }
 
-function useCard({
-  setEditingCard,
-}: {
-  setEditingCard: (boolean: boolean) => void;
-}) {
+function useCard(setEditingCard: (boolean: boolean) => void) {
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const cardsHandler = useStore((state) => state.cardsHandlers);
-
+  const cards = useStore((state) => state.cards);
   const { reFetchCards, startOne } = useRefetchCards();
 
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
@@ -67,48 +63,57 @@ function useCard({
   };
 
   const createCard = (props: CardInput) => {
+    const { cardId, index, tagForm, textForm, titleForm, type } = props;
+
     cardsHandler[getType(props.type)].insert(props.index, {
-      id: props.cardId,
-      title: props.titleForm,
-      description: props.textForm ? props.textForm : null,
-      index: props.index,
-      tag: props.tagForm ? props.tagForm : null,
-      type: props.type,
+      id: cardId,
+      title: titleForm,
+      description: textForm ? textForm : null,
+      index: index,
+      tag: tagForm ? tagForm : null,
+      type: type,
     });
     createCardMutation.mutate({
-      title: props.titleForm,
-      description: props.textForm,
-      tag: props.tagForm,
-      type: props.type,
-      index: props.index,
+      title: titleForm,
+      description: textForm,
+      tag: tagForm,
+      type: type,
+      index: index,
       repositoryId: selectedRepositoryId,
     });
   };
 
   const updateCard = (props: CardInput) => {
-    cardsHandler[getType(props.type)].setItem(props.index, {
-      id: props.cardId,
-      title: props.titleForm,
-      description: props.textForm ? props.textForm : null,
-      index: props.index,
-      tag: props.tagForm ? props.tagForm : null,
-      type: props.type,
+    const { cardId, index, tagForm, textForm, titleForm, type } = props;
+
+    cardsHandler[getType(props.type)].setItem(index, {
+      id: cardId,
+      title: titleForm,
+      description: textForm ? textForm : null,
+      index: index,
+      tag: tagForm ? tagForm : null,
+      type: type,
     });
     updateCardMutation.mutate({
-      id: props.cardId,
-      title: props.titleForm,
-      description: props.textForm,
-      tag: props.tagForm,
-      type: props.type,
-      index: props.index,
+      id: cardId,
+      title: titleForm,
+      description: textForm,
+      tag: tagForm,
+      type: type,
+      index: index,
       repositoryId: selectedRepositoryId,
     });
   };
 
-  const deleteCard = ({ cardId }: { cardId: string }) => {
-    deleteCardMutation.mutate({
-      id: cardId,
-    });
+  const deleteCard = ({ cardId, type }: { cardId: string; type: Type }) => {
+    const card = cards[getType(type)].find((card) => card.id === cardId);
+    if (card) {
+      cardsHandler[getType(type)].remove(card.index);
+
+      deleteCardMutation.mutate({
+        id: cardId,
+      });
+    }
   };
 
   return {

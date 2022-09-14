@@ -26,21 +26,16 @@ const tags = [
   },
 ];
 
-function DraggableCard({
-  cardId,
-  description,
-  id,
-  index,
-  tag,
-  title,
-  type,
-}: DraggableCardProps) {
+function DraggableCard(props: DraggableCardProps) {
   const { classes, cx } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
   const getTagColor = () => {
     const tagColor = tags.find((t) => t.name === tag);
     return tagColor?.color;
   };
+
+  const { cardId, description, id, index, tag, title, type } = props;
+
   return (
     <Draggable
       draggableId={id + "-" + index.toString()}

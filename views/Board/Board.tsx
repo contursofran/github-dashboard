@@ -6,7 +6,6 @@ import { useStyles } from "./Board.styles";
 import { BoardColumn } from "./components/BoardColumn";
 import { useBoard } from "./hooks/useBoard";
 import { useDragAndDrop } from "./hooks/useDragAndDrop";
-import { useLists } from "./hooks/useLists";
 
 export type BoardTabs = "features" | "tasks" | "issues";
 
