@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@mantine/core";
+import { SimpleGrid, Title } from "@mantine/core";
 import { Card } from "./components/Card";
 import { SkeletonCard } from "./components/SkeletonCard";
 import { useRepositories, Visibility } from "./hooks/useRepositories";
@@ -41,17 +41,21 @@ function Repositories({ visibility }: { visibility: Visibility }) {
 
   return (
     <div className={classes.content}>
-      <SimpleGrid
-        breakpoints={[
-          { minWidth: 1780, cols: 3, spacing: 40 },
-          { minWidth: 1210, cols: 2, spacing: 40 },
-          { minWidth: 0, cols: 1, spacing: 30 },
-        ]}
-        className={classes.grid}
-        cols={3}
-      >
-        {filterRepositories.length > 0 &&
-          mapRepositories(filterRepositories).map((repo) => (
+      {filterRepositories.length === 0 ? (
+        <Title align="center" order={2}>
+          No repositories found
+        </Title>
+      ) : (
+        <SimpleGrid
+          breakpoints={[
+            { minWidth: 1780, cols: 3, spacing: 40 },
+            { minWidth: 1210, cols: 2, spacing: 40 },
+            { minWidth: 0, cols: 1, spacing: 30 },
+          ]}
+          className={classes.grid}
+          cols={3}
+        >
+          {mapRepositories(filterRepositories).map((repo) => (
             <Card
               key={repo.name}
               language={repo.language}
@@ -61,7 +65,8 @@ function Repositories({ visibility }: { visibility: Visibility }) {
               visibility={repo.visibility}
             />
           ))}
-      </SimpleGrid>
+        </SimpleGrid>
+      )}
     </div>
   );
 }

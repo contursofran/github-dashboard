@@ -4,11 +4,19 @@ import { useEffect, useState } from "react";
 import { trpc } from "../../../utils/trpc";
 
 type UserRepositories = Endpoints["GET /user/repos"]["response"]["data"];
-export type Visibility = "public" | "private";
+export type Visibility = "public" | "private" | "none";
 
 function useRepositories(visibility: Visibility) {
   const [repositories, setRepositories] = useState<UserRepositories>([]);
   const { data: token, status } = trpc.useQuery(["auth.getToken"]);
+
+  useEffect(() => {
+    if (visibility === "public") {
+      window.localStorage.setItem("visibility", "public");
+    } else if (visibility === "private") {
+      window.localStorage.setItem("visibility", "private");
+    }
+  }, [visibility]);
 
   useEffect(() => {
     const fetchRepositories = async (accessToken: string | null) => {

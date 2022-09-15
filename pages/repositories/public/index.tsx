@@ -23,11 +23,7 @@ const PublicRepositoriesPage: NextPageWithLayout = () => {
 };
 
 PublicRepositoriesPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <TabsLayout currentPage="Repositories" tabs={tabs}>
-      {page}
-    </TabsLayout>
-  );
+  return <TabsLayout tabs={tabs}>{page}</TabsLayout>;
 };
 
 export default PublicRepositoriesPage;

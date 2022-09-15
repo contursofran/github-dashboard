@@ -15,12 +15,12 @@ export interface Tab {
 
 function Tabs({ tabs }: Props) {
   const { classes, cx } = useStyles();
-  const { asPath, query } = useRouter();
-  const [active, setActive] = useState(asPath);
+  const { query, route } = useRouter();
+  const [active, setActive] = useState(route);
 
   useEffect(() => {
-    setActive(asPath);
-  }, [asPath]);
+    setActive(route);
+  }, [route]);
 
   if (query.repository) {
     const fixTabs = tabs.map((tab) => {

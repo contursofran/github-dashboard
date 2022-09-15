@@ -13,7 +13,7 @@ function useBoard({ activeTab }: Props) {
   const { query } = useRouter();
   const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const { lists, listsHandlersArray, listsStateArray } = useLists();
-  console.log(activeTab);
+
   const utils = trpc.useContext();
   const createRepositoryMutation = trpc.useMutation(["repository.create"], {
     onSuccess: () => {

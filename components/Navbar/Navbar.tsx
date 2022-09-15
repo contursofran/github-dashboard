@@ -26,7 +26,7 @@ const data = [
     icon: IconHome,
   },
   {
-    link: "/repositories/public",
+    link: "/repositories",
     label: "Repositories",
     icon: IconBrandGithub,
   },
