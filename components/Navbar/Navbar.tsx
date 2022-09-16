@@ -8,7 +8,6 @@ import {
 import { upperFirst, useDisclosure } from "@mantine/hooks";
 import {
   IconBrandGithub,
-  IconCheck,
   IconHome,
   IconLogout,
   IconSettings,
@@ -17,7 +16,6 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useStore } from "../../store";
 import { Login } from "./Login";
 import { useStyles } from "./Navbar.styles";
 
@@ -36,9 +34,9 @@ const data = [
 
 function Navbar() {
   const { classes, cx } = useStyles();
+
   const { data: session, status } = useSession();
   const [login, loginHandler] = useDisclosure(false);
-  const addNotification = useStore((store) => store.addNotification);
   const { route } = useRouter();
   const [active, setActive] = useState(
     route === "/" ? "Home" : upperFirst(route.split("/")[1])
@@ -94,12 +92,7 @@ function Navbar() {
             {status === "loading" ? (
               <Skeleton height={45} />
             ) : (
-              <a
-                className={classes.link}
-                onClick={() =>
-                  addNotification({ title: "suscsdas", type: "error" })
-                }
-              >
+              <a className={classes.link}>
                 <IconSettings className={classes.linkIcon} stroke={1.5} />
                 <span>Settings</span>
               </a>

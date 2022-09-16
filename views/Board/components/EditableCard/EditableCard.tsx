@@ -1,10 +1,9 @@
 import { Card, Stack, Textarea, TextInput } from "@mantine/core";
 import { useClickOutside, useFocusTrap } from "@mantine/hooks";
 import { Type } from "@prisma/client";
-import { IconCheck, IconTrash } from "@tabler/icons";
+import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
 
-import { showNotification } from "@mantine/notifications";
 import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 

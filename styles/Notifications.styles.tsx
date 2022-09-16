@@ -1,4 +1,10 @@
 import { createStyles } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons";
+
+const icons = {
+  success: <IconCheck />,
+  error: <IconX />,
+};
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -46,4 +52,4 @@ const useStyles = createStyles((theme) => ({
         : `${theme.colors.green[6]} !important`,
   },
 }));
-export { useStyles };
+export { useStyles, icons };

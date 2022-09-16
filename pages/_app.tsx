@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
@@ -8,7 +9,6 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { ReactElement, ReactNode } from "react";
 import superjson from "superjson";
-import { Notifications } from "../components/Notifications";
 import { AppRouter } from "../server/createRouter";
 
 export type NextPageWithLayout = NextPage & {
@@ -42,10 +42,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           fontFamily: "Poppins, Roboto",
         }}
       >
-        <Notifications />
-        <SessionProvider session={pageProps.session}>
-          {getLayout(<Component {...pageProps} />)}
-        </SessionProvider>
+        <NotificationsProvider>
+          <SessionProvider session={pageProps.session}>
+            {getLayout(<Component {...pageProps} />)}
+          </SessionProvider>
+        </NotificationsProvider>
       </MantineProvider>
     </>
   );

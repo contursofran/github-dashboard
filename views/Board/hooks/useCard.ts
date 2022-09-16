@@ -1,5 +1,7 @@
+import { showNotification } from "@mantine/notifications";
 import { Type } from "@prisma/client";
 import { useStore } from "../../../store";
+import { icons, useStyles } from "../../../styles/Notifications.styles";
 import { trpc } from "../../../utils/trpc";
 import { useRefetchCards } from "./useRefetchCards";
 
@@ -18,7 +20,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
   const cardsHandler = useStore((state) => state.cardsHandlers);
   const cards = useStore((state) => state.cards);
   const { reFetchCards, startOne } = useRefetchCards();
-  const addNotification = useStore((state) => state.addNotification);
+  const { classes } = useStyles();
 
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
     onMutate: () => {
@@ -29,9 +31,16 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       reFetchCards();
     },
     onSuccess: () => {
-      addNotification({
-        title: "Card created successfully",
-        type: "success",
+      showNotification({
+        classNames: {
+          title: classes.title,
+          icon: classes.successIcon,
+          root: classes.root,
+          closeButton: classes.closeButton,
+        },
+        title: "Card created",
+        message: "",
+        icon: icons.success,
       });
     },
   });
@@ -45,9 +54,16 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       reFetchCards();
     },
     onSuccess: () => {
-      addNotification({
-        title: "Card updated successfully",
-        type: "success",
+      showNotification({
+        classNames: {
+          title: classes.title,
+          icon: classes.successIcon,
+          root: classes.root,
+          closeButton: classes.closeButton,
+        },
+        title: "Card created",
+        message: "",
+        icon: icons.success,
       });
     },
   });
@@ -61,9 +77,16 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       reFetchCards();
     },
     onSuccess: () => {
-      addNotification({
-        title: "Card deleted successfully",
-        type: "success",
+      showNotification({
+        classNames: {
+          title: classes.title,
+          icon: classes.successIcon,
+          root: classes.root,
+          closeButton: classes.closeButton,
+        },
+        title: "Card created",
+        message: "",
+        icon: icons.success,
       });
     },
   });
@@ -92,6 +115,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       tag: tagForm ? tagForm : null,
       type: type,
     });
+
     createCardMutation.mutate({
       title: titleForm,
       description: textForm,
@@ -113,6 +137,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       tag: tagForm ? tagForm : null,
       type: type,
     });
+
     updateCardMutation.mutate({
       id: cardId,
       title: titleForm,
@@ -126,6 +151,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
 
   const deleteCard = ({ cardId, type }: { cardId: string; type: Type }) => {
     const card = cards[getType(type)].find((card) => card.id === cardId);
+
     if (card) {
       cardsHandler[getType(type)].remove(card.index);
 
