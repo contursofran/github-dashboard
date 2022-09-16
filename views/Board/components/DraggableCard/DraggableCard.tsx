@@ -73,7 +73,15 @@ function DraggableCard(props: DraggableCardProps) {
               <Group align="center" mb="xs" position="apart">
                 <Group>
                   <Group>
-                    <Text size={"md"} weight={600}>
+                    <Text
+                      size={"md"}
+                      style={
+                        type === "Done"
+                          ? { textDecoration: "line-through" }
+                          : {}
+                      }
+                      weight={600}
+                    >
                       {title}
                     </Text>
                     {tag && (
@@ -81,7 +89,15 @@ function DraggableCard(props: DraggableCardProps) {
                         color={getTagColor() ? getTagColor() : "indigo"}
                         variant="light"
                       >
-                        <Text size="sm" weight={600}>
+                        <Text
+                          size="sm"
+                          style={
+                            type === "Done"
+                              ? { textDecoration: "line-through" }
+                              : {}
+                          }
+                          weight={600}
+                        >
                           {tag}
                         </Text>
                       </Badge>
@@ -95,7 +111,13 @@ function DraggableCard(props: DraggableCardProps) {
                 />
               </Group>
               {description ? (
-                <Text color="dimmed" size="md">
+                <Text
+                  color="dimmed"
+                  size="md"
+                  style={
+                    type === "Done" ? { textDecoration: "line-through" } : {}
+                  }
+                >
                   {description}
                 </Text>
               ) : (

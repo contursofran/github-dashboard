@@ -1,11 +1,16 @@
 import create from "zustand";
 import {
-  createAplicationSlice,
   AplicationSlice,
+  createAplicationSlice,
 } from "./createAplicationSlice";
+import {
+  createNotificationSlice,
+  NotificationSlice,
+} from "./createNotificationStore";
 
-const useStore = create<AplicationSlice>()((...a) => ({
+const useStore = create<AplicationSlice & NotificationSlice>()((...a) => ({
   ...createAplicationSlice(...a),
+  ...createNotificationSlice(...a),
 }));
 
 export { useStore };

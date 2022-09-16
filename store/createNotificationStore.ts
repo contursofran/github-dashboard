@@ -1,0 +1,38 @@
+import { nanoid } from "nanoid";
+import { StateCreator } from "zustand";
+
+export type Notification = {
+  id: string;
+  title: string;
+  type: "success" | "error";
+};
+
+export interface NotificationSlice {
+  addNotification: (notification: Omit<Notification, "id">) => void;
+  dismissNotification: (id: string) => void;
+  notifications: Notification[];
+}
+
+const createNotificationSlice: StateCreator<NotificationSlice> = (set) => ({
+  notifications: [],
+  addNotification: (notification) => {
+    set((state) => ({
+      notifications: [
+        ...state.notifications,
+        {
+          id: nanoid(),
+          ...notification,
+        },
+      ],
+    }));
+  },
+  dismissNotification: (id) => {
+    set((state) => ({
+      notifications: state.notifications.filter(
+        (notification) => notification.id !== id
+      ),
+    }));
+  },
+});
+
+export { createNotificationSlice };

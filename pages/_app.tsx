@@ -8,6 +8,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { ReactElement, ReactNode } from "react";
 import superjson from "superjson";
+import { Notifications } from "../components/Notifications";
 import { AppRouter } from "../server/createRouter";
 
 export type NextPageWithLayout = NextPage & {
@@ -41,6 +42,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           fontFamily: "Poppins, Roboto",
         }}
       >
+        <Notifications />
         <SessionProvider session={pageProps.session}>
           {getLayout(<Component {...pageProps} />)}
         </SessionProvider>

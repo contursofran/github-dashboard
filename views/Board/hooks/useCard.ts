@@ -18,6 +18,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
   const cardsHandler = useStore((state) => state.cardsHandlers);
   const cards = useStore((state) => state.cards);
   const { reFetchCards, startOne } = useRefetchCards();
+  const addNotification = useStore((state) => state.addNotification);
 
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
     onMutate: () => {
@@ -26,6 +27,12 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
     },
     onSettled: () => {
       reFetchCards();
+    },
+    onSuccess: () => {
+      addNotification({
+        title: "Card created successfully",
+        type: "success",
+      });
     },
   });
 
@@ -37,6 +44,12 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
     onSettled: () => {
       reFetchCards();
     },
+    onSuccess: () => {
+      addNotification({
+        title: "Card updated successfully",
+        type: "success",
+      });
+    },
   });
 
   const deleteCardMutation = trpc.useMutation([`${selectedTab}.delete`], {
@@ -46,6 +59,12 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
     },
     onSettled: () => {
       reFetchCards();
+    },
+    onSuccess: () => {
+      addNotification({
+        title: "Card deleted successfully",
+        type: "success",
+      });
     },
   });
 
