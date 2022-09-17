@@ -15,16 +15,17 @@ interface CardInput {
 }
 
 function useCard(setEditingCard: (boolean: boolean) => void) {
+  const { classes } = useStyles();
   const selectedTab = useStore((state) => state.selectedTab);
   const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const cardsHandler = useStore((state) => state.cardsHandlers);
   const cards = useStore((state) => state.cards);
+
   const { reFetchCards, startOne } = useRefetchCards();
-  const { classes } = useStyles();
 
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
     onMutate: () => {
-      async () => startOne();
+      startOne();
       setEditingCard(false);
     },
     onSettled: () => {
@@ -47,7 +48,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
 
   const updateCardMutation = trpc.useMutation([`${selectedTab}.update`], {
     onMutate: () => {
-      async () => startOne();
+      startOne();
       setEditingCard(false);
     },
     onSettled: () => {
@@ -61,7 +62,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
           root: classes.root,
           closeButton: classes.closeButton,
         },
-        title: "Card created",
+        title: "Card updated",
         message: "",
         icon: icons.success,
       });
@@ -70,13 +71,14 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
 
   const deleteCardMutation = trpc.useMutation([`${selectedTab}.delete`], {
     onMutate: () => {
-      async () => startOne();
-      setEditingCard(false);
+      startOne();
     },
     onSettled: () => {
       reFetchCards();
     },
     onSuccess: () => {
+      setEditingCard(false);
+
       showNotification({
         classNames: {
           title: classes.title,
@@ -84,7 +86,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
           root: classes.root,
           closeButton: classes.closeButton,
         },
-        title: "Card created",
+        title: "Card deleted",
         message: "",
         icon: icons.success,
       });
