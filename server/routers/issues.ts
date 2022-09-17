@@ -99,10 +99,47 @@ export const issuesRouter = createRouter()
 
       return issue;
     },
-  });
+  })
+  .mutation("updateType", {
+    input: z.object({
+      id: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
+    }),
 
-// Language: typescript
-// Path: server/routers/projects.ts
-// Compare this snippet from pages/api/trpc/[trpc].ts:
-// import * as trpcNext from "@trpc/server/adapters/next";
-// import { createContext } from
+    async resolve({ ctx, input }) {
+      const { id, type } = input;
+
+      const issues = await ctx.prisma.issues.update({
+        where: {
+          id,
+        },
+
+        data: {
+          type,
+        },
+      });
+
+      return issues;
+    },
+  })
+  .mutation("updateIndex", {
+    input: z.object({
+      id: z.string(),
+      index: z.number(),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { id, index } = input;
+
+      const issues = await ctx.prisma.issues.update({
+        where: {
+          id,
+        },
+        data: {
+          index,
+        },
+      });
+
+      return issues;
+    },
+  });

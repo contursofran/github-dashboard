@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useStore } from "../../../store";
 import { trpc } from "../../../utils/trpc";
 import { ListState } from "./useLists";
 import { useRefetchCards } from "./useRefetchCards";
@@ -6,20 +7,21 @@ import { useRefetchCards } from "./useRefetchCards";
 function useMoveCard({ listsStateArray }: { listsStateArray: ListState }) {
   const [shouldUpdateCardType, setShouldUpdateCardType] = useState(false);
   const [shouldUpdateCardIndex, setShouldUpdateCardIndex] = useState(false);
+  const selectedTab = useStore((state) => state.selectedTab);
   const [sourceListIndex, setSourceListIndex] = useState("0");
   const [destinationListIndex, setDestinationListIndex] = useState("0");
 
   const { reFetchCards, startOne } = useRefetchCards();
 
-  const updateIndexMutation = trpc.useMutation(["features.updateIndex"], {
-    onMutate: async () => startOne(),
+  const updateIndexMutation = trpc.useMutation([`${selectedTab}.updateIndex`], {
+    onMutate: () => startOne(),
     onSettled: () => {
       reFetchCards();
     },
   });
 
-  const updateTypeMutation = trpc.useMutation(["features.updateType"], {
-    onMutate: async () => startOne(),
+  const updateTypeMutation = trpc.useMutation([`${selectedTab}.updateType`], {
+    onMutate: () => startOne(),
     onSettled: () => {
       reFetchCards();
     },

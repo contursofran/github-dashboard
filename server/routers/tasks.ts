@@ -100,4 +100,47 @@ export const tasksRouter = createRouter()
 
       return task;
     },
+  })
+  .mutation("updateType", {
+    input: z.object({
+      id: z.string(),
+      type: z.enum(["Todo", "InProgress", "Done"]),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { id, type } = input;
+
+      const tasks = await ctx.prisma.tasks.update({
+        where: {
+          id,
+        },
+
+        data: {
+          type,
+        },
+      });
+
+      return tasks;
+    },
+  })
+  .mutation("updateIndex", {
+    input: z.object({
+      id: z.string(),
+      index: z.number(),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { id, index } = input;
+
+      const tasks = await ctx.prisma.tasks.update({
+        where: {
+          id,
+        },
+        data: {
+          index,
+        },
+      });
+
+      return tasks;
+    },
   });
