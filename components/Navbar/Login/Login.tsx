@@ -14,17 +14,29 @@ function Login({ close, opened }: LoginProps) {
   const { classes } = useStyles();
 
   return (
-    <Modal centered opened={opened} onClose={close}>
+    <Modal
+      centered
+      opened={opened}
+      styles={{
+        close: {
+          alignItems: "start",
+          "&:hover": {
+            backgroundColor: "transparent",
+            color: "white",
+          },
+        },
+      }}
+      onClose={close}
+    >
       <div className={classes.container}>
         <div className={classes.img}>
           <Image alt="github" layout="fill" src={GithubIcon} />
         </div>
         Please continue with your GitHub account.
         <Button
+          className={classes.hover}
           classNames={{
-            label: classes.buttonLabel,
-            icon: classes.buttonIcon,
-            root: classes.buttonRoot,
+            root: classes.root,
           }}
           color="dark.9"
           leftIcon={<IconBrandGithub />}

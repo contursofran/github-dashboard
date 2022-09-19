@@ -36,8 +36,6 @@ function DraggableCard(props: DraggableCardProps) {
 
   const { description, draggableId, id, index, tag, title, type } = props;
 
-  console.log(props);
-
   return (
     <Draggable
       draggableId={draggableId + "-" + index.toString()}

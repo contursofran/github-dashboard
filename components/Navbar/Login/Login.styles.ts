@@ -12,14 +12,15 @@ const useStyles = createStyles((theme) => ({
     height: "110px",
     position: "relative",
   },
-  buttonLabel: {
-    color: theme.colors.gray[3],
-  },
-  buttonIcon: {
-    color: theme.colors.gray[3],
-  },
-  buttonRoot: {
+  root: {
     height: "40px",
+  },
+  hover: {
+    color: theme.colors.gray[4],
+    "&:hover": {
+      backgroundColor: theme.colors.dark[9],
+      color: "white",
+    },
   },
 }));
 
