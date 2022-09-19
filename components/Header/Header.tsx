@@ -26,7 +26,7 @@ function Header({ tabs }: Props) {
 
   return (
     <Group align="center" className={classes.header}>
-      <Title order={2}>{upperFirst(query.repository as string)}</Title>
+      <Title order={3}>{upperFirst(query.repository as string)}</Title>
       {tabs && <Tabs tabs={tabs} />}
     </Group>
   );

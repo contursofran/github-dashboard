@@ -1,37 +1,40 @@
+import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
 import { TabsLayout } from "../../../../layouts/TabsLayout";
 import { Board } from "../../../../views/Board";
+import { GuestBoard } from "../../../../views/Board/GuestBoard";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
   {
-    link: "/repositories/public/[project]/features",
+    link: "/repositories/public/[repository]/features",
     label: "Features",
   },
   {
-    link: "/repositories/public/[project]/tasks",
+    link: "/repositories/public/[repository]/tasks",
     label: "Tasks",
   },
   {
-    link: "/repositories/public/[project]/issues",
+    link: "/repositories/public/[repository]/issues",
     label: "Issues",
   },
 ];
 
 const FeaturesPage: NextPageWithLayout = () => {
+  const { status } = useSession();
   return (
     <>
-      <Board activeTab="Features" />
+      {status === "authenticated" ? (
+        <Board activeTab="features" />
+      ) : (
+        <GuestBoard activeTab="features" />
+      )}
     </>
   );
 };
 
 FeaturesPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <TabsLayout currentPage="[project]" tabs={tabs}>
-      {page}{" "}
-    </TabsLayout>
-  );
+  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
 };
 
 export default FeaturesPage;

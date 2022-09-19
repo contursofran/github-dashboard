@@ -1,4 +1,5 @@
 import { DropResult } from "@hello-pangea/dnd";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { ListHandlers, ListState } from "./useLists";
 import { useMoveCard } from "./useMoveCard";
@@ -10,14 +11,17 @@ interface Props {
 
 function useDragAndDrop({ listsHandlersArray, listsStateArray }: Props) {
   const card = useMoveCard({ listsStateArray });
+  const { status } = useSession();
 
   useEffect(() => {
-    if (card.shouldUpdateCardIndex) {
-      card.updateCardIndex();
-    } else if (card.shouldUpdateCardType) {
-      card.updateCardType();
+    if (status === "authenticated") {
+      if (card.shouldUpdateCardIndex) {
+        card.updateCardIndex();
+      } else if (card.shouldUpdateCardType) {
+        card.updateCardType();
+      }
     }
-  }, [card]);
+  }, [card, status]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -57,11 +61,12 @@ function useDragAndDrop({ listsHandlersArray, listsStateArray }: Props) {
         destination.index,
         listsStateArray[parseInt(source.droppableId)][source.index]
       );
-
-      card.updateTypeMutation.mutate({
-        id: listsStateArray[parseInt(source.droppableId)][source.index].id,
-        type: getType(),
-      });
+      if (status === "authenticated") {
+        card.updateTypeMutation.mutate({
+          id: listsStateArray[parseInt(source.droppableId)][source.index].id,
+          type: getType(),
+        });
+      }
       listsHandlersArray[parseInt(source.droppableId)].remove(source.index);
       card.setShouldUpdateCardType(true);
     }

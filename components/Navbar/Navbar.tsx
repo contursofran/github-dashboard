@@ -16,6 +16,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { guestUser } from "../../utils/data";
 import { Login } from "./Login";
 import { useStyles } from "./Navbar.styles";
 
@@ -34,7 +35,6 @@ const data = [
 
 function Navbar() {
   const { classes, cx } = useStyles();
-
   const { data: session, status } = useSession();
   const [login, loginHandler] = useDisclosure(false);
   const { route } = useRouter();
@@ -65,7 +65,16 @@ function Navbar() {
       <MantineNavbar className={classes.navbar} p={"sm"} width={{ sm: 300 }}>
         <MantineNavbar.Section grow mt="xl">
           <Stack className={classes.header}>
-            <Avatar mx="auto" radius={120} size={80} src={session?.user?.image}>
+            <Avatar
+              mx="auto"
+              radius={120}
+              size={70}
+              src={
+                session?.user?.image
+                  ? session?.user?.image
+                  : guestUser.user.avatar_url
+              }
+            >
               {status === "unauthenticated" ? (
                 ""
               ) : (
@@ -74,12 +83,12 @@ function Navbar() {
             </Avatar>
             <Text align="center" size="lg" weight={500}>
               {status === "unauthenticated"
-                ? "Invited"
+                ? guestUser.user.name
                 : session?.user?.name || <Skeleton height={20} radius="sm" />}
             </Text>
             <Text align="center" color="dimmed" mt="-sm" size="sm">
               {status === "unauthenticated"
-                ? "invited@email.com"
+                ? guestUser.user.email
                 : session?.user?.email || (
                     <Skeleton height={20} mt={15} radius="sm" />
                   )}

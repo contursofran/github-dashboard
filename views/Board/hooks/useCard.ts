@@ -1,12 +1,13 @@
 import { showNotification } from "@mantine/notifications";
 import { Type } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import { useStore } from "../../../store";
 import { icons, useStyles } from "../../../styles/Notifications.styles";
 import { trpc } from "../../../utils/trpc";
 import { useRefetchCards } from "./useRefetchCards";
 
 interface CardInput {
-  cardId: string;
+  id: string;
   index: number;
   tagForm: string | undefined;
   textForm: string | undefined;
@@ -20,7 +21,7 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
   const selectedRepositoryId = useStore((state) => state.selectedRepositoryId);
   const cardsHandler = useStore((state) => state.cardsHandlers);
   const cards = useStore((state) => state.cards);
-
+  const { status } = useSession();
   const { reFetchCards, startOne } = useRefetchCards();
 
   const createCardMutation = trpc.useMutation([`${selectedTab}.create`], {
@@ -107,10 +108,10 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
   };
 
   const createCard = (props: CardInput) => {
-    const { cardId, index, tagForm, textForm, titleForm, type } = props;
+    const { id, index, tagForm, textForm, titleForm, type } = props;
 
     cardsHandler[getType(props.type)].insert(props.index, {
-      id: cardId,
+      id: id,
       title: titleForm,
       description: textForm ? textForm : null,
       index: index,
@@ -118,21 +119,36 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       type: type,
     });
 
-    createCardMutation.mutate({
-      title: titleForm,
-      description: textForm,
-      tag: tagForm,
-      type: type,
-      index: index,
-      repositoryId: selectedRepositoryId,
-    });
+    if (status === "authenticated") {
+      createCardMutation.mutate({
+        title: titleForm,
+        description: textForm,
+        tag: tagForm,
+        type: type,
+        index: index,
+        repositoryId: selectedRepositoryId,
+      });
+    } else {
+      setEditingCard(false);
+      showNotification({
+        classNames: {
+          title: classes.title,
+          icon: classes.successIcon,
+          root: classes.root,
+          closeButton: classes.closeButton,
+        },
+        title: "Card created",
+        message: "",
+        icon: icons.success,
+      });
+    }
   };
 
   const updateCard = (props: CardInput) => {
-    const { cardId, index, tagForm, textForm, titleForm, type } = props;
+    const { id, index, tagForm, textForm, titleForm, type } = props;
 
     cardsHandler[getType(props.type)].setItem(index, {
-      id: cardId,
+      id: id,
       title: titleForm,
       description: textForm ? textForm : null,
       index: index,
@@ -140,26 +156,56 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
       type: type,
     });
 
-    updateCardMutation.mutate({
-      id: cardId,
-      title: titleForm,
-      description: textForm,
-      tag: tagForm,
-      type: type,
-      index: index,
-      repositoryId: selectedRepositoryId,
-    });
+    if (status === "authenticated") {
+      updateCardMutation.mutate({
+        id: id,
+        title: titleForm,
+        description: textForm,
+        tag: tagForm,
+        type: type,
+        index: index,
+        repositoryId: selectedRepositoryId,
+      });
+    } else {
+      setEditingCard(false);
+      showNotification({
+        classNames: {
+          title: classes.title,
+          icon: classes.successIcon,
+          root: classes.root,
+          closeButton: classes.closeButton,
+        },
+        title: "Card updated",
+        message: "",
+        icon: icons.success,
+      });
+    }
   };
 
-  const deleteCard = ({ cardId, type }: { cardId: string; type: Type }) => {
-    const card = cards[getType(type)].find((card) => card.id === cardId);
-
+  const deleteCard = ({ id, type }: { id: string; type: Type }) => {
+    console.log(id);
+    const card = cards[getType(type)].find((card) => card.id === id);
     if (card) {
       cardsHandler[getType(type)].remove(card.index);
 
-      deleteCardMutation.mutate({
-        id: cardId,
-      });
+      if (status === "authenticated") {
+        deleteCardMutation.mutate({
+          id: id,
+        });
+      } else {
+        setEditingCard(false);
+        showNotification({
+          classNames: {
+            title: classes.title,
+            icon: classes.successIcon,
+            root: classes.root,
+            closeButton: classes.closeButton,
+          },
+          title: "Card deleted",
+          message: "",
+          icon: icons.success,
+        });
+      }
     }
   };
 

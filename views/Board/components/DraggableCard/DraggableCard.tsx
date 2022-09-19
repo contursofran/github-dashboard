@@ -7,7 +7,7 @@ import { EditableCard } from "../EditableCard";
 import { useStyles } from "./DraggableCard.styles";
 
 export interface DraggableCardProps extends BoardCard {
-  cardId: string;
+  draggableId: string;
   index: number;
 }
 
@@ -34,11 +34,13 @@ function DraggableCard(props: DraggableCardProps) {
     return tagColor?.color;
   };
 
-  const { cardId, description, id, index, tag, title, type } = props;
+  const { description, draggableId, id, index, tag, title, type } = props;
+
+  console.log(props);
 
   return (
     <Draggable
-      draggableId={id + "-" + index.toString()}
+      draggableId={draggableId + "-" + index.toString()}
       index={index}
       key={index.toString()}
     >
@@ -53,7 +55,7 @@ function DraggableCard(props: DraggableCardProps) {
         >
           {editingCard ? (
             <EditableCard
-              cardId={cardId}
+              id={id}
               index={index}
               newCard={false}
               setEditingCard={setEditingCard}

@@ -1,6 +1,8 @@
+import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
 import { TabsLayout } from "../../../../layouts/TabsLayout";
 import { Board } from "../../../../views/Board";
+import { GuestBoard } from "../../../../views/Board/GuestBoard";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
@@ -18,16 +20,21 @@ const tabs = [
   },
 ];
 
-const FeaturesPage: NextPageWithLayout = () => {
+const TasksPage: NextPageWithLayout = () => {
+  const { status } = useSession();
   return (
     <>
-      <Board activeTab="tasks" />
+      {status === "authenticated" ? (
+        <Board activeTab="tasks" />
+      ) : (
+        <GuestBoard activeTab="tasks" />
+      )}
     </>
   );
 };
 
-FeaturesPage.getLayout = function getLayout(page: ReactElement) {
+TasksPage.getLayout = function getLayout(page: ReactElement) {
   return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
 };
 
-export default FeaturesPage;
+export default TasksPage;

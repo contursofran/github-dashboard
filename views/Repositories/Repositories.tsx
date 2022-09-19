@@ -1,4 +1,6 @@
 import { SimpleGrid, Title } from "@mantine/core";
+import { useSession } from "next-auth/react";
+import { guestUser } from "../../utils/data";
 import { Card } from "./components/Card";
 import { SkeletonCard } from "./components/SkeletonCard";
 import { useRepositories, Visibility } from "./hooks/useRepositories";
@@ -10,6 +12,7 @@ function Repositories({ visibility }: { visibility: Visibility }) {
   const { classes } = useStyles();
   const { filterRepositories, mapRepositories, repositories, status } =
     useRepositories(visibility);
+  const user = useSession();
 
   const getSkeletons = () => {
     const skeletons = [];
@@ -20,6 +23,36 @@ function Repositories({ visibility }: { visibility: Visibility }) {
 
     return skeletons;
   };
+
+  if (user.status === "unauthenticated") {
+    return (
+      <div className={classes.content}>
+        <SimpleGrid
+          breakpoints={[
+            { minWidth: 1780, cols: 3, spacing: 40 },
+            { minWidth: 1210, cols: 2, spacing: 40 },
+            { minWidth: 0, cols: 1, spacing: 30 },
+          ]}
+          className={classes.grid}
+          cols={3}
+        >
+          {guestUser.repositories.map(
+            (repo) =>
+              repo.visibility === visibility && (
+                <Card
+                  key={repo.name}
+                  language={repo.language}
+                  lastUpdated={repo.pushed_at}
+                  text={repo.description}
+                  title={repo.name}
+                  visibility={repo.visibility}
+                />
+              )
+          )}
+        </SimpleGrid>
+      </div>
+    );
+  }
 
   if (status === "loading" || repositories.length === 0) {
     return (

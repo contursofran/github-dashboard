@@ -8,7 +8,7 @@ import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 
 interface Props {
-  cardId?: string;
+  id: string;
   index: number;
   newCard: boolean;
   setEditingCard: (arg0: boolean) => void;
@@ -18,22 +18,16 @@ interface Props {
   type: Type;
 }
 
-function EditableCard({
-  cardId = "",
-  tag = "",
-  text = "",
-  title = "",
-  ...props
-}: Props) {
+function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
+  const { id, index, newCard, setEditingCard, type } = props;
+
   const { classes } = useStyles();
   const [tagForm, setTagForm] = useState(tag);
   const [titleForm, setTitleForm] = useState(title);
   const [textForm, setTextForm] = useState(text);
   const focusTrapRef = useFocusTrap();
   const ref = useClickOutside(() => handleClickOutside());
-  const card = useCard(props.setEditingCard);
-
-  const { index, newCard, type } = props;
+  const card = useCard(setEditingCard);
 
   const handleClickOutside = async () => {
     if (newCard && titleForm?.length > 0) {
@@ -41,7 +35,7 @@ function EditableCard({
         tagForm: tagForm ? tagForm : "",
         textForm: textForm ? textForm : "",
         titleForm: titleForm,
-        cardId,
+        id: id,
         index: index,
         type: type,
       });
@@ -50,7 +44,7 @@ function EditableCard({
         tagForm,
         textForm,
         titleForm,
-        cardId,
+        id: id,
         index: index,
         type: type,
       });
@@ -89,12 +83,11 @@ function EditableCard({
                 onChange={(e) => setTagForm(e.currentTarget.value)}
               />
               <IconTrash
-                color="gray"
                 size={25}
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  props.setEditingCard(false);
-                  card.deleteCard({ cardId, type: type });
+                  setEditingCard(false);
+                  card.deleteCard({ id: id, type: type });
                 }}
               />
             </div>

@@ -46,9 +46,9 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {itemsList.map((item, index) => (
                 <DraggableCard
-                  cardId={item.id}
                   description={item.description}
-                  id={id}
+                  draggableId={id}
+                  id={item.id}
                   index={index}
                   key={index.toString()}
                   tag={item.tag}

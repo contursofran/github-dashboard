@@ -1,32 +1,40 @@
+import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
-import { MainLayout } from "../../../../layouts/MainLayout";
+import { TabsLayout } from "../../../../layouts/TabsLayout";
+import { Board } from "../../../../views/Board";
+import { GuestBoard } from "../../../../views/Board/GuestBoard";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
   {
-    link: "/repositories/public/[project]/features",
+    link: "/repositories/public/[repository]/features",
     label: "Features",
   },
   {
-    link: "/repositories/public/[project]/tasks",
+    link: "/repositories/public/[repository]/tasks",
     label: "Tasks",
   },
   {
-    link: "/repositories/public/[project]/issues",
+    link: "/repositories/public/[repository]/issues",
     label: "Issues",
   },
 ];
 
-const Home: NextPageWithLayout = () => {
-  return <>tasks</>;
-};
-
-Home.getLayout = function getLayout(page: ReactElement) {
+const TasksPage: NextPageWithLayout = () => {
+  const { status } = useSession();
   return (
-    <MainLayout currentPage="Repositories/Public/[project]/tasks" tabs={tabs}>
-      {page}{" "}
-    </MainLayout>
+    <>
+      {status === "authenticated" ? (
+        <Board activeTab="tasks" />
+      ) : (
+        <GuestBoard activeTab="tasks" />
+      )}
+    </>
   );
 };
 
-export default Home;
+TasksPage.getLayout = function getLayout(page: ReactElement) {
+  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
+};
+
+export default TasksPage;

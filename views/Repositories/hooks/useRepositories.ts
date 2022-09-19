@@ -8,7 +8,8 @@ export type Visibility = "public" | "private" | "none";
 
 function useRepositories(visibility: Visibility) {
   const [repositories, setRepositories] = useState<UserRepositories>([]);
-  const { data: token, status } = trpc.useQuery(["auth.getToken"]);
+  const { data, status } = trpc.useQuery(["auth.getToken"]);
+  const token = data?.accounts[0].access_token;
 
   useEffect(() => {
     if (visibility === "public") {
@@ -19,20 +20,22 @@ function useRepositories(visibility: Visibility) {
   }, [visibility]);
 
   useEffect(() => {
-    const fetchRepositories = async (accessToken: string | null) => {
-      const octokit = new Octokit({ auth: accessToken });
-      const repositories = await octokit
-        .request("GET /user/repos", {})
-        .then((res) => res.data)
-        .catch((err) => console.log(err));
+    if (token) {
+      const fetchRepositories = async (accessToken: string | null) => {
+        const octokit = new Octokit({ auth: accessToken });
+        const repositories = await octokit
+          .request("GET /user/repos", {})
+          .then((res) => res.data)
+          .catch((err) => console.log(err));
 
-      if (repositories) {
-        setRepositories(repositories);
+        if (repositories) {
+          setRepositories(repositories);
+        }
+      };
+
+      if (status === "success" && token) {
+        fetchRepositories(token);
       }
-    };
-
-    if (status === "success" && token) {
-      fetchRepositories(token.access_token);
     }
   }, [status, token]);
 

@@ -1,6 +1,8 @@
+import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
 import { TabsLayout } from "../../../../layouts/TabsLayout";
 import { Board } from "../../../../views/Board";
+import { GuestBoard } from "../../../../views/Board/GuestBoard";
 import { NextPageWithLayout } from "../../../_app";
 
 const tabs = [
@@ -19,9 +21,14 @@ const tabs = [
 ];
 
 const IssuesPage: NextPageWithLayout = () => {
+  const { status } = useSession();
   return (
     <>
-      <Board activeTab="issues" />
+      {status === "authenticated" ? (
+        <Board activeTab="issues" />
+      ) : (
+        <GuestBoard activeTab="issues" />
+      )}
     </>
   );
 };
