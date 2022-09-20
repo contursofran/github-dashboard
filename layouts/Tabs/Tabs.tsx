@@ -1,14 +1,14 @@
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Tab } from "../../components/Tabs";
-import { useStyles } from "./TabsLayout.styles";
+import { useStyles } from "./Tabs.styles";
 
 interface Props {
   children: React.ReactNode;
   tabs: Tab[];
 }
 
-function TabsLayout({ children, tabs }: Props) {
+function Tabs({ children, tabs }: Props) {
   const { classes } = useStyles();
 
   return (
@@ -23,4 +23,4 @@ function TabsLayout({ children, tabs }: Props) {
   );
 }
 
-export { TabsLayout };
+export { Tabs };

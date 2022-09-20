@@ -3,14 +3,14 @@ import React from "react";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Tab } from "../../components/Tabs";
-import { useStyles } from "./MainLayout.styles";
+import { useStyles } from "./Main.styles";
 
 interface Props {
   children: React.ReactNode;
   tabs?: Tab[];
 }
 
-function MainLayout({ children, tabs }: Props) {
+function Main({ children, tabs }: Props) {
   const { classes } = useStyles();
 
   return (
@@ -35,4 +35,4 @@ function MainLayout({ children, tabs }: Props) {
   );
 }
 
-export { MainLayout };
+export { Main };

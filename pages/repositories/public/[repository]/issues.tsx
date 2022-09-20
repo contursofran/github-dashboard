@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { ReactElement } from "react";
-import { TabsLayout } from "../../../../layouts/TabsLayout";
+import { Tabs } from "../../../../layouts/Tabs";
 import { Board } from "../../../../views/Board";
 import { GuestBoard } from "../../../../views/Board/GuestBoard";
 import { NextPageWithLayout } from "../../../_app";
@@ -34,7 +34,7 @@ const IssuesPage: NextPageWithLayout = () => {
 };
 
 IssuesPage.getLayout = function getLayout(page: ReactElement) {
-  return <TabsLayout tabs={tabs}>{page} </TabsLayout>;
+  return <Tabs tabs={tabs}>{page} </Tabs>;
 };
 
 export default IssuesPage;

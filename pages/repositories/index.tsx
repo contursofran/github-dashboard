@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { TabsLayout } from "../../layouts/TabsLayout";
+import { Tabs } from "../../layouts/Tabs";
 import { Repositories } from "../../views/Repositories";
 import { NextPageWithLayout } from "../_app";
 
@@ -23,7 +23,7 @@ const PublicRepositoriesPage: NextPageWithLayout = () => {
 };
 
 PublicRepositoriesPage.getLayout = function getLayout(page: ReactElement) {
-  return <TabsLayout tabs={tabs}>{page}</TabsLayout>;
+  return <Tabs tabs={tabs}>{page}</Tabs>;
 };
 
 export default PublicRepositoriesPage;
