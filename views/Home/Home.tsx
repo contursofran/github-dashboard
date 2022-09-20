@@ -1,25 +1,18 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Paper } from "@mantine/core";
 import { useEffect } from "react";
-import { Login } from "../../components/Navbar/Login";
 import { useStore } from "../../store";
-import { useStyles } from "./Home.styles";
+import { useGetUserEvents } from "./hooks/useGetUserEvents";
 
 function Home() {
-  const { data: session, status } = useSession();
+  const { userEvents } = useGetUserEvents();
 
   useEffect(() => {
     useStore.setState({ currentPage: "Home" });
   }, []);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
-      {session?.user
-        ? `Welcome back ${session.user}`
-        : "Welcome please sign in"}
+      <Paper withBorder style={{ width: "300px", height: "300px" }}></Paper>
     </>
   );
 }

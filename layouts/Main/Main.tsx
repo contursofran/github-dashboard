@@ -18,18 +18,7 @@ function Main({ children, tabs }: Props) {
       <Navbar />
       <div className={classes.body}>
         <Header tabs={tabs} />
-        <div className={classes.content}>
-          <SimpleGrid
-            breakpoints={[
-              { minWidth: 1780, cols: 3, spacing: 40 },
-              { minWidth: 1210, cols: 2, spacing: 40 },
-              { minWidth: 0, cols: 1, spacing: 30 },
-            ]}
-            cols={3}
-          >
-            {children}
-          </SimpleGrid>
-        </div>
+        <div className={classes.content}>{children}</div>
       </div>
     </div>
   );

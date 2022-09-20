@@ -16,10 +16,11 @@ const useStyles = createStyles((theme) => ({
     height: "40px",
   },
   hover: {
-    color: theme.colors.gray[4],
+    color: theme.colors.dark[6],
+    backgroundColor: theme.colors.gray[4],
     "&:hover": {
-      backgroundColor: theme.colors.dark[9],
-      color: "white",
+      backgroundColor: theme.colors.gray[3],
+      color: theme.colors.dark[9],
     },
   },
 }));

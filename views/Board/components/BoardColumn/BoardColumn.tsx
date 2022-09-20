@@ -31,7 +31,6 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
   const [scrollHeight, setScrollHeight] = useState(700);
 
   const counter = loading ? "?" : itemsList.length;
-
   useEffect(() => {
     setScrollHeight(height - 100);
   }, [height]);

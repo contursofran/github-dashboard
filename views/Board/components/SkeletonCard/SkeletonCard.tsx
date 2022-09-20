@@ -9,13 +9,15 @@ function SkeletonCard() {
       withBorder
       className={classes.root}
       mb={20}
+      ml={27}
+      mr={20}
       p="md"
       radius="md"
       shadow="md"
     >
-      <Group align="center" mb="xs" position="apart" style={{ width: "330px" }}>
-        <Group>
-          <Group style={{ width: "250px" }}>
+      <Group align="center" mb="xs" position="apart">
+        <Group style={{ width: "100%" }}>
+          <Group style={{ width: "100%" }}>
             <Skeleton width="50%">
               <Text size={"md"} weight={600}>
                 {"title"}

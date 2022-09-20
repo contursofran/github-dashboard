@@ -1,4 +1,4 @@
-import { Button, Modal } from "@mantine/core";
+import { Button, Modal, Paper } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -17,6 +17,7 @@ function Login({ close, opened }: LoginProps) {
     <Modal
       centered
       opened={opened}
+      overlayBlur={3}
       styles={{
         close: {
           alignItems: "start",
@@ -38,8 +39,9 @@ function Login({ close, opened }: LoginProps) {
           classNames={{
             root: classes.root,
           }}
-          color="dark.9"
+          color="dark"
           leftIcon={<IconBrandGithub />}
+          variant="outline"
           onClick={() => signIn("github")}
         >
           Continue with GitHub
