@@ -105,8 +105,8 @@ function DraggableCard(props: DraggableCardProps) {
                   </Group>
                 </Group>
                 <IconPencil
+                  className={classes.icon}
                   size={22}
-                  style={{ cursor: "pointer" }}
                   onClick={() => setEditingCard(true)}
                 />
               </Group>

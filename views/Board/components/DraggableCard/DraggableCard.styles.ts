@@ -13,6 +13,10 @@ const useStyles = createStyles((theme) => ({
   cardDragging: {
     boxShadow: theme.shadows.sm,
   },
+  icon: {
+    cursor: "pointer",
+    "&:hover": { color: "white" },
+  },
 }));
 
 export { useStyles };

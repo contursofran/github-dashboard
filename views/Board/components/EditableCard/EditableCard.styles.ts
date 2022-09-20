@@ -29,6 +29,10 @@ const useStyles = createStyles((theme) => ({
     },
   },
   textArea: { width: "100%" },
+  icon: {
+    cursor: "pointer",
+    "&:hover": { color: "white" },
+  },
 }));
 
 export { useStyles };

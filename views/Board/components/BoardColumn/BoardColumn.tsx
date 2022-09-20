@@ -28,13 +28,13 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
   const { height, ref } = useElementSize();
-  const [scrollHeight, setScrollHeight] = useState(0);
+  const [scrollHeight, setScrollHeight] = useState(700);
 
   const counter = loading ? "?" : itemsList.length;
 
   useEffect(() => {
     setScrollHeight(height - 100);
-  }, []);
+  }, [height]);
 
   return (
     <Paper withBorder className={classes.root} radius="md" ref={ref}>

@@ -1,9 +1,12 @@
 import { Card, Stack, Textarea, TextInput } from "@mantine/core";
-import { useClickOutside, useFocusTrap } from "@mantine/hooks";
+import {
+  getHotkeyHandler,
+  useClickOutside,
+  useFocusTrap,
+} from "@mantine/hooks";
 import { Type } from "@prisma/client";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
-
 import { useCard } from "../../hooks/useCard";
 import { useStyles } from "./EditableCard.styles";
 
@@ -59,6 +62,8 @@ function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
         <Card
           withBorder
           className={classes.root}
+          ml={25}
+          mr={17}
           p="md"
           radius="md"
           ref={focusTrapRef}
@@ -73,6 +78,10 @@ function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
                 placeholder={title ? title : "Title"}
                 value={titleForm}
                 onChange={(e) => setTitleForm(e.currentTarget.value)}
+                onKeyDown={getHotkeyHandler([
+                  ["Enter", handleClickOutside],
+                  ["Escape", () => setEditingCard(false)],
+                ])}
               />
               <TextInput
                 aria-label="Tag"
@@ -81,10 +90,14 @@ function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
                 placeholder={tag ? tag : "Tag"}
                 value={tagForm}
                 onChange={(e) => setTagForm(e.currentTarget.value)}
+                onKeyDown={getHotkeyHandler([
+                  ["Enter", handleClickOutside],
+                  ["Escape", () => setEditingCard(false)],
+                ])}
               />
               <IconTrash
+                className={classes.icon}
                 size={25}
-                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setEditingCard(false);
                   card.deleteCard({ id: id, type: type });
@@ -100,6 +113,10 @@ function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
               placeholder={text ? text : "Text"}
               value={textForm}
               onChange={(e) => setTextForm(e.currentTarget.value)}
+              onKeyDown={getHotkeyHandler([
+                ["Enter", handleClickOutside],
+                ["Escape", () => setEditingCard(false)],
+              ])}
             />
           </Stack>
         </Card>
