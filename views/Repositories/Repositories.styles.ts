@@ -7,6 +7,7 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    height: "100%",
   },
   grid: {
     padding: theme.spacing.xl,
