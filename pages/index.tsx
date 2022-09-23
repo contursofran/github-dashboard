@@ -1,14 +1,14 @@
 import { ReactElement } from "react";
 import { Main } from "../layouts/Main";
-import { Home } from "../views/Home";
+import { Overview } from "../views/Overview";
 import { NextPageWithLayout } from "./_app";
 
-const HomePage: NextPageWithLayout = () => {
-  return <Home />;
+const OverviewPage: NextPageWithLayout = () => {
+  return <Overview />;
 };
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
+OverviewPage.getLayout = function getLayout(page: ReactElement) {
   return <Main>{page}</Main>;
 };
 
-export default HomePage;
+export default OverviewPage;

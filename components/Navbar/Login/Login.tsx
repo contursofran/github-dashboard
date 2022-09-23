@@ -1,4 +1,4 @@
-import { Button, Modal, Paper } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { signIn } from "next-auth/react";
 import Image from "next/image";

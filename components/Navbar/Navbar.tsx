@@ -7,8 +7,8 @@ import {
 } from "@mantine/core";
 import { upperFirst, useDisclosure } from "@mantine/hooks";
 import {
+  IconBook,
   IconBrandGithub,
-  IconHome,
   IconLogout,
   IconSettings,
 } from "@tabler/icons";
@@ -23,8 +23,8 @@ import { useStyles } from "./Navbar.styles";
 const data = [
   {
     link: "/",
-    label: "Home",
-    icon: IconHome,
+    label: "Overview",
+    icon: IconBook,
   },
   {
     link: "/repositories",

@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
       authorization: {
         params: {
           // I wish to request additional permission scopes.
-          scope: "repo user",
+          scope: "read:user user:email repo",
         },
       },
     }),

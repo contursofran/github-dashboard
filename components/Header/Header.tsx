@@ -24,9 +24,23 @@ function Header({ tabs }: Props) {
     }
   }, [pathname, push]);
 
+  // upperFirst(query.repository as string);
+  const getTitle = () => {
+    switch (pathname) {
+      case "/repositories/public":
+        return "Public repositories";
+      case "/repositories/private":
+        return "Private repositories";
+      case "/":
+        return "Overview";
+      default:
+        return upperFirst(query.repository as string);
+    }
+  };
+
   return (
     <Group align="center" className={classes.header}>
-      <Title order={3}>{upperFirst(query.repository as string)}</Title>
+      <Title order={3}>{getTitle()}</Title>
       {tabs && <Tabs tabs={tabs} />}
     </Group>
   );
