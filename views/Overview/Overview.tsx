@@ -1,6 +1,8 @@
+import { Group } from "@mantine/core";
 import { useEffect } from "react";
 import { useStore } from "../../store";
 import { trpc } from "../../utils/trpc";
+import { Contributions } from "./components/Contributions";
 import { Timeline } from "./components/Timeline";
 
 import { useStyles } from "./Overview.styles";
@@ -15,7 +17,10 @@ function Overview() {
 
   return (
     <div className={classes.root}>
-      <Timeline username={username} />
+      <Group sx={{ height: "100%" }}>
+        <Contributions username={username} />
+        <Timeline username={username} />
+      </Group>
     </div>
   );
 }
