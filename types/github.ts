@@ -1,3 +1,5 @@
+import { Endpoints } from "@octokit/types";
+
 export type Scalars = {
   Boolean: boolean;
   Date: any;

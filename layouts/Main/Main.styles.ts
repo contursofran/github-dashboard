@@ -19,6 +19,7 @@ const useStyles = createStyles((theme) => ({
   content: {
     alignSelf: "stretch",
     padding: "0.5rem",
+    flexGrow: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
