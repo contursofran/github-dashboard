@@ -39,7 +39,7 @@ function Navbar() {
   const [login, loginHandler] = useDisclosure(false);
   const { route } = useRouter();
   const [active, setActive] = useState(
-    route === "/" ? "Home" : upperFirst(route.split("/")[1])
+    route === "/" ? "Overview" : upperFirst(route.split("/")[1])
   );
 
   const links = data.map((item) =>

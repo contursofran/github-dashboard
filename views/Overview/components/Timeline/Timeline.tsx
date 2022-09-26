@@ -1,28 +1,25 @@
 import {
   Paper,
   ScrollArea,
+  Skeleton,
   Stack,
   Timeline as TimelineMantine,
   Title,
 } from "@mantine/core";
-import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { commitEvent, issueEvent, pullEvent, starEvent } from "../TimelineItem";
 import { useStyles } from "./Timeline.styles";
 
 function Timeline({ username }: { username: string | undefined }) {
-  const { classes } = useStyles();
-  const { height, ref } = useElementSize();
-  const [scrollHeight, setScrollHeight] = useState(700);
-
   // use of any is required because the types are incorrect in the library
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [events, setEvents] = useState<any[]>([]);
-
+  const { classes } = useStyles();
   const { data } = trpc.useQuery(["github.getUserEvents", { username }], {
     enabled: !!username,
   });
+  const skeletonItems = Array.from(Array(5).keys());
 
   useEffect(() => {
     if (data) {
@@ -30,37 +27,27 @@ function Timeline({ username }: { username: string | undefined }) {
     }
   }, [data]);
 
-  useEffect(() => {
-    setScrollHeight(height - 50);
-  }, [height]);
-
-  if (!events) {
+  if (!data) {
     return (
-      <Paper withBorder className={classes.card} p="lg" radius="md" ref={ref}>
+      <Paper withBorder className={classes.card} p="lg" radius="md">
         <Stack>
           <Title order={4}>Last activity</Title>
-          <ScrollArea
-            classNames={{
-              thumb: classes.scrollBarThumb,
-              scrollbar: classes.scrollBar,
-              root: classes.scrollBarRoot,
-            }}
-            pr="xs"
-            scrollHideDelay={500}
-            style={{ height: scrollHeight }}
-          >
-            <TimelineMantine m="xs">
-              <TimelineMantine.Item title="Loading..." />
-            </TimelineMantine>
-          </ScrollArea>
+          {skeletonItems.map(() => (
+            <>
+              <Skeleton height="20px" width="35%" />
+              <Skeleton height="20px" width="100%" />
+              <Skeleton height="20px" width="100%" />
+              <Skeleton height="20px" mb={8} width="30%" />
+            </>
+          ))}
         </Stack>
       </Paper>
     );
   }
   return (
     <>
-      <Paper withBorder className={classes.card} p="lg" radius="md" ref={ref}>
-        <Stack>
+      <Paper withBorder className={classes.card} p="lg" radius="md">
+        <Stack sx={{ height: "100%" }}>
           <Title order={4}>Last activity</Title>
           <ScrollArea
             classNames={{
@@ -70,7 +57,7 @@ function Timeline({ username }: { username: string | undefined }) {
             }}
             pr="xs"
             scrollHideDelay={500}
-            style={{ height: scrollHeight }}
+            style={{ flex: "1 1 0" }}
           >
             <TimelineMantine m="xs">
               {events.map((event) => {
