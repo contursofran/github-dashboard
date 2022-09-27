@@ -84,10 +84,17 @@ export const githubRouter = createRouter()
                   contributionDays {
                     color
                     contributionCount
+                    contributionLevel
                     date
                     weekday
                   }
                   firstDay
+                }
+                months  {
+                  name
+                    year
+                    firstDay
+                    totalWeeks  
                 }
               }
             }
