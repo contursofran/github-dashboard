@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => ({
   card: {
     width: "73.8%",
     minWidth: "300px",
-    height: "230px",
+    height: "220px",
     backgroundColor: theme.colors.dark[8],
   },
   grid: {

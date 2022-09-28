@@ -33,5 +33,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     quotes: "off",
     "@typescript-eslint/quotes": "off",
+    "react/display-name": "off",
   },
 };

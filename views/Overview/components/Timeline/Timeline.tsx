@@ -32,13 +32,13 @@ function Timeline({ username }: { username: string | undefined }) {
       <Paper withBorder className={classes.card} p="lg" radius="md">
         <Stack>
           <Title order={4}>Last activity</Title>
-          {skeletonItems.map(() => (
-            <>
+          {skeletonItems.map((item) => (
+            <div key={item}>
               <Skeleton height="20px" width="35%" />
               <Skeleton height="20px" width="100%" />
               <Skeleton height="20px" width="100%" />
               <Skeleton height="20px" mb={8} width="30%" />
-            </>
+            </div>
           ))}
         </Stack>
       </Paper>

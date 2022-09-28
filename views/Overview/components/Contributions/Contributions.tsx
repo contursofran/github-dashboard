@@ -1,6 +1,6 @@
-import { Card, useMantineTheme } from "@mantine/core";
+import { Card, Group, Loader, Tooltip, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import { createRef, forwardRef, useEffect, useState } from "react";
 import { ContributionCalendarMonth } from "../../../../types/github";
 import { trpc } from "../../../../utils/trpc";
 import { calendarColors, useStyles } from "./Contributions.styles";
@@ -19,6 +19,8 @@ function Contributions({ username }: { username: string | undefined }) {
   const weekData = data?.weeks;
   const monthData = data?.months;
 
+  const weekLabels = ["Mon", "Wed", "Fri"];
+
   useEffect(() => {
     if (monthData) {
       const totalWeeks: number[] = [];
@@ -34,7 +36,6 @@ function Contributions({ username }: { username: string | undefined }) {
   }, [monthData]);
 
   useEffect(() => {
-    console.log(width);
     if (width) {
       setCardWidth(width);
     }
@@ -51,7 +52,7 @@ function Contributions({ username }: { username: string | undefined }) {
   };
 
   const getMonthPosition = (index: number) => {
-    const weekWidth = cardWidth / 53;
+    const weekWidth = cardWidth / 55.5;
     const weekOffset = weekWidth;
     const monthPosition = weekOffset + (totalWeeks[index] - 1) * weekWidth;
 
@@ -59,38 +60,61 @@ function Contributions({ username }: { username: string | undefined }) {
       return 21;
     }
 
+    if (!monthPosition) {
+      return 0;
+    }
+
     return monthPosition;
   };
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
-      <svg height={"100%"} width={"100%"}>
-        {monthData?.map((month, index) => (
-          <text
-            fill={colors.gray[4]}
-            key={index}
-            x={getMonthPosition(index)}
-            y={18}
-          >
-            {getMonth(index)}
-          </text>
-        ))}
-
-        {weekData?.map((week, index) =>
-          week.contributionDays.map((day) => (
-            <rect
-              fill={calendarColors[colorScheme][day.contributionLevel]}
-              height={cardWidth / 75}
-              key={day.date}
-              rx="2"
-              ry="2"
-              width={cardWidth / 75}
-              x={3 + (index * cardWidth) / 53}
-              y={30 + day.weekday * 20}
-            ></rect>
-          ))
-        )}
-      </svg>
+      {monthData ? (
+        <svg height={"100%"} width={"100%"}>
+          {monthData?.map(
+            (month, index) =>
+              index < 12 && (
+                <text
+                  fill={colors.gray[4]}
+                  key={index}
+                  x={50 + getMonthPosition(index)}
+                  y={16}
+                >
+                  {getMonth(index)}
+                </text>
+              )
+          )}
+          {weekLabels.map((label, index) => (
+            <text fill={colors.gray[4]} key={index} x={0} y={64 + 40 * index}>
+              {label}
+            </text>
+          ))}
+          {weekData?.map((week, index) =>
+            week.contributionDays.map((day) => (
+              <rect
+                data-hint={"elo"}
+                fill={calendarColors[colorScheme][day.contributionLevel]}
+                height={cardWidth / 76}
+                // ref={ref}
+                key={day.date}
+                rx="2"
+                ry="2"
+                width={cardWidth / 76}
+                x={50 + (index * cardWidth) / 55.5}
+                y={30 + day.weekday * 20}
+              >
+                <title>
+                  {day.contributionCount > 0
+                    ? day.contributionCount + " contributions on " + day.date
+                    : "No contributions"}
+                </title>
+              </rect>
+            ))
+          )}
+        </svg>
+      ) : (
+        <Loader />
+      )}
     </Card>
   );
 }
