@@ -6,9 +6,17 @@ import {
   Timeline as TimelineMantine,
   Title,
 } from "@mantine/core";
+import {
+  IconGitCommit,
+  IconGitCompare,
+  IconGitPullRequest,
+  IconGitPullRequestClosed,
+  IconStar,
+} from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
-import { commitEvent, issueEvent, pullEvent, starEvent } from "../TimelineItem";
+import { Commit, Issue, PullRequest, Star } from "./Events";
+import { Events } from "./Events/";
 import { useStyles } from "./Timeline.styles";
 
 function Timeline({ username }: { username: string | undefined }) {
@@ -27,7 +35,7 @@ function Timeline({ username }: { username: string | undefined }) {
     }
   }, [data]);
 
-  if (!data) {
+  if (!data && !events.length) {
     return (
       <Paper withBorder className={classes.card} p="lg" radius="md">
         <Stack>
@@ -59,65 +67,7 @@ function Timeline({ username }: { username: string | undefined }) {
             scrollHideDelay={500}
             style={{ flex: "1 1 0" }}
           >
-            <TimelineMantine m="xs">
-              {events.map((event) => {
-                if (event.type === "PushEvent") {
-                  return commitEvent({
-                    date: event.created_at,
-                    commit: event.payload.commits
-                      ? event.payload.commits[0].message
-                      : "",
-                    repository: event.repo.name,
-                    size: event.payload.size ? event.payload.size : 0,
-                    link:
-                      "https://github.com/" +
-                      event.repo.url.split("/")[4] +
-                      "/" +
-                      event.repo.url.split("/")[5],
-                    key: event.id,
-                  });
-                } else if (event.type === "WatchEvent") {
-                  return starEvent({
-                    date: event.created_at,
-                    repository: event.repo.name,
-                    link:
-                      "https://github.com/" +
-                      event.repo.url.split("/")[4] +
-                      "/" +
-                      event.repo.url.split("/")[5],
-                    key: event.id,
-                  });
-                } else if (event.type === "IssuesEvent") {
-                  return issueEvent({
-                    date: event.created_at,
-                    action: event.payload.action,
-                    repository: event.repo.name,
-                    link:
-                      "https://github.com/" +
-                      event.payload.issue?.url.split("/")[4] +
-                      "/" +
-                      event.payload.issue?.url.split("/")[5],
-                    key: event.id,
-                  });
-                } else if (event.type === "PullRequestEvent") {
-                  return pullEvent({
-                    date: event.created_at,
-                    action: event.payload.action,
-                    request: event.payload.pull_request
-                      ? event.payload.pull_request.title
-                      : "",
-                    link:
-                      "https://github.com/" +
-                      event.payload.pull_request?.url.split("/")[4] +
-                      "/" +
-                      event.payload.pull_request?.url.split("/")[5] +
-                      "/pull/" +
-                      event.payload.pull_request?.url.split("/")[7],
-                    key: event.id,
-                  });
-                }
-              })}
-            </TimelineMantine>
+            <Events events={events} />
           </ScrollArea>
         </Stack>
       </Paper>
