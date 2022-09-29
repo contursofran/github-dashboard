@@ -3,7 +3,7 @@ import { getDate } from "../../../utils/date";
 
 function Commit({ event }: { event: any }) {
   const size = event.payload.size ? event.payload.size : 0;
-  const date = event.create_at;
+  const date = event.created_at;
   const text = event.payload.commits ? event.payload.commits[0].message : "";
   const repository = event.repo.name;
   const link =

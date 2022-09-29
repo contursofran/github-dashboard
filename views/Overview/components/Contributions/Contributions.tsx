@@ -1,8 +1,8 @@
 import { Card, Loader, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { ContributionCalendarMonth } from "../../../../types/github";
 import { trpc } from "../../../../utils/trpc";
+import { ContributionCalendarMonth } from "../../types/github";
 import { calendarColors, useStyles } from "./Contributions.styles";
 
 function Contributions({ username }: { username: string | undefined }) {

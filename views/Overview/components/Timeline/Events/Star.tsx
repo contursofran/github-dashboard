@@ -2,7 +2,7 @@ import { Text } from "@mantine/core";
 import { getDate } from "../../../utils/date";
 
 function Star({ event }: { event: any }) {
-  const date = event.create_at;
+  const date = event.created_at;
   const repository = event.repo.name;
   const link =
     "https://github.com/" +

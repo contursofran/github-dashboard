@@ -3,7 +3,7 @@ import { getDate } from "../../../utils/date";
 
 function PullRequest({ event }: { event: any }) {
   const action = event.payload.action;
-  const date = event.create_at;
+  const date = event.created_at;
   const request = event.payload.pull_request
     ? event.payload.pull_request.title
     : "";

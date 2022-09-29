@@ -1,21 +1,6 @@
-import {
-  Paper,
-  ScrollArea,
-  Skeleton,
-  Stack,
-  Timeline as TimelineMantine,
-  Title,
-} from "@mantine/core";
-import {
-  IconGitCommit,
-  IconGitCompare,
-  IconGitPullRequest,
-  IconGitPullRequestClosed,
-  IconStar,
-} from "@tabler/icons";
+import { Paper, ScrollArea, Skeleton, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
-import { Commit, Issue, PullRequest, Star } from "./Events";
 import { Events } from "./Events/";
 import { useStyles } from "./Timeline.styles";
 

@@ -3,7 +3,7 @@ import { getDate } from "../../../utils/date";
 
 function Issue({ event }: { event: any }) {
   const action = event.payload.action;
-  const date = event.create_at;
+  const date = event.created_at;
   const repository = event.repo.name;
   const link =
     "https://github.com/" +

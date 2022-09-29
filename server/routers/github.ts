@@ -1,7 +1,10 @@
 import { Octokit } from "@octokit/core";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { ContributionsCollection, Query } from "../../types/github";
+import {
+  ContributionsCollection,
+  Query,
+} from "../../views/Overview/types/github";
 import { createRouter } from "../context";
 
 export const githubRouter = createRouter()
