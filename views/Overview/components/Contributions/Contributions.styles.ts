@@ -19,7 +19,7 @@ const calendarColors = {
 
 const useStyles = createStyles((theme) => ({
   card: {
-    width: "73.8%",
+    width: "100%",
     minWidth: "300px",
     height: "220px",
     backgroundColor: theme.colors.dark[8],

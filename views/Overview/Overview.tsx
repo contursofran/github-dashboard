@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Group, Stack } from "@mantine/core";
 import { useEffect } from "react";
 import { useStore } from "../../store";
 import { trpc } from "../../utils/trpc";
@@ -16,12 +16,14 @@ function Overview() {
   }, []);
 
   return (
-    <div className={classes.root}>
-      <Group sx={{ height: "100%" }}>
+    <Group className={classes.flex} p="2rem" position="apart">
+      <Stack className={classes.contributions}>
         <Contributions username={username} />
+      </Stack>
+      <div className={classes.timeline}>
         <Timeline username={username} />
-      </Group>
-    </div>
+      </div>
+    </Group>
   );
 }
 

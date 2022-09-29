@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    width: "25%",
+    width: "100%",
     minWidth: "300px",
     height: "100%",
     backgroundColor: theme.colors.dark[8],

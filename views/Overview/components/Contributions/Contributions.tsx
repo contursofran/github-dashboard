@@ -1,6 +1,6 @@
-import { Card, Group, Loader, Tooltip, useMantineTheme } from "@mantine/core";
+import { Card, Loader, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
-import { createRef, forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ContributionCalendarMonth } from "../../../../types/github";
 import { trpc } from "../../../../utils/trpc";
 import { calendarColors, useStyles } from "./Contributions.styles";
