@@ -22,3 +22,13 @@ export const getDate = (date: string) => {
 
   return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
 };
+
+export const getMonth = (index: number) => {
+  const currentMonth = new Date().getMonth() + 1;
+  const month = currentMonth + index;
+  const monthString = new Date(0, month).toLocaleString("default", {
+    month: "short",
+  });
+
+  return monthString;
+};

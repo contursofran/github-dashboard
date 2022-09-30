@@ -17,7 +17,7 @@ function Overview() {
 
   return (
     <Group className={classes.flex} p="2rem" position="apart">
-      <Stack className={classes.contributions}>
+      <Stack className={classes.container}>
         <Contributions username={username} />
       </Stack>
       <div className={classes.timeline}>

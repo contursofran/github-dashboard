@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   root: {
     width: "100%",
     height: "100%",
@@ -8,8 +8,9 @@ const useStyles = createStyles((theme) => ({
   },
   flex: {
     height: "100%",
+    width: "100%",
   },
-  contributions: {
+  container: {
     width: "70%",
   },
   timeline: {

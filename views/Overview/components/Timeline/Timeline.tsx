@@ -20,23 +20,24 @@ function Timeline({ username }: { username: string | undefined }) {
     }
   }, [data]);
 
-  if (!data && !events.length) {
+  if (!data) {
     return (
       <Paper withBorder className={classes.card} p="lg" radius="md">
-        <Stack>
+        <Stack sx={{ height: "100%" }}>
           <Title order={4}>Last activity</Title>
           {skeletonItems.map((item) => (
-            <div key={item}>
+            <Stack className={classes.container} key={item}>
               <Skeleton height="20px" width="35%" />
               <Skeleton height="20px" width="100%" />
               <Skeleton height="20px" width="100%" />
               <Skeleton height="20px" mb={8} width="30%" />
-            </div>
+            </Stack>
           ))}
         </Stack>
       </Paper>
     );
   }
+
   return (
     <>
       <Paper withBorder className={classes.card} p="lg" radius="md">
