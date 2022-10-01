@@ -32,3 +32,16 @@ export const getMonth = (index: number) => {
 
   return monthString;
 };
+
+export const getShortDate = (lastUpdated: string) => {
+  const date = new Date(lastUpdated);
+  const year = date.getFullYear();
+  const month = date.toLocaleString("default", { month: "short" });
+  const day = date.getDate();
+  const currentYear = new Date().getFullYear();
+
+  if (year === currentYear) {
+    return `${month} ${day + 1}`;
+  }
+  return `${month} ${day}, ${year}`;
+};

@@ -3,7 +3,7 @@ import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { ContributionCalendarMonth } from "../../types/github";
-import { getMonth } from "../../utils/date";
+import { getMonth, getShortDate } from "../../utils/date";
 import { calendarColors, useStyles } from "./Contributions.styles";
 
 function Contributions({ username }: { username: string | undefined }) {
@@ -58,6 +58,20 @@ function Contributions({ username }: { username: string | undefined }) {
     return monthPosition;
   };
 
+  const displayContributions = (day: any) => {
+    if (day.contributionCount === 0) {
+      return "No contributions on " + getShortDate(day.date);
+    } else if (day.contributionCount === 1) {
+      return (
+        day.contributionCount + " contribution on " + getShortDate(day.date)
+      );
+    } else {
+      return (
+        day.contributionCount + " contributions on " + getShortDate(day.date)
+      );
+    }
+  };
+
   if (!data) {
     return (
       <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
@@ -104,7 +118,6 @@ function Contributions({ username }: { username: string | undefined }) {
         {weekData?.map((week, index) =>
           week.contributionDays.map((day) => (
             <rect
-              data-hint={"elo"}
               fill={calendarColors[colorScheme][day.contributionLevel]}
               height={cardWidth / 76}
               key={day.date}
@@ -114,11 +127,7 @@ function Contributions({ username }: { username: string | undefined }) {
               x={50 + (index * cardWidth) / 55.5}
               y={30 + day.weekday * 20}
             >
-              <title>
-                {day.contributionCount > 0
-                  ? day.contributionCount + " contributions on " + day.date
-                  : "No contributions"}
-              </title>
+              <title>{displayContributions(day)}</title>
             </rect>
           ))
         )}
