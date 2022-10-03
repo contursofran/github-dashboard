@@ -5,6 +5,8 @@ export type Scalars = {
   String: string;
 };
 
+export type Maybe<T> = T | null;
+
 export type User = {
   __typename?: "User";
   /** Determine if this repository owner has any items that can be pinned to their profile. */
@@ -90,4 +92,47 @@ export type ContributionsCollection = {
   /** Commit contributions made by the user, grouped by repository. */
   contributionCalendar: ContributionCalendar;
   /** The years the user has been making contributions with the most recent year first. */
+};
+
+export type Language = {
+  __typename?: "Language";
+  /** The color defined for the current language. */
+  color?: Maybe<Scalars["String"]>;
+  /** The name of the current language. */
+  name: Scalars["String"];
+};
+
+/** Represents the language of a repository. */
+export type LanguageEdge = {
+  __typename?: "LanguageEdge";
+  cursor: Scalars["String"];
+  node: Language;
+  /** The number of bytes of code written in the language. */
+  size: Scalars["Int"];
+};
+
+/** A list of languages associated with the parent. */
+export type LanguageConnection = {
+  __typename?: "LanguageConnection";
+  /** A list of edges. */
+  edges?: Maybe<Array<Maybe<LanguageEdge>>>;
+  /** A list of nodes. */
+  nodes?: Maybe<Array<Maybe<Language>>>;
+  /** Identifies the total count of items in the connection. */
+  totalCount: Scalars["Int"];
+  /** The total size in bytes of files written in that language. */
+  totalSize: Scalars["Int"];
+};
+
+export type Repository = Node & {
+  __typename?: "Repository";
+  /**
+   * Whether or not a pull request head branch that is behind its base branch can
+   * always be updated even if it is not required to be up to date before merging.
+   */
+  /** A list containing a breakdown of the language composition of the repository. */
+  languages?: Maybe<LanguageConnection>;
+  /** The name of the repository. */
+  name: Scalars["String"];
+  /** The repository's name with owner. */
 };
