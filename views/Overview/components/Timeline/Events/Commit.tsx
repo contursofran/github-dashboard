@@ -1,5 +1,5 @@
 import { Text } from "@mantine/core";
-import { getDate } from "../../../utils/date";
+import { getDate } from "../../../utils/formatDates";
 
 function Commit({ event }: { event: any }) {
   const size = event.payload.size ? event.payload.size : 0;

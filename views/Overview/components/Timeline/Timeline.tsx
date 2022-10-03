@@ -7,24 +7,17 @@ import { useStyles } from "./Timeline.styles";
 function Timeline({ username }: { username: string | undefined }) {
   // use of any is required because the types are incorrect in the library
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [events, setEvents] = useState<any[]>([]);
   const { classes } = useStyles();
   const { data } = trpc.useQuery(["github.getUserEvents", { username }], {
     enabled: !!username,
   });
   const skeletonItems = Array.from(Array(5).keys());
 
-  useEffect(() => {
-    if (data) {
-      setEvents(data);
-    }
-  }, [data]);
-
   if (!data) {
     return (
       <Paper withBorder className={classes.card} p="lg" radius="md">
         <Stack sx={{ height: "100%" }}>
-          <Title order={4}>Last activity</Title>
+          <Title size={18}>Last activity</Title>
           {skeletonItems.map((item) => (
             <Stack className={classes.container} key={item}>
               <Skeleton height="20px" width="35%" />
@@ -42,7 +35,7 @@ function Timeline({ username }: { username: string | undefined }) {
     <>
       <Paper withBorder className={classes.card} p="lg" radius="md">
         <Stack sx={{ height: "100%" }}>
-          <Title order={4}>Last activity</Title>
+          <Title size={18}>Last activity</Title>
           <ScrollArea
             classNames={{
               thumb: classes.scrollBarThumb,
@@ -53,7 +46,7 @@ function Timeline({ username }: { username: string | undefined }) {
             scrollHideDelay={500}
             style={{ flex: "1 1 0" }}
           >
-            <Events events={events} />
+            <Events events={data} />
           </ScrollArea>
         </Stack>
       </Paper>

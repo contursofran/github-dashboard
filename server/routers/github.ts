@@ -4,8 +4,19 @@ import { z } from "zod";
 import {
   ContributionsCollection,
   Query,
+  Repository,
 } from "../../views/Overview/types/github";
 import { createRouter } from "../context";
+
+interface UserTopLanguages {
+  data: {
+    user: {
+      repositories: {
+        nodes: Repository[];
+      };
+    };
+  };
+}
 
 export const githubRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
@@ -141,6 +152,54 @@ export const githubRouter = createRouter()
           .catch((err) => console.log(err));
 
         return events;
+      }
+    },
+  })
+  .query("getUserTopLanguages", {
+    input: z.object({
+      username: z.string().nullable().optional(),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { username } = input;
+
+      const token = ctx.token;
+
+      const headers = {
+        Authorization: `bearer ${token}`,
+      };
+
+      const body = {
+        query: `query {
+          user(login: "${username}") {
+            # fetch only owner repos & not forks
+            repositories(ownerAffiliations: OWNER, isFork: false, first: 100) {
+              nodes {
+                name
+                languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+                  edges {
+                    size
+                    node {
+                      color
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }`,
+      };
+
+      const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: headers,
+      });
+
+      if (res.ok) {
+        const data: UserTopLanguages = await res.json();
+        return data.data.user.repositories.nodes;
       }
     },
   });

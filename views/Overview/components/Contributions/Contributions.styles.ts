@@ -22,6 +22,7 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
     minWidth: "700px",
     height: "220px",
+    minHeight: "220px",
     backgroundColor: theme.colors.dark[8],
   },
   grid: {

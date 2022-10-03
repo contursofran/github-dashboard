@@ -1,9 +1,16 @@
-import { Card, Group, Skeleton, Stack, useMantineTheme } from "@mantine/core";
+import {
+  Card,
+  Group,
+  Skeleton,
+  Stack,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { ContributionCalendarMonth } from "../../types/github";
-import { getMonth, getShortDate } from "../../utils/date";
+import { getMonth, getShortDate } from "../../utils/formatDates";
 import { calendarColors, useStyles } from "./Contributions.styles";
 
 function Contributions({ username }: { username: string | undefined }) {

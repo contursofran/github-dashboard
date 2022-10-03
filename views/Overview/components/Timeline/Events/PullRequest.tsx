@@ -1,5 +1,5 @@
 import { Text } from "@mantine/core";
-import { getDate } from "../../../utils/date";
+import { getDate } from "../../../utils/formatDates";
 
 function PullRequest({ event }: { event: any }) {
   const action = event.payload.action;

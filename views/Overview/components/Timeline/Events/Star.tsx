@@ -1,5 +1,5 @@
 import { Text } from "@mantine/core";
-import { getDate } from "../../../utils/date";
+import { getDate } from "../../../utils/formatDates";
 
 function Star({ event }: { event: any }) {
   const date = event.created_at;
