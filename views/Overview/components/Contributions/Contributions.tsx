@@ -52,8 +52,11 @@ function Contributions({ username }: { username: string | undefined }) {
   // TODO: fix month position
   const getMonthPosition = (index: number) => {
     const weekWidth = cardWidth / 55.5;
-    const weekOffset = weekWidth;
-    const monthPosition = weekOffset + (totalWeeks[index] - 1) * weekWidth;
+    const monthPosition = totalWeeks[index] * weekWidth;
+
+    if (index === 11 && monthPosition > 950) {
+      return monthPosition - weekWidth * 52;
+    }
 
     if (monthPosition === 0) {
       return 21;
