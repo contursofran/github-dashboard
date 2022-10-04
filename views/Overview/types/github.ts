@@ -134,5 +134,37 @@ export type Repository = Node & {
   languages?: Maybe<LanguageConnection>;
   /** The name of the repository. */
   name: Scalars["String"];
-  /** The repository's name with owner. */
+  // repository stars
+  stargazers: {
+    totalCount: Scalars["Int"];
+  };
+};
+
+export type UserStatistics = {
+  __typename?: "UserStats";
+  closedIssues: {
+    totalCount: Scalars["Int"];
+  };
+  contributionsCollection: {
+    restrictedContributionsCount: Scalars["Int"];
+    totalCommitContributions: Scalars["Int"];
+  };
+  followers: {
+    totalCount: Scalars["Int"];
+  };
+  login: Scalars["String"];
+  name: Scalars["String"];
+  openIssues: {
+    totalCount: Scalars["Int"];
+  };
+  pullRequests: {
+    totalCount: Scalars["Int"];
+  };
+  repositories: {
+    nodes: Array<Repository>;
+    totalCount: Scalars["Int"];
+  };
+  repositoriesContributedTo: {
+    totalCount: Scalars["Int"];
+  };
 };

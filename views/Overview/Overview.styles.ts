@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
   root: {
     width: "100%",
     height: "100%",
@@ -12,10 +12,18 @@ const useStyles = createStyles(() => ({
   },
   container: {
     width: "70%",
+    height: "100%",
+    gap: "2.5rem",
   },
   timeline: {
     width: "27%",
     height: "100%",
+  },
+  card: {
+    width: "100%",
+    minHeight: "230px",
+    height: "100%",
+    backgroundColor: theme.colors.dark[8],
   },
 }));
 

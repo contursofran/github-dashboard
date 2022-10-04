@@ -5,6 +5,7 @@ import {
   ContributionsCollection,
   Query,
   Repository,
+  UserStatistics,
 } from "../../views/Overview/types/github";
 import { createRouter } from "../context";
 
@@ -15,6 +16,12 @@ interface UserTopLanguages {
         nodes: Repository[];
       };
     };
+  };
+}
+
+interface UserStats {
+  data: {
+    user: UserStatistics;
   };
 }
 
@@ -200,6 +207,69 @@ export const githubRouter = createRouter()
       if (res.ok) {
         const data: UserTopLanguages = await res.json();
         return data.data.user.repositories.nodes;
+      }
+    },
+  })
+  .query("getUserStats", {
+    input: z.object({
+      username: z.string().nullable().optional(),
+    }),
+
+    async resolve({ ctx, input }) {
+      const { username } = input;
+
+      const token = ctx.token;
+
+      const headers = {
+        Authorization: `bearer ${token}`,
+      };
+
+      const body = {
+        query: `query {
+        user(login: "${username}") {
+          name
+          login
+          contributionsCollection {
+            totalCommitContributions
+            restrictedContributionsCount
+          }
+          repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) {
+            totalCount
+          }
+          pullRequests(first: 1) {
+            totalCount
+          }
+          openIssues: issues(states: OPEN) {
+            totalCount
+          }
+          closedIssues: issues(states: CLOSED) {
+            totalCount
+          }
+          followers {
+            totalCount
+          }
+          repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}) {
+            totalCount
+            nodes {
+              name
+              stargazers {
+                totalCount
+              }
+            }
+          }
+      }
+    }`,
+      };
+
+      const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: headers,
+      });
+
+      if (res.ok) {
+        const data: UserStats = await res.json();
+        return data.data.user;
       }
     },
   });

@@ -49,6 +49,7 @@ function Contributions({ username }: { username: string | undefined }) {
     }
   }, [width]);
 
+  // TODO: fix month position
   const getMonthPosition = (index: number) => {
     const weekWidth = cardWidth / 55.5;
     const weekOffset = weekWidth;
@@ -103,6 +104,9 @@ function Contributions({ username }: { username: string | undefined }) {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
+      <Title pb={"lg"} size={18}>
+        Total contributions
+      </Title>
       <svg height={"100%"} width={"100%"}>
         {monthData?.map(
           (month, index) =>

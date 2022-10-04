@@ -28,7 +28,6 @@ function TopLanguages({ username }: { username: string | undefined }) {
   useEffect(() => {
     if (data) {
       setLanguages(filterLanguages(data));
-      console.log(languages);
     }
   }, [data]);
 
