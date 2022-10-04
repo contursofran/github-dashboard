@@ -9,6 +9,13 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import {
+  IconAlertCircle,
+  IconBook,
+  IconGitCommit,
+  IconGitPullRequest,
+  IconStar,
+} from "@tabler/icons";
 import { Fragment, useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { filterStats } from "../../utils/filterStats";
@@ -19,19 +26,34 @@ interface Rank {
   score: number;
 }
 
-const labels = [
-  "Total Stars Earned:",
-  "Total Commits:",
-  "Total PRs:",
-  "Total Issues:",
-  "Contributed to:",
-];
-
 function Stats({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
   const { data } = trpc.useQuery(["github.getUserStats", { username }]);
+
+  const labels = [
+    {
+      label: "Total Stars Earned:",
+      icon: <IconStar className={classes.icon} size={20} />,
+    },
+    {
+      label: "Total Commits:",
+      icon: <IconGitCommit className={classes.icon} size={20} />,
+    },
+    {
+      label: "Total Issues:",
+      icon: <IconAlertCircle className={classes.icon} size={20} />,
+    },
+    {
+      label: "Total PRs:",
+      icon: <IconGitPullRequest className={classes.icon} size={20} />,
+    },
+    {
+      label: "Contributed to:",
+      icon: <IconBook className={classes.icon} size={20} />,
+    },
+  ];
 
   useEffect(() => {
     if (data) {
@@ -44,14 +66,14 @@ function Stats({ username }: { username: string | undefined }) {
   if (!data || !values) {
     return (
       <Card withBorder className={classes.card} p="lg" radius="md">
-        <Stack justify="space-between" sx={{ height: "100%" }}>
+        <Stack justify="center" sx={{ height: "100%" }}>
           <Title size={18}>Github Stats</Title>
           <Group>
             <Stack
               justify="space-between"
               sx={{ height: "100%", width: "58%" }}
             >
-              <SimpleGrid cols={1}>
+              <SimpleGrid cols={1} spacing="xs">
                 <Skeleton height={20} width={"65%"} />
                 <Skeleton height={20} width={"65%"} />
                 <Skeleton height={20} width={"65%"} />
@@ -70,39 +92,44 @@ function Stats({ username }: { username: string | undefined }) {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
-      <Stack justify="space-between" sx={{ height: "100%" }}>
-        <Title size={18}>Github Stats</Title>
-        <Group>
-          <Stack justify="space-between" sx={{ height: "100%" }}>
-            <SimpleGrid cols={2}>
-              {labels.map((label, index) => (
-                <Fragment key={label}>
+      {/* <Stack justify="center" sx={{ height: "100%" }}> */}
+      <Title pb={"xs"} size={18}>
+        Github Stats
+      </Title>
+      <Group>
+        <Stack sx={{ height: "50%", width: "45%" }}>
+          <div className={classes.grid}>
+            {labels.map((label, index) => (
+              <Fragment key={label.label}>
+                <Group>
+                  {label.icon}
                   <Text color="dimmed" size="sm">
-                    {label}
+                    {label.label}
                   </Text>
-                  <Text color="dimmed" size="sm">
-                    {values[index]}
-                  </Text>
-                </Fragment>
-              ))}
-            </SimpleGrid>
-          </Stack>
-          <Container>
-            <RingProgress
-              label={
-                <Text align="center" color="dimmed" size={23}>
-                  {rank?.level}
+                </Group>
+                <Text color="dimmed" size="sm" sx={{ width: "40%" }}>
+                  {values[index]}
                 </Text>
-              }
-              sections={[
-                { value: rank?.score ? rank?.score : 100, color: "blue.3" },
-              ]}
-              size={130}
-              thickness={6}
-            />
-          </Container>
-        </Group>
-      </Stack>
+              </Fragment>
+            ))}
+          </div>
+        </Stack>
+        <Container pl={30}>
+          <RingProgress
+            label={
+              <Text align="center" color="dimmed" size={23}>
+                {rank?.level}
+              </Text>
+            }
+            sections={[
+              { value: rank?.score ? rank?.score : 100, color: "blue.3" },
+            ]}
+            size={130}
+            thickness={6}
+          />
+        </Container>
+      </Group>
+      {/* </Stack> */}
     </Card>
   );
 }

@@ -90,12 +90,14 @@ function TopLanguages({ username }: { username: string | undefined }) {
                 color={language.color ? language.color : "gray"}
                 size={12}
               />
-              <Text>{language.name + " " + language.percentage + "%"}</Text>
+              <Text color="dimmed">
+                {language.name + " " + language.percentage + "%"}
+              </Text>
             </Group>
           ))}
           <Group>
             <ColorSwatch color={"#373a40"} size={12} />
-            <Text>{"Others"}</Text>
+            <Text color="dimmed">{"Others"}</Text>
           </Group>
         </SimpleGrid>
       </Stack>
