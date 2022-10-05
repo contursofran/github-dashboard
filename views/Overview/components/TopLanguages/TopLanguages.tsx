@@ -52,7 +52,7 @@ function TopLanguages({ username }: { username: string | undefined }) {
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
       <Stack justify="space-between" sx={{ height: "100%" }}>
-        <Title size={18}>Most used languages</Title>
+        <Title size={17}>Most used languages</Title>
         <Progress
           sections={[
             {
@@ -81,16 +81,16 @@ function TopLanguages({ username }: { username: string | undefined }) {
               tooltip: languages[4]?.name,
             },
           ]}
-          size={9}
+          size={7}
         />
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={2} spacing="xs">
           {languages.map((language) => (
             <Group key={language.name}>
               <ColorSwatch
                 color={language.color ? language.color : "gray"}
-                size={12}
+                size={10}
               />
-              <Text color="dimmed">
+              <Text color="dimmed" size="sm">
                 {language.name + " " + language.percentage + "%"}
               </Text>
             </Group>

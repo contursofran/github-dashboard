@@ -35,23 +35,23 @@ function Stats({ username }: { username: string | undefined }) {
   const labels = [
     {
       label: "Total Stars Earned:",
-      icon: <IconStar className={classes.icon} size={20} />,
+      icon: <IconStar className={classes.icon} size={18} />,
     },
     {
       label: "Total Commits:",
-      icon: <IconGitCommit className={classes.icon} size={20} />,
+      icon: <IconGitCommit className={classes.icon} size={18} />,
     },
     {
       label: "Total Issues:",
-      icon: <IconAlertCircle className={classes.icon} size={20} />,
+      icon: <IconAlertCircle className={classes.icon} size={18} />,
     },
     {
       label: "Total PRs:",
-      icon: <IconGitPullRequest className={classes.icon} size={20} />,
+      icon: <IconGitPullRequest className={classes.icon} size={18} />,
     },
     {
       label: "Contributed to:",
-      icon: <IconBook className={classes.icon} size={20} />,
+      icon: <IconBook className={classes.icon} size={18} />,
     },
   ];
 
@@ -66,7 +66,7 @@ function Stats({ username }: { username: string | undefined }) {
   if (!data || !values) {
     return (
       <Card withBorder className={classes.card} p="lg" radius="md">
-        <Stack justify="center" sx={{ height: "100%" }}>
+        <Stack sx={{ height: "100%" }}>
           <Title size={18}>Github Stats</Title>
           <Group>
             <Stack
@@ -92,7 +92,6 @@ function Stats({ username }: { username: string | undefined }) {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
-      {/* <Stack justify="center" sx={{ height: "100%" }}> */}
       <Title pb={"xs"} size={18}>
         Github Stats
       </Title>
@@ -114,7 +113,7 @@ function Stats({ username }: { username: string | undefined }) {
             ))}
           </div>
         </Stack>
-        <Container pl={30}>
+        <Container pl={"15%"}>
           <RingProgress
             label={
               <Text align="center" color="dimmed" size={23}>
@@ -124,12 +123,11 @@ function Stats({ username }: { username: string | undefined }) {
             sections={[
               { value: rank?.score ? rank?.score : 100, color: "blue.3" },
             ]}
-            size={130}
+            size={120}
             thickness={6}
           />
         </Container>
       </Group>
-      {/* </Stack> */}
     </Card>
   );
 }

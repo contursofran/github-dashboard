@@ -3,8 +3,7 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
-    minHeight: "230px",
-    height: "100%",
+    height: "200px",
     backgroundColor: theme.colors.dark[8],
   },
 }));
