@@ -132,7 +132,7 @@ function Contributions({ username }: { username: string | undefined }) {
         {weekData?.map((week, index) =>
           week.contributionDays.map((day) => (
             <rect
-              fill={calendarColors[colorScheme][day.contributionLevel]}
+              fill={calendarColors.blue[colorScheme][day.contributionLevel]}
               height={cardWidth / 76}
               key={day.date}
               rx="2"

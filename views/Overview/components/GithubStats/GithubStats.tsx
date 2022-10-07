@@ -19,14 +19,14 @@ import {
 import { Fragment, useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { filterStats } from "../../utils/filterStats";
-import { useStyles } from "./Stats.styles";
+import { useStyles } from "./GithubStats.styles";
 
 interface Rank {
   level: string;
   score: number;
 }
 
-function Stats({ username }: { username: string | undefined }) {
+function GithubStats({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
@@ -65,20 +65,23 @@ function Stats({ username }: { username: string | undefined }) {
 
   if (!data || !values) {
     return (
-      <Card withBorder className={classes.card} p="lg" radius="md">
+      <Card
+        withBorder
+        className={classes.card}
+        p="lg"
+        radius="md"
+        style={{ height: "200px" }}
+      >
         <Stack sx={{ height: "100%" }}>
-          <Title size={18}>Github Stats</Title>
           <Group>
-            <Stack
-              justify="space-between"
-              sx={{ height: "100%", width: "58%" }}
-            >
+            <Stack justify="space-between" sx={{ width: "58%" }}>
+              <Title size={18}>Github Stats</Title>
               <SimpleGrid cols={1} spacing="xs">
-                <Skeleton height={20} width={"65%"} />
-                <Skeleton height={20} width={"65%"} />
-                <Skeleton height={20} width={"65%"} />
-                <Skeleton height={20} width={"65%"} />
-                <Skeleton height={20} width={"65%"} />
+                <Skeleton height={16} width={"65%"} />
+                <Skeleton height={16} width={"65%"} />
+                <Skeleton height={16} width={"65%"} />
+                <Skeleton height={16} width={"65%"} />
+                <Skeleton height={16} width={"65%"} />
               </SimpleGrid>
             </Stack>
             <Container>
@@ -92,11 +95,9 @@ function Stats({ username }: { username: string | undefined }) {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
-      <Title pb={"xs"} size={18}>
-        Github Stats
-      </Title>
       <Group>
         <Stack sx={{ height: "50%", width: "45%" }}>
+          <Title size={18}>Github Stats</Title>
           <div className={classes.grid}>
             {labels.map((label, index) => (
               <Fragment key={label.label}>
@@ -116,14 +117,14 @@ function Stats({ username }: { username: string | undefined }) {
         <Container pl={"15%"}>
           <RingProgress
             label={
-              <Text align="center" color="dimmed" size={23}>
+              <Text align="center" color="dimmed" size={21}>
                 {rank?.level}
               </Text>
             }
             sections={[
               { value: rank?.score ? rank?.score : 100, color: "blue.3" },
             ]}
-            size={120}
+            size={110}
             thickness={6}
           />
         </Container>
@@ -132,4 +133,4 @@ function Stats({ username }: { username: string | undefined }) {
   );
 }
 
-export { Stats };
+export { GithubStats };

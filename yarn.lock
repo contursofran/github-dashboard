@@ -324,34 +324,32 @@
     "minimatch" "^3.1.2"
     "strip-json-comments" "^3.1.1"
 
-"@floating-ui/core@^0.7.3":
-  "integrity" "sha512-buc8BXHmG9l82+OQXOFU3Kr2XQx9ys01U/Q9HMIrZ300iLc8HLMgh7dcCqgYzAzf4BkoQvDcXf5Y+CuEZ5JBYg=="
-  "resolved" "https://registry.npmjs.org/@floating-ui/core/-/core-0.7.3.tgz"
-  "version" "0.7.3"
+"@floating-ui/core@^1.0.1":
+  "integrity" "sha512-bO37brCPfteXQfFY0DyNDGB3+IMe4j150KFQcgJ5aBP295p9nBGeHEs/p0czrRbtlHq4Px/yoPXO/+dOCcF4uA=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/core/-/core-1.0.1.tgz"
+  "version" "1.0.1"
 
-"@floating-ui/dom@^0.5.3":
-  "integrity" "sha512-419BMceRLq0RrmTSDxn8hf9R3VCJv2K9PUfugh5JyEFmdjzDo+e8U5EdR8nzKq8Yj1htzLm3b6eQEEam3/rrtg=="
-  "resolved" "https://registry.npmjs.org/@floating-ui/dom/-/dom-0.5.4.tgz"
-  "version" "0.5.4"
+"@floating-ui/dom@^1.0.0":
+  "integrity" "sha512-5X9WSvZ8/fjy3gDu8yx9HAA4KG1lazUN2P4/VnaXLxTO9Dz53HI1oYoh1OlhqFNlHgGDiwFX5WhFCc2ljbW3yA=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/dom/-/dom-1.0.2.tgz"
+  "version" "1.0.2"
   dependencies:
-    "@floating-ui/core" "^0.7.3"
+    "@floating-ui/core" "^1.0.1"
 
-"@floating-ui/react-dom-interactions@0.6.6":
-  "integrity" "sha512-qnao6UPjSZNHnXrF+u4/n92qVroQkx0Umlhy3Avk1oIebm/5ee6yvDm4xbHob0OjY7ya8WmUnV3rQlPwX3Atwg=="
-  "resolved" "https://registry.npmjs.org/@floating-ui/react-dom-interactions/-/react-dom-interactions-0.6.6.tgz"
-  "version" "0.6.6"
+"@floating-ui/react-dom-interactions@^0.10.1":
+  "integrity" "sha512-mb9Sn/cnPjVlEucSZTSt4Iu7NAvqnXTvmzeE5EtfdRhVQO6L94dqqT+DPTmJmbiw4XqzoyGP+Q6J+I5iK2p6bw=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/react-dom-interactions/-/react-dom-interactions-0.10.1.tgz"
+  "version" "0.10.1"
   dependencies:
-    "@floating-ui/react-dom" "^0.7.2"
+    "@floating-ui/react-dom" "^1.0.0"
     "aria-hidden" "^1.1.3"
-    "use-isomorphic-layout-effect" "^1.1.1"
 
-"@floating-ui/react-dom@^0.7.2":
-  "integrity" "sha512-1T0sJcpHgX/u4I1OzIEhlcrvkUN8ln39nz7fMoE/2HDHrPiMFoOGR7++GYyfUmIQHkkrTinaeQsO3XWubjSvGg=="
-  "resolved" "https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-0.7.2.tgz"
-  "version" "0.7.2"
+"@floating-ui/react-dom@^1.0.0":
+  "integrity" "sha512-uiOalFKPG937UCLm42RxjESTWUVpbbatvlphQAU6bsv+ence6IoVG8JOUZcy8eW81NkU+Idiwvx10WFLmR4MIg=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-1.0.0.tgz"
+  "version" "1.0.0"
   dependencies:
-    "@floating-ui/dom" "^0.5.3"
-    "use-isomorphic-layout-effect" "^1.1.1"
+    "@floating-ui/dom" "^1.0.0"
 
 "@hello-pangea/dnd@^15.0.0":
   "integrity" "sha512-OKo5BVceL/elruEdkZCRRR3DzwyRmn/eF3kffNmWky6OfzLv0wmdrgT7KtD8T+mI2vA1mtMjFCY9chnnCL95rw=="
@@ -425,66 +423,58 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mantine/core@^5.0.2", "@mantine/core@5.3.2":
-  "integrity" "sha512-EpIHQiYllDb+FKcwJuFcsstqW4YU8kOHiXaPkiOI5RclV+SwwFB/bnHsmkViJCRIfdu9vU8Vh8svH0k/hYsbew=="
-  "resolved" "https://registry.npmjs.org/@mantine/core/-/core-5.3.2.tgz"
-  "version" "5.3.2"
+"@mantine/core@^5.5.2", "@mantine/core@5.5.2":
+  "integrity" "sha512-G5bAzPsKeaRZOkBNqBzBdYhmgfXpCTBy9FcG1IwMU6V9kXBo86Mvz5RB0UDM9Vo6VgTH/O6EiZjx/ntmiTwN4w=="
+  "resolved" "https://registry.npmjs.org/@mantine/core/-/core-5.5.2.tgz"
+  "version" "5.5.2"
   dependencies:
-    "@floating-ui/react-dom-interactions" "0.6.6"
-    "@mantine/styles" "5.3.2"
-    "@mantine/utils" "5.3.2"
+    "@floating-ui/react-dom-interactions" "^0.10.1"
+    "@mantine/styles" "5.5.2"
+    "@mantine/utils" "5.5.2"
     "@radix-ui/react-scroll-area" "1.0.0"
     "react-textarea-autosize" "8.3.4"
 
-"@mantine/hooks@^5.0.2", "@mantine/hooks@5.3.2":
-  "integrity" "sha512-vgAYobmnh52I37q/lm+mIpCbjSYxv5SuwHGzl7Ep0ww/0W+5rurZgoD/IVMhvdFO1/yeJgK+REDAZFFzfU2urw=="
-  "resolved" "https://registry.npmjs.org/@mantine/hooks/-/hooks-5.3.2.tgz"
-  "version" "5.3.2"
+"@mantine/hooks@^5.5.2", "@mantine/hooks@5.5.2":
+  "integrity" "sha512-2W6OuSelVFyqatibzsMTs+2GPaPYKY3ZXiHv2Y6WST6FMuPHFoo7JED6BHLx0xYXBhUYQGJMDSv/xITUSk2yTA=="
+  "resolved" "https://registry.npmjs.org/@mantine/hooks/-/hooks-5.5.2.tgz"
+  "version" "5.5.2"
 
-"@mantine/next@^5.0.2":
-  "integrity" "sha512-KUzfpram2QeVTGchLld2rXFch6C3OUCIRb7FJDZcBcSplbBViPJWdRx5jyK7exqxrtEUwj+exDHCD5vCw9xu7g=="
-  "resolved" "https://registry.npmjs.org/@mantine/next/-/next-5.2.0.tgz"
-  "version" "5.2.0"
+"@mantine/next@^5.5.2":
+  "integrity" "sha512-sKvnwWIkRTfM+g+jEagusiENGKz0cbkKUno1Z844R+PnL2Zqq6LJqetrESZVm9dLSjAVlNiSYHKYYnc5OpMs+w=="
+  "resolved" "https://registry.npmjs.org/@mantine/next/-/next-5.5.2.tgz"
+  "version" "5.5.2"
   dependencies:
-    "@mantine/ssr" "5.2.0"
-    "@mantine/styles" "5.2.0"
+    "@mantine/ssr" "5.5.2"
+    "@mantine/styles" "5.5.2"
 
-"@mantine/notifications@^5.3.2":
-  "integrity" "sha512-CB+Dqyq0Hp8kiJjl/dujuRfXPKGbETJoD/ZG1nJNDwysbdszXsB9mqU6/nheWXcHGBRG3ZmTRiZO9xrhaUq4LQ=="
-  "resolved" "https://registry.npmjs.org/@mantine/notifications/-/notifications-5.3.2.tgz"
-  "version" "5.3.2"
+"@mantine/notifications@^5.5.2":
+  "integrity" "sha512-g/ycHsfp97MX7FXiiWtdX0Dzm8Gp6qH3m3oMD9kWv+SjhDsBRHq+2iNQLHc8JV5lhTG8J5jAjMc6It6vrg1vLw=="
+  "resolved" "https://registry.npmjs.org/@mantine/notifications/-/notifications-5.5.2.tgz"
+  "version" "5.5.2"
   dependencies:
-    "@mantine/utils" "5.3.2"
+    "@mantine/utils" "5.5.2"
     "react-transition-group" "4.4.2"
 
-"@mantine/ssr@5.2.0":
-  "integrity" "sha512-wqP7c4P0iPxZQk3GbHHSFNR2/ynyFsM3U2JrA9rZSi+k45ydBFc0262xpsNIS1Wv+Pl5fEhjjpUh44RlYX+SXw=="
-  "resolved" "https://registry.npmjs.org/@mantine/ssr/-/ssr-5.2.0.tgz"
-  "version" "5.2.0"
+"@mantine/ssr@5.5.2":
+  "integrity" "sha512-+bxsKUz1C0xn2OVPNAXMJovUZVjdBqS8DUoXYq9lFbGBCZ9mS6+opxhV5TGNudkhDCghK4ID/BQZMVreBCvhDg=="
+  "resolved" "https://registry.npmjs.org/@mantine/ssr/-/ssr-5.5.2.tgz"
+  "version" "5.5.2"
   dependencies:
-    "@mantine/styles" "5.2.0"
+    "@mantine/styles" "5.5.2"
     "html-react-parser" "1.4.12"
 
-"@mantine/styles@5.2.0":
-  "integrity" "sha512-0wUUqB+JmGGyUoMIrKig+7cd3s2A48tzAIexTu94LVixBQ4l7RnFjxh8/1ZPcWz76SVpmliljiCIHyQUV590Kg=="
-  "resolved" "https://registry.npmjs.org/@mantine/styles/-/styles-5.2.0.tgz"
-  "version" "5.2.0"
+"@mantine/styles@5.5.2":
+  "integrity" "sha512-HUpW2Nznq1cf1qc+zwl6sSR54oUGGHaRw+oePCaHW7C45buXxqGLoSBW0fskb32+J8Av76Ba3+8xV5R3r52wrA=="
+  "resolved" "https://registry.npmjs.org/@mantine/styles/-/styles-5.5.2.tgz"
+  "version" "5.5.2"
   dependencies:
     "clsx" "1.1.1"
     "csstype" "3.0.9"
 
-"@mantine/styles@5.3.2":
-  "integrity" "sha512-mXGY/GOr9QojlCNjnEMesybioF4y0CDBiMeEaqcffQmOTEj2Nhbp0jcNuK8lzFxM+LW29r7KSUQKl+I8KDphLw=="
-  "resolved" "https://registry.npmjs.org/@mantine/styles/-/styles-5.3.2.tgz"
-  "version" "5.3.2"
-  dependencies:
-    "clsx" "1.1.1"
-    "csstype" "3.0.9"
-
-"@mantine/utils@5.3.2":
-  "integrity" "sha512-D8+IyPjeOFC8hPIPxd7qJewamrRIBbBv7Z03o3ZHkgUaCKArNwtSlmUpzitgT5jHoERdwylagqoQMfzpQj/KqA=="
-  "resolved" "https://registry.npmjs.org/@mantine/utils/-/utils-5.3.2.tgz"
-  "version" "5.3.2"
+"@mantine/utils@5.5.2":
+  "integrity" "sha512-fAU8PLTBNh4feAlcMchRb2q2DD0OVvXfIDFtEHzMgN27WRsT4ch9MkV8P/0TlPUISm/vtjJaJD+VuL0wo8/qug=="
+  "resolved" "https://registry.npmjs.org/@mantine/utils/-/utils-5.5.2.tgz"
+  "version" "5.5.2"
 
 "@next-auth/prisma-adapter@^1.0.4":
   "integrity" "sha512-jIOM6CzCbl2/Mzbx9kb2IjtHoJOeRN9wtQgLk4EUm5bhneSVGv1rtz5TDskvp2UfCa+EK9nDmug+lje41z80Gg=="
@@ -801,7 +791,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@18.0.15":
+"@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@18.0.15":
   "integrity" "sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.15.tgz"
   "version" "18.0.15"
@@ -952,11 +942,11 @@
   "version" "2.0.1"
 
 "aria-hidden@^1.1.3":
-  "integrity" "sha512-RhVWFtKH5BiGMycI72q2RAFMLQi8JP9bLuQXgR5a8Znp7P5KOIADSJeyfI8PCVxLEp067B2HbP5JIiI/PXIZeA=="
-  "resolved" "https://registry.npmjs.org/aria-hidden/-/aria-hidden-1.1.3.tgz"
-  "version" "1.1.3"
+  "integrity" "sha512-PN344VAf9j1EAi+jyVHOJ8XidQdPVssGco39eNcsGdM4wcsILtxrKLkbuiMfLWYROK1FjRQasMWCBttrhjnr6A=="
+  "resolved" "https://registry.npmjs.org/aria-hidden/-/aria-hidden-1.2.1.tgz"
+  "version" "1.2.1"
   dependencies:
-    "tslib" "^1.0.0"
+    "tslib" "^2.0.0"
 
 "aria-query@^4.2.2":
   "integrity" "sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA=="
@@ -2690,7 +2680,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.x || 17.x || 18.x", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@0.14 || 15 || 16 || 17 || 18", "react@18.2.0":
+"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18.0.0", "react@^16.x || 17.x || 18.x", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@0.14 || 15 || 16 || 17 || 18", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -3014,10 +3004,15 @@
     "minimist" "^1.2.6"
     "strip-bom" "^3.0.0"
 
-"tslib@^1.0.0", "tslib@^1.8.1":
+"tslib@^1.8.1":
   "integrity" "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
+
+"tslib@^2.0.0":
+  "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
+  "version" "2.4.0"
 
 "tslib@^2.4.0":
   "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
