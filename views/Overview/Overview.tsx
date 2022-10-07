@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useStore } from "../../store";
 import { trpc } from "../../utils/trpc";
 import { Contributions } from "./components/Contributions";
-import { Stats } from "./components/Stats";
-import { StatsCard } from "./components/StatsCard";
+import { GithubStats } from "./components/GithubStats";
+import { RepositoryStats } from "./components/RepositoryStats";
 import { Timeline } from "./components/Timeline";
 import { TopLanguages } from "./components/TopLanguages";
 
@@ -21,14 +21,12 @@ function Overview() {
   return (
     <Group className={classes.flex} p="2rem" position="apart">
       <Stack className={classes.container}>
-        <Group grow noWrap>
-          <StatsCard />
-          <StatsCard />
-          <StatsCard />
+        <Group noWrap spacing={40} style={{ height: "100%" }}>
+          <RepositoryStats />
         </Group>
-        <Group noWrap spacing={38}>
+        <Group grow noWrap spacing={38}>
           <TopLanguages username={username} />
-          <Stats username={username} />
+          <GithubStats username={username} />
         </Group>
         <Contributions username={username} />
       </Stack>

@@ -56,4 +56,26 @@ export const repositoryRouter = createRouter()
 
       return repository;
     },
+  })
+  .query("getThreeWithMostTasks", {
+    async resolve({ ctx }) {
+      const repositories = await ctx.prisma.repository.findMany({
+        where: {
+          userId: ctx.session?.user?.id,
+        },
+        include: {
+          tasks: true,
+          features: true,
+          issues: true,
+        },
+        orderBy: {
+          features: {
+            _count: "desc",
+          },
+        },
+        take: 3,
+      });
+
+      return repositories;
+    },
   });

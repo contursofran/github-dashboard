@@ -60,7 +60,7 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
           <Droppable droppableId={id}>
             {(provided) => (
               <div
-                style={{ paddingLeft: 25, paddingRight: 17 }}
+                style={{ paddingLeft: 25, paddingRight: 17, minHeight: 5 }}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
