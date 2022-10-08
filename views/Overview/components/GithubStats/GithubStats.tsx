@@ -122,7 +122,7 @@ function GithubStats({ username }: { username: string | undefined }) {
               </Text>
             }
             sections={[
-              { value: rank?.score ? rank?.score : 100, color: "blue.3" },
+              { value: rank?.score ? rank?.score : 100, color: "blue.4" },
             ]}
             size={110}
             thickness={6}

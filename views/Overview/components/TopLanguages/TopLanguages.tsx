@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
@@ -22,6 +23,7 @@ export interface LanguageArray extends Language {
 
 function TopLanguages({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
+  const { colors } = useMantineTheme();
   const [languages, setLanguages] = useState<LanguageArray[]>([]);
   const { data } = trpc.useQuery(["github.getUserTopLanguages", { username }]);
 
@@ -54,40 +56,36 @@ function TopLanguages({ username }: { username: string | undefined }) {
       <Stack justify="space-between" sx={{ height: "100%" }}>
         <Title size={17}>Most used languages</Title>
         <Progress
+          classNames={{ root: classes.progress }}
           sections={[
             {
               value: languages[0].percentage ? languages[0].percentage : 0,
-              color: languages[0]?.color ? languages[0].color : "gray",
+              color: colors.blue[4],
               tooltip: languages[0]?.name,
             },
             {
               value: languages[1].percentage ? languages[1].percentage : 0,
-              color: languages[1]?.color ? languages[1].color : "gray",
+              color: colors.blue[7],
               tooltip: languages[1]?.name,
             },
             {
               value: languages[2].percentage ? languages[2].percentage : 0,
-              color: languages[2]?.color ? languages[2].color : "gray",
+              color: colors.blue[8],
               tooltip: languages[2]?.name,
             },
             {
               value: languages[3].percentage ? languages[3].percentage : 0,
-              color: languages[3]?.color ? languages[3].color : "gray",
+              color: colors.blue[9],
               tooltip: languages[3]?.name,
-            },
-            {
-              value: languages[4].percentage ? languages[4].percentage : 0,
-              color: languages[4]?.color ? languages[4].color : "gray",
-              tooltip: languages[4]?.name,
             },
           ]}
           size={7}
         />
         <SimpleGrid cols={2} spacing="xs">
-          {languages.map((language) => (
+          {languages.map((language, index) => (
             <Group key={language.name}>
               <ColorSwatch
-                color={language.color ? language.color : "gray"}
+                color={index === 0 ? colors.blue[4] : colors.blue[index + 6]}
                 size={10}
               />
               <Text color="dimmed" size="sm">
@@ -96,7 +94,7 @@ function TopLanguages({ username }: { username: string | undefined }) {
             </Group>
           ))}
           <Group>
-            <ColorSwatch color={"#373a40"} size={12} />
+            <ColorSwatch color={"#1a1b1e"} size={12} />
             <Text color="dimmed">{"Others"}</Text>
           </Group>
         </SimpleGrid>

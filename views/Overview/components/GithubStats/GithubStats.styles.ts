@@ -14,7 +14,7 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
   },
   icon: {
-    color: theme.colors.blue[3],
+    color: theme.colors.blue[4],
   },
 }));
 

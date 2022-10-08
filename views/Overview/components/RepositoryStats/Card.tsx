@@ -55,7 +55,7 @@ function Card({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: features.percentage,
-                color: colors.blue[3],
+                color: colors.blue[4],
                 tooltip: "33%",
               },
             ]}
@@ -79,7 +79,7 @@ function Card({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: tasks.percentage,
-                color: colors.blue[3],
+                color: colors.blue[4],
                 tooltip: "33%",
               },
             ]}
@@ -103,7 +103,7 @@ function Card({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: issues.percentage,
-                color: colors.blue[3],
+                color: colors.blue[4],
                 tooltip: "33%",
               },
             ]}

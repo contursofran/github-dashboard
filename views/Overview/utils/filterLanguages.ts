@@ -34,7 +34,6 @@ function totalSize(edges: (Maybe<Maybe<LanguageEdge>[]> | undefined)[]) {
 
 const percentage = (size: number, totalSize: number) => {
   const percentage = (size / totalSize) * 100;
-  // console.log(size);
   const noDecimalPercentage = Math.round(percentage);
 
   return noDecimalPercentage;
@@ -63,7 +62,7 @@ export const filterLanguages = (repos: Repository[]) => {
   });
 
   const sortedLanguages = languages.sort((a, b) => b.size - a.size);
-  const topLanguages = sortedLanguages.slice(0, 5);
+  const topLanguages = sortedLanguages.slice(0, 4);
 
   topLanguages.forEach((lang) => {
     lang.percentage = percentage(lang.size, total);

@@ -36,7 +36,20 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
+          colors: {
+            blue: [
+              "#e7f5ff",
+              "#d0ebff",
+              "#a5d8ff",
+              "#49b0fe",
+              "#58b3f9",
+              "#339af0",
+              "#228be6",
+              "#2680a6",
+              "#00526b",
+              "#0e3144",
+            ],
+          },
           colorScheme: "dark",
           fontFamily: "Poppins, Roboto",
           headings: { fontFamily: "Poppins, Roboto" },

@@ -9,13 +9,17 @@ import {
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
-import { ContributionCalendarMonth } from "../../types/github";
+import {
+  ContributionCalendarMonth,
+  ContributionLevel,
+} from "../../types/github";
+import { getColor } from "../../utils/colors";
 import { getMonth, getShortDate } from "../../utils/formatDates";
-import { calendarColors, useStyles } from "./Contributions.styles";
+import { useStyles } from "./Contributions.styles";
 
 function Contributions({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
-  const { colorScheme, colors } = useMantineTheme();
+  const theme = useMantineTheme();
   const [cardWidth, setCardWidth] = useState(0);
   const [totalWeeks, setTotalWeeks] = useState<number[]>([]);
   const { ref, width } = useElementSize();
@@ -23,6 +27,14 @@ function Contributions({ username }: { username: string | undefined }) {
     ["github.getUserContributions", { username }],
     { enabled: !!username }
   );
+
+  const contributionLevels: ContributionLevel[] = [
+    ContributionLevel.None,
+    ContributionLevel.FirstQuartile,
+    ContributionLevel.SecondQuartile,
+    ContributionLevel.ThirdQuartile,
+    ContributionLevel.FourthQuartile,
+  ];
 
   const weekData = data?.weeks;
   const monthData = data?.months;
@@ -110,12 +122,12 @@ function Contributions({ username }: { username: string | undefined }) {
       <Title pb={"lg"} size={18}>
         Total contributions
       </Title>
-      <svg height={"100%"} width={"100%"}>
+      <svg width={"100%"}>
         {monthData?.map(
           (month, index) =>
             index < 12 && (
               <text
-                fill={colors.gray[4]}
+                fill={theme.colors.gray[4]}
                 key={index}
                 x={50 + getMonthPosition(index)}
                 y={16}
@@ -125,14 +137,19 @@ function Contributions({ username }: { username: string | undefined }) {
             )
         )}
         {weekLabels.map((label, index) => (
-          <text fill={colors.gray[4]} key={index} x={0} y={64 + 40 * index}>
+          <text
+            fill={theme.colors.gray[4]}
+            key={index}
+            x={0}
+            y={64 + 40 * index}
+          >
             {label}
           </text>
         ))}
         {weekData?.map((week, index) =>
           week.contributionDays.map((day) => (
             <rect
-              fill={calendarColors.blue[colorScheme][day.contributionLevel]}
+              fill={getColor(day.contributionLevel, theme)}
               height={cardWidth / 76}
               key={day.date}
               rx="2"
@@ -145,6 +162,26 @@ function Contributions({ username }: { username: string | undefined }) {
             </rect>
           ))
         )}
+      </svg>
+      <svg style={{ position: "absolute", right: 0, bottom: 0 }} width={"20%"}>
+        <text fill={theme.colors.gray[4]} x={"0%"} y={122}>
+          Less
+        </text>
+        {contributionLevels.map((level, index) => (
+          <rect
+            fill={getColor(level, theme)}
+            height={cardWidth / 76}
+            key={level}
+            rx="2"
+            ry="2"
+            width={cardWidth / 76}
+            x={cardWidth * 0.045 + (index * cardWidth) / 50}
+            y={110}
+          />
+        ))}
+        <text fill={theme.colors.gray[4]} x={"72%"} y={122}>
+          More
+        </text>
       </svg>
     </Card>
   );

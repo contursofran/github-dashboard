@@ -10,7 +10,7 @@ const useStyles = createStyles((theme) => ({
   icon: {
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.blue[3]
+        ? theme.colors.blue[4]
         : theme.colors.gray[4],
   },
 }));
