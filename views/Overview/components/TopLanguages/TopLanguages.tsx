@@ -4,7 +4,6 @@ import {
   Group,
   Progress,
   SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   Title,
@@ -15,6 +14,7 @@ import { trpc } from "../../../../utils/trpc";
 import { Language } from "../../types/github";
 import { filterLanguages } from "../../utils/filterLanguages";
 import { useStyles } from "./TopLanguages.styles";
+import { TopLanguagesSkeleton } from "./TopLanguagesSkeleton";
 
 export interface LanguageArray extends Language {
   percentage?: number;
@@ -34,21 +34,7 @@ function TopLanguages({ username }: { username: string | undefined }) {
   }, [data]);
 
   if (languages.length === 0 || !data) {
-    return (
-      <Card withBorder className={classes.card} p="lg" radius="md">
-        <Stack justify="space-between" sx={{ height: "100%" }}>
-          <Title size={18}>Most used languages</Title>
-          <Skeleton height={20} />
-          <SimpleGrid cols={2}>
-            <Skeleton height={20} width={"50%"} />
-            <Skeleton height={20} width={"50%"} />
-            <Skeleton height={20} width={"50%"} />
-            <Skeleton height={20} width={"50%"} />
-            <Skeleton height={20} width={"50%"} />
-          </SimpleGrid>
-        </Stack>
-      </Card>
-    );
+    return <TopLanguagesSkeleton />;
   }
 
   return (

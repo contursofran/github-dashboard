@@ -3,8 +3,6 @@ import {
   Container,
   Group,
   RingProgress,
-  SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   Title,
@@ -20,6 +18,7 @@ import { Fragment, useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { filterStats } from "../../utils/filterStats";
 import { useStyles } from "./GithubStats.styles";
+import { GithubStatsSkeleton } from "./GithubStatsSkeleton";
 
 interface Rank {
   level: string;
@@ -64,33 +63,7 @@ function GithubStats({ username }: { username: string | undefined }) {
   }, [data]);
 
   if (!data || !values) {
-    return (
-      <Card
-        withBorder
-        className={classes.card}
-        p="lg"
-        radius="md"
-        style={{ height: "200px" }}
-      >
-        <Stack sx={{ height: "100%" }}>
-          <Group>
-            <Stack justify="space-between" sx={{ width: "58%" }}>
-              <Title size={18}>Github Stats</Title>
-              <SimpleGrid cols={1} spacing="xs">
-                <Skeleton height={16} width={"65%"} />
-                <Skeleton height={16} width={"65%"} />
-                <Skeleton height={16} width={"65%"} />
-                <Skeleton height={16} width={"65%"} />
-                <Skeleton height={16} width={"65%"} />
-              </SimpleGrid>
-            </Stack>
-            <Container>
-              <Skeleton circle height={111} />
-            </Container>
-          </Group>
-        </Stack>
-      </Card>
-    );
+    return <GithubStatsSkeleton />;
   }
 
   return (

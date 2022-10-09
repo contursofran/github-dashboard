@@ -1,8 +1,8 @@
-import { Paper, ScrollArea, Skeleton, Stack, Title } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { Paper, ScrollArea, Stack, Title } from "@mantine/core";
 import { trpc } from "../../../../utils/trpc";
 import { Events } from "./Events/";
 import { useStyles } from "./Timeline.styles";
+import { TimelineSkeleton } from "./TimelineSkeleton";
 
 function Timeline({ username }: { username: string | undefined }) {
   // use of any is required because the types are incorrect in the library
@@ -11,24 +11,9 @@ function Timeline({ username }: { username: string | undefined }) {
   const { data } = trpc.useQuery(["github.getUserEvents", { username }], {
     enabled: !!username,
   });
-  const skeletonItems = Array.from(Array(5).keys());
 
   if (!data) {
-    return (
-      <Paper withBorder className={classes.card} p="lg" radius="md">
-        <Stack sx={{ height: "100%" }}>
-          <Title size={18}>Last activity</Title>
-          {skeletonItems.map((item) => (
-            <Stack className={classes.container} key={item}>
-              <Skeleton height="20px" width="35%" />
-              <Skeleton height="20px" width="100%" />
-              <Skeleton height="20px" width="100%" />
-              <Skeleton height="20px" mb={8} width="30%" />
-            </Stack>
-          ))}
-        </Stack>
-      </Paper>
-    );
+    return <TimelineSkeleton />;
   }
 
   return (

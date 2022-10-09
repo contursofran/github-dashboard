@@ -1,5 +1,5 @@
 import {
-  Card as CardMantine,
+  Card,
   Group,
   Progress,
   Stack,
@@ -23,12 +23,13 @@ interface Props {
   tasks: Progress;
 }
 
-function Card({ features, issues, name, tasks }: Props) {
+// Todo: Refactor this component
+function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
 
   return (
-    <CardMantine withBorder className={classes.card} p="lg" radius="md">
+    <Card withBorder className={classes.card} p="lg" radius="md">
       <Group position="apart">
         <Title pb={5} size={18}>
           Stats
@@ -111,8 +112,8 @@ function Card({ features, issues, name, tasks }: Props) {
           />
         </>
       </Stack>
-    </CardMantine>
+    </Card>
   );
 }
 
-export { Card };
+export { RepositoryStatsCard };

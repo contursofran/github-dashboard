@@ -1,11 +1,4 @@
-import {
-  Card,
-  Group,
-  Skeleton,
-  Stack,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+import { Card, Title, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../../utils/trpc";
@@ -16,11 +9,13 @@ import {
 import { getColor } from "../../utils/colors";
 import { getMonth, getShortDate } from "../../utils/formatDates";
 import { useStyles } from "./Contributions.styles";
+import { ContributionsSkeleton } from "./ContributionsSkeleton";
 
+// TODO: Refactor component
 function Contributions({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const [cardWidth, setCardWidth] = useState(0);
+  const [cardWidth, setCardWidth] = useState(1078);
   const [totalWeeks, setTotalWeeks] = useState<number[]>([]);
   const { ref, width } = useElementSize();
   const { data: data } = trpc.useQuery(
@@ -61,7 +56,6 @@ function Contributions({ username }: { username: string | undefined }) {
     }
   }, [width]);
 
-  // TODO: fix month position
   const getMonthPosition = (index: number) => {
     const weekWidth = cardWidth / 55.5;
     const monthPosition = totalWeeks[index] * weekWidth;
@@ -96,25 +90,7 @@ function Contributions({ username }: { username: string | undefined }) {
   };
 
   if (!data) {
-    return (
-      <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
-        <Group sx={{ height: "100%", width: "100%" }}>
-          <Stack
-            justify="center"
-            pt={"3%"}
-            sx={{ height: "100%", width: "5%" }}
-          >
-            <Skeleton height={20} width={"100%"} />
-            <Skeleton height={20} width={"100%"} />
-            <Skeleton height={20} width={"100%"} />
-          </Stack>
-          <Stack sx={{ height: "100%", width: "93%" }}>
-            <Skeleton height={25} width={"100%"} />
-            <Skeleton height={"100%"} width={"100%"} />
-          </Stack>
-        </Group>
-      </Card>
-    );
+    return <ContributionsSkeleton />;
   }
 
   return (

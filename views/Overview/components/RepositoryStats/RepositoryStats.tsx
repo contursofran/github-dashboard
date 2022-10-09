@@ -1,7 +1,8 @@
 import { upperFirst } from "@mantine/hooks";
 import { trpc } from "../../../../utils/trpc";
 import { getProgress } from "../../utils/getProgress";
-import { Card } from "./Card";
+import { RepositoryStatsCard } from "./RepositoryStatsCard";
+import { RepositoryStatsSkeleton } from "./RepositoryStatsSkeleton";
 
 export function RepositoryStats() {
   const { data: repositories } = trpc.useQuery([
@@ -11,14 +12,20 @@ export function RepositoryStats() {
   const cards = Array.from(Array(3).keys());
 
   if (!repositories) {
-    return <>Loading</>;
+    return (
+      <>
+        {cards.map((index) => (
+          <RepositoryStatsSkeleton key={"skeleton" + index} />
+        ))}
+      </>
+    );
   }
 
   return (
     <>
       {cards.map((index) =>
         repositories[index] ? (
-          <Card
+          <RepositoryStatsCard
             features={getProgress(repositories[index].features)}
             issues={getProgress(repositories[index].issues)}
             key={index}
@@ -26,7 +33,7 @@ export function RepositoryStats() {
             tasks={getProgress(repositories[index].tasks)}
           />
         ) : (
-          <Card
+          <RepositoryStatsCard
             features={getProgress([])}
             issues={getProgress([])}
             key={index}
