@@ -60,6 +60,29 @@ function Navbar() {
     )
   );
 
+  if (status === "loading") {
+    return (
+      <MantineNavbar className={classes.navbar} p={"sm"} width={{ sm: 300 }}>
+        <MantineNavbar.Section grow mt="xl">
+          <Stack align="center" className={classes.header} justify="center">
+            <Skeleton circle height={80} />
+            <Skeleton height={25} radius="sm" />
+            <Skeleton height={25} radius="sm" />
+          </Stack>
+          {links}
+        </MantineNavbar.Section>
+        <MantineNavbar.Section className={classes.footer}>
+          <MantineNavbar.Section>
+            <Skeleton height={45} />
+          </MantineNavbar.Section>
+          <MantineNavbar.Section>
+            <Skeleton height={45} mt={15} />
+          </MantineNavbar.Section>
+        </MantineNavbar.Section>
+      </MantineNavbar>
+    );
+  }
+
   return (
     <>
       <MantineNavbar className={classes.navbar} p={"sm"} width={{ sm: 300 }}>
@@ -74,54 +97,45 @@ function Navbar() {
                   ? session?.user?.image
                   : guestUser.user.avatar_url
               }
-            >
-              {status === "unauthenticated" ? (
-                ""
-              ) : (
-                <Skeleton circle height={80} />
-              )}
-            </Avatar>
+            />
             <Text align="center" size="lg" weight={500}>
               {status === "unauthenticated"
                 ? guestUser.user.name
-                : session?.user?.name || <Skeleton height={20} radius="sm" />}
+                : session?.user?.name}
             </Text>
             <Text align="center" color="dimmed" mt="-sm" size="sm">
               {status === "unauthenticated"
                 ? guestUser.user.email
-                : session?.user?.email || (
-                    <Skeleton height={20} mt={15} radius="sm" />
-                  )}
+                : session?.user?.email}
             </Text>
           </Stack>
           {links}
         </MantineNavbar.Section>
         <MantineNavbar.Section className={classes.footer}>
           <MantineNavbar.Section>
-            {status === "loading" ? (
-              <Skeleton height={45} />
-            ) : (
-              <a className={classes.link}>
+            <Link passHref href={"/settings"}>
+              <a
+                className={cx(classes.link, {
+                  [classes.linkActive]: "Settings" === active,
+                })}
+                onClick={() => setActive("Settings")}
+              >
                 <IconSettings className={classes.linkIcon} stroke={1.5} />
                 <span>Settings</span>
               </a>
-            )}
+            </Link>
           </MantineNavbar.Section>
           <MantineNavbar.Section>
-            {status === "loading" ? (
-              <Skeleton height={45} mt={15} />
-            ) : (
-              <a
-                className={classes.link}
-                href="#"
-                onClick={
-                  session?.user ? () => signOut() : () => loginHandler.open()
-                }
-              >
-                <IconLogout className={classes.linkIcon} stroke={1.5} />
-                <span>{session?.user ? "Logout" : "Login"}</span>
-              </a>
-            )}
+            <a
+              className={classes.link}
+              href="#"
+              onClick={
+                session?.user ? () => signOut() : () => loginHandler.open()
+              }
+            >
+              <IconLogout className={classes.linkIcon} stroke={1.5} />
+              <span>{session?.user ? "Logout" : "Login"}</span>
+            </a>
           </MantineNavbar.Section>
         </MantineNavbar.Section>
       </MantineNavbar>

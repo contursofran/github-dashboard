@@ -16,6 +16,7 @@ function Header({ tabs }: Props) {
   useEffect(() => {
     if (pathname === "/repositories") {
       const visibility = window.localStorage.getItem("visibility");
+
       if (visibility) {
         push(`/repositories/${visibility}`);
       } else {
@@ -24,7 +25,6 @@ function Header({ tabs }: Props) {
     }
   }, [pathname, push]);
 
-  // upperFirst(query.repository as string);
   const getTitle = () => {
     switch (pathname) {
       case "/repositories/public":
@@ -33,6 +33,8 @@ function Header({ tabs }: Props) {
         return "Private repositories";
       case "/":
         return "Overview";
+      case "/settings":
+        return "Settings";
       default:
         return upperFirst(query.repository as string);
     }

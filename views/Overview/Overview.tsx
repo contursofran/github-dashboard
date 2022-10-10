@@ -1,13 +1,4 @@
-import {
-  Container,
-  Grid,
-  Group,
-  SimpleGrid,
-  Skeleton,
-  Stack,
-} from "@mantine/core";
-import { useEffect } from "react";
-import { useStore } from "../../store";
+import { Grid, SimpleGrid } from "@mantine/core";
 import { trpc } from "../../utils/trpc";
 import { Contributions } from "./components/Contributions";
 import { GithubStats } from "./components/GithubStats";
@@ -20,10 +11,6 @@ import { useStyles } from "./Overview.styles";
 function Overview() {
   const { data: username } = trpc.useQuery(["github.getUsername"]);
   const { classes } = useStyles();
-
-  useEffect(() => {
-    useStore.setState({ currentPage: "Overview" });
-  }, []);
 
   return (
     <div className={classes.root}>
