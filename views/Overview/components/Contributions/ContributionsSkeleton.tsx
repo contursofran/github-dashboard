@@ -1,4 +1,4 @@
-import { Card, Group, Skeleton, Stack } from "@mantine/core";
+import { Card, Group, Skeleton, Stack, Title } from "@mantine/core";
 import { useStyles } from "./Contributions.styles";
 
 function ContributionsSkeleton() {
@@ -6,7 +6,7 @@ function ContributionsSkeleton() {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
-      <Skeleton sx={{ height: 20, width: 200 }} />
+      <Title size={18}>Total contributions</Title>
       <Group pt={"2%"} sx={{ height: "75%", width: "100%" }}>
         <Stack justify="center" pt={"3%"} sx={{ height: "100%", width: "5%" }}>
           <Skeleton height={20} width={"100%"} />

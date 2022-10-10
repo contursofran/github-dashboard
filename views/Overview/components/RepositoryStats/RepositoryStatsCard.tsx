@@ -38,7 +38,7 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
       <Text color="dimmed" size={15}>
         {name}
       </Text>
-      <Stack pt={"md"}>
+      <Stack pb={"xs"} pt={"md"}>
         <>
           <Group position="apart">
             <Group align="center" spacing={5}>

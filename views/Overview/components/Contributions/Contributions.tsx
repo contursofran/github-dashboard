@@ -95,7 +95,7 @@ function Contributions({ username }: { username: string | undefined }) {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
-      <Title pb={"lg"} size={18}>
+      <Title pb={25} size={18}>
         Total contributions
       </Title>
       <svg width={"100%"}>
@@ -140,7 +140,7 @@ function Contributions({ username }: { username: string | undefined }) {
         )}
       </svg>
       <svg style={{ position: "absolute", right: 0, bottom: 0 }} width={"20%"}>
-        <text fill={theme.colors.gray[4]} x={"0%"} y={122}>
+        <text fill={theme.colors.gray[4]} x={"0%"} y={120}>
           Less
         </text>
         {contributionLevels.map((level, index) => (
@@ -152,10 +152,10 @@ function Contributions({ username }: { username: string | undefined }) {
             ry="2"
             width={cardWidth / 76}
             x={cardWidth * 0.045 + (index * cardWidth) / 50}
-            y={110}
+            y={108}
           />
         ))}
-        <text fill={theme.colors.gray[4]} x={"72%"} y={122}>
+        <text fill={theme.colors.gray[4]} x={"72%"} y={120}>
           More
         </text>
       </svg>

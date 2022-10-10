@@ -4,7 +4,8 @@ const useStyles = createStyles((theme) => ({
   root: {
     width: "100%",
     height: "100%",
-    padding: "2rem",
+    // padding: "2rem",
+    // backgroundColor: "red",
   },
   flex: {
     height: "100%",
@@ -13,7 +14,7 @@ const useStyles = createStyles((theme) => ({
   container: {
     width: "70%",
     height: "100%",
-    gap: "2.5rem",
+    gap: "2rem",
   },
   timeline: {
     width: "27%",

@@ -9,7 +9,6 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
-    alignItems: "start",
     alignSelf: "stretch",
     backgroundColor:
       theme.colorScheme === "light"
@@ -18,9 +17,8 @@ const useStyles = createStyles((theme) => ({
   },
   content: {
     alignSelf: "stretch",
-    padding: "0.5rem",
+    padding: "2rem",
     flexGrow: 1,
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
