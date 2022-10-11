@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
@@ -7,9 +8,10 @@ import { NextPage } from "next";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import superjson from "superjson";
 import { AppRouter } from "../server/createRouter";
+import { useStore } from "../store";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (_page: ReactElement) => ReactNode;
@@ -20,8 +22,20 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
-  // Use the layout defined at the page level, if available
+  const colorScheme = useStore((state) => state.colorScheme);
+  const preferredColorScheme = useColorScheme();
   const getLayout = Component.getLayout ?? ((page) => page);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("colorScheme")) {
+      useStore.setState({
+        colorScheme: window.localStorage.getItem("colorScheme") as
+          | "light"
+          | "dark"
+          | "system",
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -41,16 +55,17 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
               "#e7f5ff",
               "#d0ebff",
               "#a5d8ff",
-              "#49b0fe",
-              "#58b3f9",
+              "#8ccafa",
+              "#67bafa",
               "#339af0",
               "#228be6",
-              "#2680a6",
-              "#00526b",
+              "#2684ad",
+              "#02617e",
               "#0e3144",
             ],
           },
-          colorScheme: "dark",
+          colorScheme:
+            colorScheme === "system" ? preferredColorScheme : colorScheme,
           fontFamily: "Poppins, Roboto",
           headings: { fontFamily: "Poppins, Roboto" },
         }}

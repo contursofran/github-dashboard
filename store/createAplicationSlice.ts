@@ -5,6 +5,7 @@ import { ListHandlers, ListState } from "../views/Board/hooks/useLists";
 export interface AplicationSlice {
   cards: ListState;
   cardsHandlers: ListHandlers;
+  colorScheme: "dark" | "light" | "system";
   selectedRepositoryId: string;
   selectedTab: BoardTabs;
 }
@@ -14,6 +15,7 @@ const createAplicationSlice: StateCreator<AplicationSlice> = () => ({
   cardsHandlers: [],
   selectedRepositoryId: "",
   selectedTab: "features",
+  colorScheme: "system",
 });
 
 export { createAplicationSlice };

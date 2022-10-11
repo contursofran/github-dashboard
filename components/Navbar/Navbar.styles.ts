@@ -35,15 +35,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
           variant: "outline",
           color: theme.colors.dark[6],
         }).background,
-        color: theme.fn.variant({
-          variant: "light",
-          color: theme.colors.dark[6],
-        }).color,
+        color: theme.colors.blue[4],
         [`& .${icon}`]: {
-          color: theme.fn.variant({
-            variant: "light",
-            color: theme.colors.dark[6],
-          }).color,
+          color: theme.colors.blue[4],
         },
       },
     },
