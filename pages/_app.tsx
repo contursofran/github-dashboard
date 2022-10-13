@@ -37,6 +37,16 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           | "system",
       });
     }
+
+    if (window.localStorage.getItem("accentColor")) {
+      useStore.setState({
+        accentColor: window.localStorage.getItem("accentColor") as
+          | "blue"
+          | "indigo"
+          | "orange"
+          | "violet",
+      });
+    }
   }, []);
 
   return (

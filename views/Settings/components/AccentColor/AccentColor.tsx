@@ -10,6 +10,11 @@ function AccentColor() {
   const { colors } = useMantineTheme();
   const accentColor = useStore((state) => state.accentColor);
 
+  const setAccentColor = (color: AccentColors) => {
+    useStore.setState({ accentColor: color });
+    window.localStorage.setItem("accentColor", color);
+  };
+
   return (
     <Group position="center" spacing={30}>
       {accentColors.map((color) => (
@@ -17,7 +22,8 @@ function AccentColor() {
           color={colors[color][5]}
           key={color}
           size={40}
-          onClick={() => useStore.setState({ accentColor: color })}
+          style={{ cursor: "pointer" }}
+          onClick={() => setAccentColor(color)}
         >
           {accentColor === color && (
             <IconCheck style={{ color: "white" }} width={30} />
