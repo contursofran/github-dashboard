@@ -3,17 +3,17 @@ import { ContributionLevel } from "../types/github";
 
 export const getColor = (
   contrituionLevel: ContributionLevel,
-  colors: MantineTheme
+  theme: MantineTheme
 ) => {
   switch (contrituionLevel) {
     case ContributionLevel.FirstQuartile:
-      return colors.colors.blue[9];
+      return theme.colors[theme.primaryColor][9];
     case ContributionLevel.SecondQuartile:
-      return colors.colors.blue[8];
+      return theme.colors[theme.primaryColor][8];
     case ContributionLevel.ThirdQuartile:
-      return colors.colors.blue[7];
+      return theme.colors[theme.primaryColor][7];
     case ContributionLevel.FourthQuartile:
-      return colors.colors.blue[4];
+      return theme.colors[theme.primaryColor][4];
     case ContributionLevel.None:
       return "#1a1b1e";
   }

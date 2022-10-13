@@ -23,7 +23,7 @@ export interface LanguageArray extends Language {
 
 function TopLanguages({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
-  const { colors } = useMantineTheme();
+  const { colors, primaryColor } = useMantineTheme();
   const [languages, setLanguages] = useState<LanguageArray[]>([]);
   const { data } = trpc.useQuery(["github.getUserTopLanguages", { username }]);
 
@@ -46,22 +46,22 @@ function TopLanguages({ username }: { username: string | undefined }) {
           sections={[
             {
               value: languages[0].percentage ? languages[0].percentage : 0,
-              color: colors.blue[4],
+              color: colors[primaryColor][4],
               tooltip: languages[0]?.name,
             },
             {
               value: languages[1].percentage ? languages[1].percentage : 0,
-              color: colors.blue[7],
+              color: colors[primaryColor][7],
               tooltip: languages[1]?.name,
             },
             {
               value: languages[2].percentage ? languages[2].percentage : 0,
-              color: colors.blue[8],
+              color: colors[primaryColor][8],
               tooltip: languages[2]?.name,
             },
             {
               value: languages[3].percentage ? languages[3].percentage : 0,
-              color: colors.blue[9],
+              color: colors[primaryColor][9],
               tooltip: languages[3]?.name,
             },
           ]}
@@ -71,7 +71,11 @@ function TopLanguages({ username }: { username: string | undefined }) {
           {languages.map((language, index) => (
             <Group key={language.name}>
               <ColorSwatch
-                color={index === 0 ? colors.blue[4] : colors.blue[index + 6]}
+                color={
+                  index === 0
+                    ? colors[primaryColor][4]
+                    : colors[primaryColor][index + 6]
+                }
                 size={10}
               />
               <Text color="dimmed" size="sm">

@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import { primaryColorShade } from "../../utils/mantine";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -33,11 +34,11 @@ const useStyles = createStyles((theme, _params, getRef) => {
       "&, &:hover": {
         backgroundColor: theme.fn.variant({
           variant: "outline",
-          color: theme.colors.dark[6],
+          color: primaryColorShade(theme),
         }).background,
-        color: theme.colors.blue[4],
+        color: primaryColorShade(theme),
         [`& .${icon}`]: {
-          color: theme.colors.blue[4],
+          color: primaryColorShade(theme),
         },
       },
     },

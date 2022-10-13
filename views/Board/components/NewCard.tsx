@@ -20,6 +20,7 @@ function NewCard({ cards, disabled, type }: Props) {
       {editingCard ? (
         <EditableCard
           newCard
+          id={index.toString()}
           index={index}
           setEditingCard={setEditingCard}
           type={type}

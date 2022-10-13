@@ -1,9 +1,13 @@
 import { createStyles } from "@mantine/core";
+import { primaryColorShade } from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   card: {
     width: "300px",
     height: "200px",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   cardDark: {
     backgroundColor: "#111112",
@@ -12,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "#dfdfdf",
   },
   activeTheme: {
-    border: `1px solid ${theme.colors.blue[4]}`,
+    border: `2px solid ${primaryColorShade(theme)}`,
   },
   cardSystem: {
     background: "linear-gradient(90deg, #dfdfdf 50%, #111112 50%)",

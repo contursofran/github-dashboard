@@ -1,7 +1,8 @@
 import { Card, Group, Stack } from "@mantine/core";
 import { useStore } from "../../../../store";
-import { Theme } from "./Appearance";
-import { useStyles } from "./Appearance.styles";
+import { useStyles } from "./Theme.styles";
+
+type Theme = "light" | "dark" | "system";
 
 function Theme({ theme }: { theme: Theme }) {
   const { classes, cx } = useStyles();

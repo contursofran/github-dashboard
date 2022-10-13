@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import { primaryColorShade } from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -6,7 +7,7 @@ const useStyles = createStyles((theme) => ({
     width: "450px",
     "&:hover": {
       border: "1px solid",
-      borderColor: theme.colors.blue[4],
+      borderColor: primaryColorShade(theme),
       cursor: "pointer",
     },
 

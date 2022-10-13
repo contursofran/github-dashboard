@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import { primaryColorShade } from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -10,7 +11,7 @@ const useStyles = createStyles((theme) => ({
   icon: {
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.blue[4]
+        ? primaryColorShade(theme)
         : theme.colors.gray[4],
   },
 }));

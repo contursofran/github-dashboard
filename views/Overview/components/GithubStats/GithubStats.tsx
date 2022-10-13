@@ -6,6 +6,7 @@ import {
   Stack,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import {
   IconAlertCircle,
@@ -15,6 +16,7 @@ import {
   IconStar,
 } from "@tabler/icons";
 import { Fragment, useEffect, useState } from "react";
+import { primaryColorShade } from "../../../../utils/mantine";
 import { trpc } from "../../../../utils/trpc";
 import { filterStats } from "../../utils/filterStats";
 import { useStyles } from "./GithubStats.styles";
@@ -27,6 +29,7 @@ interface Rank {
 
 function GithubStats({ username }: { username: string | undefined }) {
   const { classes } = useStyles();
+  const theme = useMantineTheme();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
   const { data } = trpc.useQuery(["github.getUserStats", { username }]);
@@ -95,7 +98,10 @@ function GithubStats({ username }: { username: string | undefined }) {
               </Text>
             }
             sections={[
-              { value: rank?.score ? rank?.score : 100, color: "blue.4" },
+              {
+                value: rank?.score ? rank?.score : 100,
+                color: primaryColorShade(theme),
+              },
             ]}
             size={110}
             thickness={6}

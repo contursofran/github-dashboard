@@ -12,6 +12,7 @@ import { ReactElement, ReactNode, useEffect } from "react";
 import superjson from "superjson";
 import { AppRouter } from "../server/createRouter";
 import { useStore } from "../store";
+import { blue, indigo, orange, violet } from "../styles/colors";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (_page: ReactElement) => ReactNode;
@@ -23,6 +24,7 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const colorScheme = useStore((state) => state.colorScheme);
+  const accentColor = useStore((state) => state.accentColor);
   const preferredColorScheme = useColorScheme();
   const getLayout = Component.getLayout ?? ((page) => page);
 
@@ -50,22 +52,21 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
+          // prettier-ignore
           colors: {
-            blue: [
-              "#e7f5ff",
-              "#d0ebff",
-              "#a5d8ff",
-              "#8ccafa",
-              "#67bafa",
-              "#339af0",
-              "#228be6",
-              "#2684ad",
-              "#02617e",
-              "#0e3144",
-            ],
+            blue: [blue[0], blue[1], blue[2], blue[3], blue[4], blue[5], blue[6], blue[7], blue[8], blue[9]],
+            violet: [violet[0], violet[1], violet[2], violet[3], violet[4], violet[5], violet[6], violet[7], violet[8], violet[9]],
+            indigo: [indigo[0], indigo[1], indigo[2], indigo[3], indigo[4], indigo[5], indigo[6], indigo[7], indigo[8], indigo[9]],
+            orange: [orange[0], orange[1], orange[2], orange[3], orange[4], orange[5], orange[6], orange[7], orange[8], orange[9]],
+          },
+          primaryColor: accentColor,
+          primaryShade: {
+            light: 4,
+            dark: 4,
           },
           colorScheme:
             colorScheme === "system" ? preferredColorScheme : colorScheme,
+
           fontFamily: "Poppins, Roboto",
           headings: { fontFamily: "Poppins, Roboto" },
         }}

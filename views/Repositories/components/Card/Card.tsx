@@ -6,6 +6,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
+import { primaryColorShade } from "../../../../utils/mantine";
 import { useStyles } from "./Card.styles";
 
 interface Props {
@@ -32,12 +33,12 @@ const languageColors: LanguageColors = {
 
 function Card({ language, lastUpdated, text, title, visibility }: Props) {
   const { classes } = useStyles();
-  const { colors } = useMantineTheme();
+  const theme = useMantineTheme();
   const link = `/repositories/${visibility?.toLowerCase()}/${title}/features`;
 
   const getLanguageColor = () => {
     if (language && languageColors[language]) {
-      return colors[languageColors[language]][5];
+      return theme.colors[languageColors[language]][5];
     }
     return "gray";
   };
@@ -65,7 +66,7 @@ function Card({ language, lastUpdated, text, title, visibility }: Props) {
         shadow="md"
       >
         <Group mb="xs">
-          <Text color="blue.4" size={"lg"}>
+          <Text color={primaryColorShade(theme)} size={"lg"}>
             {title}
           </Text>
         </Group>

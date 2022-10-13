@@ -8,6 +8,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconAlertCircle, IconBulb, IconCheckupList } from "@tabler/icons";
+import { primaryColorShade } from "../../../../utils/mantine";
 import { useStyles } from "./RepositoryStats.styles";
 
 interface Progress {
@@ -23,10 +24,9 @@ interface Props {
   tasks: Progress;
 }
 
-// Todo: Refactor this component
 function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
   const { classes } = useStyles();
-  const { colors } = useMantineTheme();
+  const theme = useMantineTheme();
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
@@ -56,7 +56,7 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: features.percentage,
-                color: colors.blue[4],
+                color: primaryColorShade(theme),
                 tooltip: "33%",
               },
             ]}
@@ -80,7 +80,7 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: tasks.percentage,
-                color: colors.blue[4],
+                color: primaryColorShade(theme),
                 tooltip: "33%",
               },
             ]}
@@ -104,7 +104,7 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
             sections={[
               {
                 value: issues.percentage,
-                color: colors.blue[4],
+                color: primaryColorShade(theme),
                 tooltip: "33%",
               },
             ]}
