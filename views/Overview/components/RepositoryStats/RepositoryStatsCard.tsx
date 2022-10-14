@@ -57,7 +57,6 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
               {
                 value: features.percentage,
                 color: primaryColorShade(theme),
-                tooltip: "33%",
               },
             ]}
             size={7}
@@ -81,7 +80,6 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
               {
                 value: tasks.percentage,
                 color: primaryColorShade(theme),
-                tooltip: "33%",
               },
             ]}
             size={7}
@@ -105,7 +103,6 @@ function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
               {
                 value: issues.percentage,
                 color: primaryColorShade(theme),
-                tooltip: "33%",
               },
             ]}
             size={7}

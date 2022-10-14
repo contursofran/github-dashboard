@@ -4,7 +4,7 @@ const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor: theme.colors.dark[8],
     width: "450px",
-    height: "170.3px",
+    height: "167.3px",
   },
   title: {
     fontSize: "1.1rem",

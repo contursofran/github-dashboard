@@ -26,7 +26,7 @@ function Repositories({ visibility }: { visibility: Visibility }) {
   const getSkeletons = () => {
     const skeletons = [];
 
-    for (let i = 0; i < MAX_REPOS_PER_PAGE; i++) {
+    for (let i = 0; i < MAX_REPOS_PER_PAGE - 1; i++) {
       skeletons.push(<SkeletonCard key={i} />);
     }
 
@@ -43,13 +43,13 @@ function Repositories({ visibility }: { visibility: Visibility }) {
         <div className={classes.content}>
           <SimpleGrid
             breakpoints={[
-              { minWidth: 1780, cols: 3, spacing: 30 },
+              { minWidth: 1780, cols: 3, spacing: 40 },
               { minWidth: 1210, cols: 2, spacing: 30 },
               { minWidth: 0, cols: 1, spacing: 30 },
             ]}
             className={classes.grid}
             cols={3}
-            spacing={30}
+            spacing={40}
           >
             {getPaginationDataGuest(guestUser, activePage).map((repo) => {
               if (repo.visibility === visibility) {
@@ -82,19 +82,21 @@ function Repositories({ visibility }: { visibility: Visibility }) {
 
   if (status === "loading" || repositories.length === 0) {
     return (
-      <div className={classes.content}>
-        <SimpleGrid
-          breakpoints={[
-            { minWidth: 1780, cols: 3, spacing: 40 },
-            { minWidth: 1210, cols: 2, spacing: 40 },
-            { minWidth: 0, cols: 1, spacing: 30 },
-          ]}
-          className={classes.grid}
-          cols={3}
-          spacing={40}
-        >
-          {getSkeletons()}
-        </SimpleGrid>
+      <div style={{ padding: 30, height: "100%", width: "100%" }}>
+        <div className={classes.content}>
+          <SimpleGrid
+            breakpoints={[
+              { minWidth: 1780, cols: 3, spacing: 40 },
+              { minWidth: 1210, cols: 2, spacing: 30 },
+              { minWidth: 0, cols: 1, spacing: 30 },
+            ]}
+            className={classes.grid}
+            cols={3}
+            spacing={40}
+          >
+            {getSkeletons()}
+          </SimpleGrid>
+        </div>
       </div>
     );
   }
@@ -114,7 +116,7 @@ function Repositories({ visibility }: { visibility: Visibility }) {
           <SimpleGrid
             breakpoints={[
               { minWidth: 1780, cols: 3, spacing: 40 },
-              { minWidth: 1210, cols: 2, spacing: 40 },
+              { minWidth: 1210, cols: 2, spacing: 30 },
               { minWidth: 0, cols: 1, spacing: 30 },
             ]}
             className={classes.grid}
