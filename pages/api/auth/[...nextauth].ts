@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import type { DefaultUser } from "next-auth";
+import type { DefaultSession } from "next-auth";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { prisma } from "../../../server/db/client";
@@ -7,9 +7,10 @@ import { prisma } from "../../../server/db/client";
 // extend the default user type
 declare module "next-auth" {
   interface Session {
-    user?: DefaultUser & {
+    user: {
       id: string;
-    };
+      username: string;
+    } & DefaultSession["user"];
   }
 }
 
@@ -19,9 +20,17 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
+      profile(profile) {
+        return {
+          id: profile.id,
+          username: profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+          name: profile.name,
+        };
+      },
       authorization: {
         params: {
-          // I wish to request additional permission scopes.
           scope: "read:user user:email repo",
         },
       },
@@ -32,7 +41,8 @@ export const authOptions: NextAuthOptions = {
     session: async ({ session, user }) => {
       return {
         ...session,
-        user: user,
+        id: user.id,
+        username: user.username,
       };
     },
   },
