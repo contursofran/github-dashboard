@@ -27,12 +27,12 @@ interface Rank {
   score: number;
 }
 
-function GithubStats({ username }: { username: string | undefined }) {
+function GithubStats() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
-  const { data } = trpc.useQuery(["github.getUserStats", { username }]);
+  const { data } = trpc.useQuery(["github.getUserStats"]);
 
   const labels = [
     {

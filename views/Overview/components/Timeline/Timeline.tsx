@@ -4,13 +4,11 @@ import { Events } from "./Events/";
 import { useStyles } from "./Timeline.styles";
 import { TimelineSkeleton } from "./TimelineSkeleton";
 
-function Timeline({ username }: { username: string | undefined }) {
+function Timeline() {
   // use of any is required because the types are incorrect in the library
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { classes } = useStyles();
-  const { data } = trpc.useQuery(["github.getUserEvents", { username }], {
-    enabled: !!username,
-  });
+  const { data } = trpc.useQuery(["github.getUserEvents"]);
 
   if (!data) {
     return <TimelineSkeleton />;

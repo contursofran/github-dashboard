@@ -12,16 +12,13 @@ import { useStyles } from "./Contributions.styles";
 import { ContributionsSkeleton } from "./ContributionsSkeleton";
 
 // TODO: Refactor component
-function Contributions({ username }: { username: string | undefined }) {
+function Contributions() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [cardWidth, setCardWidth] = useState(1078);
   const [totalWeeks, setTotalWeeks] = useState<number[]>([]);
   const { ref, width } = useElementSize();
-  const { data: data } = trpc.useQuery(
-    ["github.getUserContributions", { username }],
-    { enabled: !!username }
-  );
+  const { data: data } = trpc.useQuery(["github.getUserContributions"]);
 
   const contributionLevels: ContributionLevel[] = [
     ContributionLevel.None,

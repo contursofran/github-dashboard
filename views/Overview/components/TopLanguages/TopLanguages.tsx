@@ -21,11 +21,11 @@ export interface LanguageArray extends Language {
   size: number;
 }
 
-function TopLanguages({ username }: { username: string | undefined }) {
+function TopLanguages() {
   const { classes } = useStyles();
   const { colors, primaryColor } = useMantineTheme();
   const [languages, setLanguages] = useState<LanguageArray[]>([]);
-  const { data } = trpc.useQuery(["github.getUserTopLanguages", { username }]);
+  const { data } = trpc.useQuery(["github.getUserTopLanguages"]);
 
   useEffect(() => {
     if (data) {

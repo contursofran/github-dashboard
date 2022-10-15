@@ -1,9 +1,7 @@
 import { Octokit } from "@octokit/core";
 import { TRPCError } from "@trpc/server";
-import { z } from "zod";
 import {
   ContributionsCollection,
-  Query,
   Repository,
   UserStatistics,
 } from "../../views/Overview/types/github";
@@ -30,7 +28,11 @@ export const githubRouter = createRouter()
     if (!ctx.session) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     } else {
-      const user = ctx.session?.user?.id;
+      const user = ctx.session.user.id;
+
+      if (!user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
 
       const token = await ctx.prisma.user.findUnique({
         where: {
@@ -53,41 +55,9 @@ export const githubRouter = createRouter()
       });
     }
   })
-  .query("getUsername", {
-    async resolve({ ctx }) {
-      const token = ctx.token;
-
-      const headers = {
-        Authorization: `bearer ${token}`,
-      };
-
-      const body = {
-        query: `query {
-          viewer {
-            login
-          }
-        }`,
-      };
-
-      const res = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: headers,
-      });
-
-      if (res.ok) {
-        const { data }: { data: Query } = await res.json();
-        return data.viewer.login;
-      }
-    },
-  })
   .query("getUserContributions", {
-    input: z.object({
-      username: z.string().nullable().optional(),
-    }),
-
-    async resolve({ ctx, input }) {
-      const { username } = input;
+    async resolve({ ctx }) {
+      const username = ctx.session?.user.username;
       const token = ctx.token;
 
       const headers = {
@@ -140,12 +110,8 @@ export const githubRouter = createRouter()
     },
   })
   .query("getUserEvents", {
-    input: z.object({
-      username: z.string().nullable().optional(),
-    }),
-
-    async resolve({ ctx, input }) {
-      const { username } = input;
+    async resolve({ ctx }) {
+      const username = ctx.session?.user.username;
       const token = ctx.token;
 
       const octokit = new Octokit({ auth: token });
@@ -163,13 +129,8 @@ export const githubRouter = createRouter()
     },
   })
   .query("getUserTopLanguages", {
-    input: z.object({
-      username: z.string().nullable().optional(),
-    }),
-
-    async resolve({ ctx, input }) {
-      const { username } = input;
-
+    async resolve({ ctx }) {
+      const username = ctx.session?.user.username;
       const token = ctx.token;
 
       const headers = {
@@ -211,13 +172,8 @@ export const githubRouter = createRouter()
     },
   })
   .query("getUserStats", {
-    input: z.object({
-      username: z.string().nullable().optional(),
-    }),
-
-    async resolve({ ctx, input }) {
-      const { username } = input;
-
+    async resolve({ ctx }) {
+      const username = ctx.session?.user.username;
       const token = ctx.token;
 
       const headers = {
