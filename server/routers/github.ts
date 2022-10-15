@@ -25,35 +25,31 @@ interface UserStats {
 
 export const githubRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    } else {
-      const user = ctx.session.user.id;
+    const user = ctx.session?.user.id;
 
-      if (!user) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
+    if (!user) {
+      throw new TRPCError({ code: "UNAUTHORIZED", message: user });
+    }
 
-      const token = await ctx.prisma.user.findUnique({
-        where: {
-          id: user,
-        },
-        select: {
-          accounts: {
-            select: {
-              access_token: true,
-            },
+    const token = await ctx.prisma.user.findUnique({
+      where: {
+        id: user,
+      },
+      select: {
+        accounts: {
+          select: {
+            access_token: true,
           },
         },
-      });
+      },
+    });
 
-      return next({
-        ctx: {
-          ...ctx,
-          token: token?.accounts[0].access_token,
-        },
-      });
-    }
+    return next({
+      ctx: {
+        ...ctx,
+        token: token?.accounts[0].access_token,
+      },
+    });
   })
   .query("getUserContributions", {
     async resolve({ ctx }) {

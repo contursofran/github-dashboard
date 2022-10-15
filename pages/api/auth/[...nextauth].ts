@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { DefaultSession } from "next-auth";
 import NextAuth, { type NextAuthOptions } from "next-auth";
+
 import GitHubProvider from "next-auth/providers/github";
 import { prisma } from "../../../server/db/client";
 
@@ -11,6 +12,10 @@ declare module "next-auth" {
       id: string;
       username: string;
     } & DefaultSession["user"];
+  }
+  interface User {
+    id: string;
+    username: string;
   }
 }
 
@@ -39,11 +44,9 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session: async ({ session, user }) => {
-      return {
-        ...session,
-        id: user.id,
-        username: user.username,
-      };
+      session.user.id = user.id;
+      session.user.username = user.username;
+      return session;
     },
   },
 };
