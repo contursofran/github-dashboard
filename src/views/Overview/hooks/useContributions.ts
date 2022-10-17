@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../utils/trpc";
 import { ContributionCalendarMonth, ContributionLevel } from "../types/github";
@@ -5,9 +6,11 @@ import { ContributionCalendarMonth, ContributionLevel } from "../types/github";
 export const WEEK_LABELS = ["Mon", "Wed", "Fri"];
 
 function useContributions() {
-  const { data: data } = trpc.useQuery(["github.getUserContributions"]);
+  const { status } = useSession();
+  const { data: data } = trpc.useQuery(["github.getUserContributions"], {
+    enabled: status === "authenticated",
+  });
   const [totalWeeks, setTotalWeeks] = useState<number[]>([]);
-
   const contributionLevels: ContributionLevel[] = [
     ContributionLevel.None,
     ContributionLevel.FirstQuartile,

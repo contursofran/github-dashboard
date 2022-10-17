@@ -15,10 +15,12 @@ import {
   IconGitPullRequest,
   IconStar,
 } from "@tabler/icons";
+import { useSession } from "next-auth/react";
 import { Fragment, useEffect, useState } from "react";
+import { guestUser } from "../../../../utils/data";
 import { primaryColorShade } from "../../../../utils/mantine";
 import { trpc } from "../../../../utils/trpc";
-import { filterStats } from "../../helpers/filterStats";
+import { filterStats, filterStatsGuest } from "../../helpers/filterStats";
 import { useStyles } from "./GithubStats.styles";
 import { GithubStatsSkeleton } from "./GithubStatsSkeleton";
 
@@ -29,10 +31,13 @@ interface Rank {
 
 function GithubStats() {
   const { classes } = useStyles();
+  const { status } = useSession();
   const theme = useMantineTheme();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
-  const { data } = trpc.useQuery(["github.getUserStats"]);
+  const { data } = trpc.useQuery(["github.getUserStats"], {
+    enabled: status === "authenticated",
+  });
 
   const labels = [
     {
@@ -62,10 +67,16 @@ function GithubStats() {
       const { filteredStats, rank } = filterStats(data);
       setValues(filteredStats);
       setRank(rank);
+    } else if (status === "unauthenticated") {
+      const { filteredStats, rank } = filterStatsGuest(
+        guestUser.stats.githubStats
+      );
+      setValues(filteredStats);
+      setRank(rank);
     }
-  }, [data]);
+  }, [data, status]);
 
-  if (!data || !values) {
+  if ((!data || !values || !rank) && status !== "unauthenticated") {
     return <GithubStatsSkeleton />;
   }
 

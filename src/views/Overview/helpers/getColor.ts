@@ -18,3 +18,21 @@ export const getColor = (
       return "#1a1b1e";
   }
 };
+
+export const getColorGuest = (
+  contrituionLevel: string,
+  theme: MantineTheme
+) => {
+  switch (contrituionLevel) {
+    case "FIRST_QUARTILE":
+      return theme.colors[theme.primaryColor][9];
+    case "SECOND_QUARTILE":
+      return theme.colors[theme.primaryColor][8];
+    case "THIRD_QUARTILE":
+      return theme.colors[theme.primaryColor][7];
+    case "FOURTH_QUARTILE":
+      return theme.colors[theme.primaryColor][4];
+    case "NONE":
+      return "#1a1b1e";
+  }
+};

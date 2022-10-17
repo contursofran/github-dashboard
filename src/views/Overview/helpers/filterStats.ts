@@ -91,7 +91,7 @@ export const calculateRank = (props: Rank) => {
       prs * PRS_OFFSET +
       followers * FOLLOWERS_OFFSET +
       totalRepos * REPO_OFFSET
-    ) / 100;
+    ) / 20
 
   const normalizedScore = normalcdf(score, TOTAL_VALUES, ALL_OFFSETS) * 100;
 
@@ -121,4 +121,37 @@ const normalcdf = (mean: number, sigma: number, to: number) => {
     sign = -1;
   }
   return (1 / 2) * (1 + sign * erf);
+};
+
+export const filterStatsGuest = (stats: Rank) => {
+  const statsArray: number[] = [];
+
+  const totalStars = stats.stargazers;
+  const totalCommits = stats.totalCommits;
+  const totalPrs = stats.prs;
+  const totalIssues = stats.issues;
+  const totalContributions = stats.contributions;
+
+  statsArray.push(
+    totalStars,
+    totalCommits,
+    totalPrs,
+    totalIssues,
+    totalContributions
+  );
+
+  const rank: Rank = {
+    contributions: totalContributions,
+    followers: stats.followers,
+    issues: totalIssues,
+    prs: totalPrs,
+    stargazers: totalStars,
+    totalCommits,
+    totalRepos: stats.totalRepos,
+  };
+
+  return {
+    filteredStats: statsArray,
+    rank: calculateRank(rank),
+  };
 };

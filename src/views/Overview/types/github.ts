@@ -105,7 +105,7 @@ export type Language = {
 /** Represents the language of a repository. */
 export type LanguageEdge = {
   __typename?: "LanguageEdge";
-  cursor: Scalars["String"];
+  cursor?: Scalars["String"];
   node: Language;
   /** The number of bytes of code written in the language. */
   size: Scalars["Int"];
@@ -117,14 +117,9 @@ export type LanguageConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<LanguageEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Language>>>;
-  /** Identifies the total count of items in the connection. */
-  totalCount: Scalars["Int"];
-  /** The total size in bytes of files written in that language. */
-  totalSize: Scalars["Int"];
 };
 
-export type Repository = Node & {
+export type Repository = {
   __typename?: "Repository";
   /**
    * Whether or not a pull request head branch that is behind its base branch can

@@ -42,7 +42,7 @@ const percentage = (size: number, totalSize: number) => {
 export const filterLanguages = (repos: Repository[]) => {
   const edges = getReposEdges(repos);
   const total = totalSize(edges);
-
+  console.log(total);
   const languages: LanguageArray[] = [];
 
   edges.forEach((edge) => {
