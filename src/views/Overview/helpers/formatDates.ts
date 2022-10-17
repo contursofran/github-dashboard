@@ -45,3 +45,15 @@ export const getShortDate = (lastUpdated: string) => {
   }
   return `${month} ${day}, ${year}`;
 };
+
+export const displayContributions = (day: any) => {
+  if (day.contributionCount === 0) {
+    return "No contributions on " + getShortDate(day.date);
+  } else if (day.contributionCount === 1) {
+    return day.contributionCount + " contribution on " + getShortDate(day.date);
+  } else {
+    return (
+      day.contributionCount + " contributions on " + getShortDate(day.date)
+    );
+  }
+};

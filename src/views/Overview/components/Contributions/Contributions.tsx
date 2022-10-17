@@ -1,90 +1,26 @@
 import { Card, Title, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { trpc } from "../../../../utils/trpc";
-import { getMonth, getShortDate } from "../../helpers/formatDates";
+import { displayContributions, getMonth } from "../../helpers/formatDates";
 import { getColor } from "../../helpers/getColor";
-import {
-  ContributionCalendarMonth,
-  ContributionLevel,
-} from "../../types/github";
+import { useContributions, WEEK_LABELS } from "../../hooks/useContributions";
+import {} from "../../types/github";
 import { useStyles } from "./Contributions.styles";
 import { ContributionsSkeleton } from "./ContributionsSkeleton";
 
-// TODO: Refactor component
 function Contributions() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const [cardWidth, setCardWidth] = useState(1078);
-  const [totalWeeks, setTotalWeeks] = useState<number[]>([]);
   const { ref, width } = useElementSize();
-  const { data: data } = trpc.useQuery(["github.getUserContributions"]);
-
-  const contributionLevels: ContributionLevel[] = [
-    ContributionLevel.None,
-    ContributionLevel.FirstQuartile,
-    ContributionLevel.SecondQuartile,
-    ContributionLevel.ThirdQuartile,
-    ContributionLevel.FourthQuartile,
-  ];
-
-  const weekData = data?.weeks;
-  const monthData = data?.months;
-
-  const weekLabels = ["Mon", "Wed", "Fri"];
-
-  useEffect(() => {
-    if (monthData) {
-      const totalWeeks: number[] = [];
-      let total = 0;
-
-      monthData.forEach((month: ContributionCalendarMonth) => {
-        total += month.totalWeeks;
-        totalWeeks.push(total);
-      });
-
-      setTotalWeeks(totalWeeks);
-    }
-  }, [monthData]);
+  const { contributionLevels, data, getMonthPosition, monthData, weekData } =
+    useContributions();
 
   useEffect(() => {
     if (width) {
       setCardWidth(width);
     }
   }, [width]);
-
-  const getMonthPosition = (index: number) => {
-    const weekWidth = cardWidth / 55.5;
-    const monthPosition = totalWeeks[index] * weekWidth;
-
-    if (index === 11 && monthPosition > 950) {
-      return monthPosition - weekWidth * 52;
-    }
-
-    if (monthPosition === 0) {
-      return 21;
-    }
-
-    if (!monthPosition) {
-      return 0;
-    }
-
-    return monthPosition;
-  };
-
-  const displayContributions = (day: any) => {
-    if (day.contributionCount === 0) {
-      return "No contributions on " + getShortDate(day.date);
-    } else if (day.contributionCount === 1) {
-      return (
-        day.contributionCount + " contribution on " + getShortDate(day.date)
-      );
-    } else {
-      return (
-        day.contributionCount + " contributions on " + getShortDate(day.date)
-      );
-    }
-  };
 
   if (!data) {
     return <ContributionsSkeleton />;
@@ -102,14 +38,14 @@ function Contributions() {
               <text
                 fill={theme.colors.gray[4]}
                 key={index}
-                x={50 + getMonthPosition(index)}
+                x={50 + getMonthPosition(index, cardWidth)}
                 y={16}
               >
                 {getMonth(index)}
               </text>
             )
         )}
-        {weekLabels.map((label, index) => (
+        {WEEK_LABELS.map((label, index) => (
           <text
             fill={theme.colors.gray[4]}
             key={index}
