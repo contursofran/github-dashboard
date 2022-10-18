@@ -18,7 +18,7 @@ function Timeline() {
   if (!data && status !== "unauthenticated") {
     return <TimelineSkeleton />;
   }
-  console.log(data);
+
   return (
     <>
       <Paper withBorder className={classes.card} p="lg" radius="md">

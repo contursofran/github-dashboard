@@ -8,6 +8,7 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import {
   IconAlertCircle,
   IconBook,
@@ -32,6 +33,7 @@ interface Rank {
 function GithubStats() {
   const { classes } = useStyles();
   const { status } = useSession();
+  const largeScreen = useMediaQuery("(min-width: 1600px)");
   const theme = useMantineTheme();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
@@ -82,15 +84,21 @@ function GithubStats() {
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">
-      <Group>
-        <Stack sx={{ height: "50%", width: "45%" }}>
+      <Group position="apart">
+        <Stack
+          style={{ width: "fit-content", flexBasis: "fit-content" }}
+          sx={{
+            height: "50%",
+            width: "45%",
+          }}
+        >
           <Title size={18}>Github Stats</Title>
           <div className={classes.grid}>
             {labels.map((label, index) => (
               <Fragment key={label.label}>
                 <Group>
                   {label.icon}
-                  <Text color="dimmed" size="sm">
+                  <Text color="dimmed" size={"sm"}>
                     {label.label}
                   </Text>
                 </Group>
@@ -101,10 +109,10 @@ function GithubStats() {
             ))}
           </div>
         </Stack>
-        <Container pl={"15%"}>
+        <Container mr={"5%"}>
           <RingProgress
             label={
-              <Text align="center" color="dimmed" size={21}>
+              <Text align="center" color="dimmed" size={23}>
                 {rank?.level}
               </Text>
             }
@@ -114,7 +122,7 @@ function GithubStats() {
                 color: primaryColorShade(theme),
               },
             ]}
-            size={110}
+            size={largeScreen ? 120 : 100}
             thickness={6}
           />
         </Container>
