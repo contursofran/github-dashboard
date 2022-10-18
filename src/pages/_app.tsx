@@ -79,6 +79,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
           fontFamily: "Poppins, Roboto",
           headings: { fontFamily: "Poppins, Roboto" },
+          breakpoints: {
+            xl: 1560,
+          },
         }}
       >
         <NotificationsProvider>

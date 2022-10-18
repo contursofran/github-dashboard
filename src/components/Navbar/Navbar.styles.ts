@@ -48,7 +48,6 @@ const useStyles = createStyles((theme, _params, getRef) => {
         theme.colorScheme === "dark"
           ? theme.colors.gray[4]
           : theme.colors.gray[6],
-      marginRight: theme.spacing.sm,
     },
     footer: {
       borderTop: `1px solid ${

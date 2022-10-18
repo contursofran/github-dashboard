@@ -1,0 +1,1 @@
+export { NavbarCollapsed } from "./NavbarCollapsed";

@@ -2,7 +2,7 @@ import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import GithubIcon from "../../../../public/github.png";
+import GithubIcon from "../../../public/github.png";
 import { useStyles } from "./Login.styles";
 
 interface LoginProps {
