@@ -82,6 +82,11 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           breakpoints: {
             xl: 1560,
           },
+          globalStyles: () => ({
+            body: {
+              overflow: "hidden",
+            },
+          }),
         }}
       >
         <NotificationsProvider>

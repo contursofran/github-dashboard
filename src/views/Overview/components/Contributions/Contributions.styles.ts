@@ -38,9 +38,8 @@ const calendarColors = {
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
-    minWidth: "700px",
+    minWidth: "900px",
     height: "100%",
-    minHeight: "270px",
     backgroundColor: theme.colors.dark[8],
   },
   grid: {
@@ -55,6 +54,11 @@ const useStyles = createStyles((theme) => ({
     height: "17px",
     borderRadius: "3px",
     width: "17px",
+  },
+  swatches: {
+    height: 15,
+    width: 15,
+    borderRadius: 3,
   },
 }));
 

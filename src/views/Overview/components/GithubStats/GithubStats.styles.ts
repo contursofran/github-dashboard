@@ -4,7 +4,7 @@ import { primaryColorShade } from "../../../../utils/mantine";
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
-    height: "200px",
+    height: "100%",
     backgroundColor: theme.colors.dark[8],
   },
   grid: {

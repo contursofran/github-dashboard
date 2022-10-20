@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/core";
 import { Endpoints } from "@octokit/types";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { trpc } from "../../../utils/trpc";
 
@@ -8,7 +9,10 @@ export type Visibility = "public" | "private" | "none";
 
 function useRepositories(visibility: Visibility) {
   const [repositories, setRepositories] = useState<UserRepositories>([]);
-  const { data, status } = trpc.useQuery(["auth.getToken"]);
+  const user = useSession();
+  const { data, status } = trpc.useQuery(["auth.getToken"], {
+    enabled: user.status === "authenticated",
+  });
   const token = data?.accounts[0].access_token;
 
   useEffect(() => {

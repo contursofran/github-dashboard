@@ -2,13 +2,14 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles(() => ({
   content: {
-    alignSelf: "stretch",
     display: "flex",
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   grid: {
-    alignSelf: "start",
+    alignSelf: "center",
+    paddingBottom: "15px",
   },
 }));
 

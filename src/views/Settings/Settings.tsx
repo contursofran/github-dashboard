@@ -7,7 +7,7 @@ function Settings() {
   const { classes } = useStyles();
 
   return (
-    <>
+    <div className={classes.root}>
       <Card withBorder className={classes.card} p="lg" pb={40} radius="md">
         <Stack spacing="xs">
           <Title size={17}>Theme</Title>
@@ -35,7 +35,7 @@ function Settings() {
           <AccentColor />
         </Stack>
       </Card>
-    </>
+    </div>
   );
 }
 

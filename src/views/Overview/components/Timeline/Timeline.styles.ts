@@ -3,10 +3,8 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
-    // minWidth: "300px",
     height: "100%",
     backgroundColor: theme.colors.dark[8],
-    // margin: "2rem",
   },
   container: {
     width: "100%",
@@ -27,7 +25,6 @@ const useStyles = createStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  scrollBarRoot: {},
 }));
 
 export { useStyles };

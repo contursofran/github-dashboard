@@ -28,7 +28,6 @@ function Timeline() {
             classNames={{
               thumb: classes.scrollBarThumb,
               scrollbar: classes.scrollBar,
-              root: classes.scrollBarRoot,
             }}
             pr="xs"
             scrollHideDelay={500}

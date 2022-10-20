@@ -16,6 +16,36 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.gray[0]
         : theme.colors.dark[7],
   },
+  content: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexGrow: 1,
+    paddingTop: 30,
+    width: "100%",
+  },
+  scrollBarThumb: {
+    backgroundColor: theme.colors.dark[6],
+  },
+  scrollBar: {
+    paddingBottom: 30,
+
+    '&[data-orientation="vertical"] .mantine-ScrollArea-thumb': {
+      backgroundColor: theme.colors.dark[5],
+    },
+    "&,&:hover": {
+      background:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
+      cursor: "pointer",
+    },
+    marginRight: "25px",
+  },
+  scrollArea: {
+    paddingBottom: 60,
+    flexGrow: 1,
+  },
 }));
 
 export { useStyles };

@@ -1,4 +1,4 @@
-import { Card, Title, useMantineTheme } from "@mantine/core";
+import { Card, Group, Text, Title, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { displayContributions, getMonth } from "../../helpers/formatDates";
@@ -36,8 +36,9 @@ function Contributions() {
             index < 12 && (
               <text
                 fill={theme.colors.gray[4]}
+                fontSize={14}
                 key={index}
-                x={50 + getMonthPosition(index, cardWidth)}
+                x={getMonthPosition(index, cardWidth, 55 + 1200 / cardWidth)}
                 y={16}
               >
                 {getMonth(index)}
@@ -47,9 +48,10 @@ function Contributions() {
         {WEEK_LABELS.map((label, index) => (
           <text
             fill={theme.colors.gray[4]}
+            fontSize={14}
             key={index}
             x={0}
-            y={64 + 40 * index}
+            y={60 + 40 * index}
           >
             {label}
           </text>
@@ -63,7 +65,7 @@ function Contributions() {
               rx="2"
               ry="2"
               width={cardWidth / 76}
-              x={50 + (index * cardWidth) / 55.5}
+              x={50 + (index * cardWidth) / (55 + 1200 / cardWidth)}
               y={30 + day.weekday * 20}
             >
               <title>{displayContributions(day)}</title>
@@ -71,26 +73,26 @@ function Contributions() {
           ))
         )}
       </svg>
-      <svg style={{ position: "absolute", right: 0, bottom: 0 }} width={"20%"}>
-        <text fill={theme.colors.gray[4]} x={"0%"} y={120}>
+
+      <Group mr={10} mt={15} position="right">
+        <Text color="gray" size="md">
           Less
-        </text>
-        {contributionLevels.map((level, index) => (
-          <rect
-            fill={getColor(level, theme)}
-            height={cardWidth / 76}
-            key={level}
-            rx="2"
-            ry="2"
-            width={cardWidth / 76}
-            x={cardWidth * 0.045 + (index * cardWidth) / 50}
-            y={108}
-          />
-        ))}
-        <text fill={theme.colors.gray[4]} x={"72%"} y={120}>
+        </Text>
+        <Group spacing={10}>
+          {contributionLevels.map((level, index) => (
+            <div
+              className={classes.swatches}
+              key={level + index}
+              style={{
+                backgroundColor: getColor(level, theme),
+              }}
+            />
+          ))}
+        </Group>
+        <Text color="gray" size="md">
           More
-        </text>
-      </svg>
+        </Text>
+      </Group>
     </Card>
   );
 }

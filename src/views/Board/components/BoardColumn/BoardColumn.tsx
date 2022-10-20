@@ -27,16 +27,11 @@ interface Props {
 function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
   const { classes } = useStyles();
   const { colors } = useMantineTheme();
-  const { height, ref } = useElementSize();
-  const [scrollHeight, setScrollHeight] = useState(700);
 
   const counter = loading ? "?" : itemsList.length;
-  useEffect(() => {
-    setScrollHeight(height - 100);
-  }, [height]);
 
   return (
-    <Paper withBorder className={classes.root} radius="md" ref={ref}>
+    <Paper withBorder className={classes.root} radius="md">
       <Group p={20} position="apart">
         <Group spacing="xs">
           <Title className={classes.title} order={4}>
@@ -52,7 +47,7 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
           scrollbar: classes.scrollBar,
         }}
         scrollHideDelay={500}
-        style={{ height: scrollHeight, marginRight: 6 }}
+        style={{ height: "calc(100vh - 200px)", marginRight: 6 }}
       >
         {loading ? (
           skeletons.map((item, index) => <SkeletonCard key={index} />)

@@ -36,11 +36,15 @@ function useContributions() {
     }
   }, [monthData]);
 
-  const getMonthPosition = (index: number, cardWidth: number) => {
-    const weekWidth = cardWidth / 55.5;
+  const getMonthPosition = (
+    index: number,
+    cardWidth: number,
+    spacing: number
+  ) => {
+    const weekWidth = cardWidth / spacing;
     const monthPosition = totalWeeks[index] * weekWidth;
 
-    if (index === 11 && monthPosition > 950) {
+    if (index === 11 && monthPosition / cardWidth > 0.95) {
       return monthPosition - weekWidth * 52;
     }
 
@@ -52,7 +56,7 @@ function useContributions() {
       return 0;
     }
 
-    return monthPosition;
+    return monthPosition + 50;
   };
 
   return {

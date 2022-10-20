@@ -1,3 +1,4 @@
+import { ScrollArea } from "@mantine/core";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Tab } from "../../components/Tabs";
@@ -16,8 +17,20 @@ function Tabs({ children, tabs }: Props) {
       <Navbar />
       <div className={classes.body}>
         <Header tabs={tabs} />
-
-        {children}
+        <div className={classes.content}>
+          <ScrollArea
+            classNames={{
+              scrollbar: classes.scrollBar,
+              thumb: classes.scrollBarThumb,
+              root: classes.scrollArea,
+            }}
+            style={{
+              height: "calc(100vh - 70px)",
+            }}
+          >
+            {children}
+          </ScrollArea>
+        </div>
       </div>
     </div>
   );

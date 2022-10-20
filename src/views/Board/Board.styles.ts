@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   content: {
     flex: 1,
     alignSelf: "stretch",
@@ -12,7 +12,8 @@ const useStyles = createStyles((theme) => ({
   grid: {
     height: "100%",
     width: "100%",
-    padding: theme.spacing.xl * 1.5,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
 }));
 
