@@ -5,11 +5,31 @@ const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
 
   return {
+    header: {
+      paddingBottom: theme.spacing.md,
+      marginBottom: theme.spacing.md * 1.5,
+      borderBottom: `1px solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[2]
+      }`,
+    },
+
+    footer: {
+      borderTop: `1px solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[3]
+      }`,
+      paddingTop: theme.spacing.md,
+    },
+
     navbar: {
       backgroundColor:
         theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
       border: "none",
     },
+
     link: {
       display: "flex",
       alignItems: "center",
@@ -30,6 +50,15 @@ const useStyles = createStyles((theme, _params, getRef) => {
         },
       },
     },
+
+    linkIcon: {
+      ref: icon,
+      color:
+        theme.colorScheme === "dark"
+          ? theme.colors.gray[4]
+          : theme.colors.gray[6],
+    },
+
     linkActive: {
       "&, &:hover": {
         backgroundColor: theme.fn.variant({
@@ -42,29 +71,37 @@ const useStyles = createStyles((theme, _params, getRef) => {
         },
       },
     },
-    linkIcon: {
-      ref: icon,
-      color:
-        theme.colorScheme === "dark"
-          ? theme.colors.gray[4]
-          : theme.colors.gray[6],
+
+    linkLabel: {
+      "@media (min-width: 1560px)": {
+        marginLeft: 7,
+      },
+
+      "@media (max-width: 1559px)": {
+        display: "none",
+      },
     },
-    footer: {
-      borderTop: `1px solid ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[3]
-      }`,
-      paddingTop: theme.spacing.md,
+
+    avatar: {
+      "@media (min-width: 1560px)": {
+        height: 70,
+        width: 70,
+      },
+      "@media (max-width: 1559px)": {
+        height: 40,
+        width: 40,
+      },
     },
-    header: {
-      paddingBottom: theme.spacing.md,
-      marginBottom: theme.spacing.md * 1.5,
-      borderBottom: `1px solid ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[2]
-      }`,
+
+    userInformation: {
+      "@media (max-width: 1560px)": {
+        display: "none",
+      },
+    },
+    tooltip: {
+      "@media (min-width: 1559px)": {
+        display: "none",
+      },
     },
   };
 });
