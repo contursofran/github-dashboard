@@ -2,6 +2,7 @@ import { ScrollArea } from "@mantine/core";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Tab } from "../../components/Tabs";
+import { useSupportedScreenSize } from "../../hooks/useSupportedScreenSize";
 import { useStyles } from "./Tabs.styles";
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 function Tabs({ children, tabs }: Props) {
   const { classes } = useStyles();
+  useSupportedScreenSize();
 
   return (
     <div className={classes.root}>

@@ -89,7 +89,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           }),
         }}
       >
-        <NotificationsProvider>
+        <NotificationsProvider limit={1}>
           <SessionProvider session={pageProps.session}>
             {getLayout(<Component {...pageProps} />)}
           </SessionProvider>

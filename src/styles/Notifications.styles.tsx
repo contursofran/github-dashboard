@@ -1,9 +1,10 @@
 import { createStyles } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons";
+import { IconAlertTriangle, IconCheck, IconX } from "@tabler/icons";
 
 const icons = {
   success: <IconCheck />,
   error: <IconX />,
+  warning: <IconAlertTriangle />,
 };
 
 const useStyles = createStyles((theme) => ({
@@ -50,6 +51,17 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? `${theme.colors.green[6]} !important`
         : `${theme.colors.green[6]} !important`,
+  },
+
+  warningIcon: {
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? `${theme.colors.dark[6]} !important`
+        : "#fff !important",
+    color:
+      theme.colorScheme === "dark"
+        ? `${theme.colors.yellow[6]} !important`
+        : `${theme.colors.yellow[6]} !important`,
   },
 }));
 export { useStyles, icons };
