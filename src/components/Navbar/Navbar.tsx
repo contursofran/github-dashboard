@@ -18,7 +18,7 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { guestUser } from "../../utils/data";
 import { Login } from "../Login";
 import { useStyles } from "./Navbar.styles";
@@ -54,37 +54,30 @@ function Navbar() {
 
   const getLinks = (showLabels?: boolean) => {
     return data.map((item) => (
-      <>
+      <Fragment key={item.label}>
         {showLabels ? (
           <Tooltip
             classNames={{ tooltip: classes.tooltip }}
-            key={item.label}
+            key={item.label + "tooltip"}
             label={item.label}
             position="right"
           >
             <NextLink
               passHref
+              className={cx(classes.link, {
+                [classes.linkActive]: item.label === active,
+              })}
               href={item.link}
-              key={item.label}
+              key={item.label + "link"}
               style={{ textDecoration: "none" }}
+              onClick={() => setActive(item.label)}
             >
-              <a
-                className={cx(classes.link, {
-                  [classes.linkActive]: item.label === active,
-                })}
-                onClick={() => setActive(item.label)}
-              >
-                <item.icon
-                  className={classes.linkIcon}
-                  size={24}
-                  stroke={1.5}
-                />
-                <span className={classes.linkLabel}>{item.label}</span>
-              </a>
+              <item.icon className={classes.linkIcon} size={24} stroke={1.5} />
+              <span className={classes.linkLabel}>{item.label}</span>
             </NextLink>
           </Tooltip>
         ) : (
-          <Link passHref href={item.link} key={item.label}>
+          <Link passHref href={item.link} key={"noLabel" + item.label}>
             <a
               className={cx(classes.link, {
                 [classes.linkActive]: item.label === active,
@@ -96,7 +89,7 @@ function Navbar() {
             </a>
           </Link>
         )}
-      </>
+      </Fragment>
     ));
   };
 
@@ -152,18 +145,15 @@ function Navbar() {
             <Tooltip classNames={{ tooltip: classes.tooltip }} label="Settings">
               <NextLink
                 passHref
+                className={cx(classes.link, {
+                  [classes.linkActive]: "Settings" === active,
+                })}
                 href={"/settings"}
                 style={{ textDecoration: "none" }}
+                onClick={() => setActive("Settings")}
               >
-                <a
-                  className={cx(classes.link, {
-                    [classes.linkActive]: "Settings" === active,
-                  })}
-                  onClick={() => setActive("Settings")}
-                >
-                  <IconSettings className={classes.linkIcon} stroke={1.5} />
-                  <span className={classes.linkLabel}>Settings</span>
-                </a>
+                <IconSettings className={classes.linkIcon} stroke={1.5} />
+                <span className={classes.linkLabel}>Settings</span>
               </NextLink>
             </Tooltip>
           </MantineNavbar.Section>

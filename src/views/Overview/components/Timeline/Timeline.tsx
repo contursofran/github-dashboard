@@ -6,7 +6,7 @@ import { Events } from "./Events/";
 import { useStyles } from "./Timeline.styles";
 import { TimelineSkeleton } from "./TimelineSkeleton";
 
-function Timeline() {
+function Timeline({ borderless }: { borderless?: boolean }) {
   // use of any is required because the types are incorrect in the library
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { classes } = useStyles();
@@ -21,7 +21,12 @@ function Timeline() {
 
   return (
     <>
-      <Paper withBorder className={classes.card} p="lg" radius="md">
+      <Paper
+        className={classes.card}
+        p="lg"
+        radius="md"
+        style={{ border: borderless ? "" : "solid 1px #373a40" }}
+      >
         <Stack sx={{ height: "100%" }}>
           <Title size={18}>Last activity</Title>
           <ScrollArea

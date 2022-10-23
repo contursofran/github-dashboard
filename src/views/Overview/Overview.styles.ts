@@ -13,6 +13,12 @@ const useStyles = createStyles(() => ({
     gridTemplateRows: "auto auto auto",
     gridGap: "2rem",
   },
+
+  col: {
+    "@media (min-width: 1400px)": {
+      paddingRight: "2rem",
+    },
+  },
 }));
 
 export { useStyles };

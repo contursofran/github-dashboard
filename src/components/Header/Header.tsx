@@ -1,7 +1,8 @@
-import { Group, Title } from "@mantine/core";
+import { ActionIcon, Group, MediaQuery, Title } from "@mantine/core";
 import { upperFirst } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { MenuBurger } from "../../views/Overview/components/MenuBurger";
 import { Tab, Tabs } from "../Tabs";
 import { useStyles } from "./Header.styles";
 
@@ -44,6 +45,13 @@ function Header({ tabs }: Props) {
     <Group align="center" className={classes.header}>
       <Title order={3}>{getTitle()}</Title>
       {tabs && <Tabs tabs={tabs} />}
+      {pathname === "/" && (
+        <MediaQuery query="(min-width: 1400px)" styles={{ display: "none" }}>
+          <ActionIcon color="gray.4" mr={-7} variant="transparent">
+            <MenuBurger />
+          </ActionIcon>
+        </MediaQuery>
+      )}
     </Group>
   );
 }

@@ -98,9 +98,42 @@ const useStyles = createStyles((theme, _params, getRef) => {
         display: "none",
       },
     },
+
     tooltip: {
       "@media (min-width: 1559px)": {
         display: "none",
+      },
+    },
+
+    skeletonAvatar: {
+      "@media (min-width: 1560px)": {
+        height: 70,
+        width: 70,
+      },
+      "@media (max-width: 1559px)": {
+        height: 40,
+        width: 40,
+        // circle
+        borderRadius: "50%",
+      },
+    },
+
+    skeletonUserInformation: {
+      "@media (max-width: 1560px)": {
+        display: "none",
+      },
+      "@media (min-width: 1560px)": {
+        height: 25,
+      },
+    },
+
+    skeletonNavBarLinks: {
+      "@media (min-width: 1560px)": {
+        height: 40,
+      },
+      "@media (max-width: 1559px)": {
+        height: 37,
+        width: 50,
       },
     },
   };

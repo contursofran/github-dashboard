@@ -5,7 +5,13 @@ function ContributionsSkeleton() {
   const { classes } = useStyles();
 
   return (
-    <Card withBorder className={classes.card} p="lg" radius="md">
+    <Card
+      withBorder
+      className={classes.card}
+      p="lg"
+      radius="md"
+      style={{ height: "291.183px" }}
+    >
       <Title size={18}>Total contributions</Title>
       <Group pt={"2%"} sx={{ height: "75%", width: "100%" }}>
         <Stack justify="center" pt={"3%"} sx={{ height: "100%", width: "5%" }}>

@@ -1,4 +1,4 @@
-import { Grid, SimpleGrid } from "@mantine/core";
+import { Grid, MediaQuery, SimpleGrid } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { Contributions, ContributionsGuest } from "./components/Contributions";
 import { GithubStats } from "./components/GithubStats";
@@ -38,28 +38,24 @@ function Overview() {
 
   return (
     <div className={classes.root}>
-      <Grid gutter={0} style={{ height: "100%" }}>
-        <Grid.Col pr="2rem" span={9}>
-          <Grid gutter={30} style={{ height: "100%" }}>
-            <Grid.Col>
-              <SimpleGrid cols={3} spacing={30}>
-                <RepositoryStats />
-              </SimpleGrid>
-            </Grid.Col>
-            <Grid.Col pr={15} span={6}>
-              {<TopLanguages />}
-            </Grid.Col>
-            <Grid.Col pl={15} span={6}>
-              {<GithubStats />}
-            </Grid.Col>
-            <Grid.Col>
-              <Contributions />
-            </Grid.Col>
-          </Grid>
+      <Grid grow gutter={0} style={{ height: "100%" }}>
+        <Grid.Col className={classes.col} span={9}>
+          <div className={classes.grid}>
+            <SimpleGrid cols={3} spacing={30}>
+              <RepositoryStats />
+            </SimpleGrid>
+            <SimpleGrid cols={2} spacing={30}>
+              <TopLanguages />
+              <GithubStats />
+            </SimpleGrid>
+            <Contributions />
+          </div>
         </Grid.Col>
-        <Grid.Col span={3}>
-          <Timeline />
-        </Grid.Col>
+        <MediaQuery query="(max-width: 1400px)" styles={{ display: "none" }}>
+          <Grid.Col span={3}>
+            <Timeline />
+          </Grid.Col>
+        </MediaQuery>
       </Grid>
     </div>
   );

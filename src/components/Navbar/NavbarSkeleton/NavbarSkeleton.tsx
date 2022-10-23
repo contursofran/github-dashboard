@@ -9,20 +9,28 @@ function NavbarSkeleton({ data }: { data: NavbarLinks[] }) {
     <Navbar className={classes.navbar} p={"sm"} width={{ base: 70, xl: 270 }}>
       <Navbar.Section grow mt="xl">
         <Stack align="center" className={classes.header} justify="center">
-          <Skeleton circle height={80} />
-          <Skeleton height={25} radius="sm" />
-          <Skeleton height={25} radius="sm" />
+          <Skeleton className={classes.skeletonAvatar} />
+          <Skeleton
+            className={classes.skeletonUserInformation}
+            height={25}
+            radius="sm"
+          />
+          <Skeleton
+            className={classes.skeletonUserInformation}
+            height={25}
+            radius="sm"
+          />
         </Stack>
         {data.map((item) => (
-          <Skeleton height={45} key={item.label} mt={10} />
+          <Skeleton height={40} key={item.label} mt={10} />
         ))}
       </Navbar.Section>
       <Navbar.Section className={classes.footer}>
         <Navbar.Section>
-          <Skeleton height={45} />
+          <Skeleton className={classes.skeletonNavBarLinks} />
         </Navbar.Section>
         <Navbar.Section>
-          <Skeleton height={45} mt={15} />
+          <Skeleton className={classes.skeletonNavBarLinks} mt={15} />
         </Navbar.Section>
       </Navbar.Section>
     </Navbar>
