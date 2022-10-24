@@ -21,6 +21,7 @@ function Theme({ theme }: { theme: Theme }) {
         [classes.cardDark]: theme === "dark",
         [classes.cardSystem]: theme === "system",
         [classes.activeTheme]: theme === colorScheme,
+        [classes.cardHover]: theme !== colorScheme,
       })}
       pb={0}
       pt={"lg"}

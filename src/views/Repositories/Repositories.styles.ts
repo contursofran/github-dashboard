@@ -7,8 +7,8 @@ const useStyles = createStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
   },
+
   grid: {
-    alignSelf: "center",
     paddingBottom: "15px",
   },
 }));

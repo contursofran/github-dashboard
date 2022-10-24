@@ -1,22 +1,17 @@
 import { createStyles } from "@mantine/core";
-import { primaryColorShade } from "../../../../utils/mantine";
+import {
+  getBackgroundColor,
+  primaryColorShade,
+} from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
     width: "450px",
     "&:hover": {
       border: "1px solid",
       borderColor: primaryColorShade(theme),
       cursor: "pointer",
-    },
-
-    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
-      width: "400px",
-    },
-
-    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-      width: "300px",
     },
   },
 

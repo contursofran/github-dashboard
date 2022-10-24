@@ -5,3 +5,23 @@ export function primaryColorShade(theme: MantineTheme) {
     Object(theme.primaryShade)[theme.colorScheme]
   ];
 }
+
+export function getBackgroundColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark" ? theme.colors.dark[8] : "white";
+}
+
+export function getTextColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark"
+    ? theme.colors.gray[4]
+    : theme.colors.gray[8];
+}
+
+export function getButtonLabelColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark"
+    ? theme.colors.dark[0]
+    : theme.colors.gray[6];
+}
+
+export function getHoverButtonLabelColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark" ? "white" : theme.colors.gray[7];
+}

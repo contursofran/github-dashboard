@@ -9,7 +9,7 @@ function Settings() {
   return (
     <div className={classes.root}>
       <Card withBorder className={classes.card} p="lg" pb={40} radius="md">
-        <Stack spacing="xs">
+        <Stack spacing={3}>
           <Title size={17}>Theme</Title>
           <Text color="dimmed">Choose your theme</Text>
           <Group position="center" pt={"lg"} spacing={100}>
@@ -27,7 +27,7 @@ function Settings() {
             </Stack>
           </Group>
         </Stack>
-        <Stack pt={30} spacing="xs">
+        <Stack pt={30} spacing={3}>
           <Title pt={10} size={17}>
             Accent Color
           </Title>

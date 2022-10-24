@@ -28,10 +28,13 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.dark[6],
   },
   scrollBar: {
-    paddingBottom: 30,
+    paddingBottom: 60,
 
     '&[data-orientation="vertical"] .mantine-ScrollArea-thumb': {
-      backgroundColor: theme.colors.dark[5],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[5]
+          : theme.colors.gray[3],
     },
     "&,&:hover": {
       background:

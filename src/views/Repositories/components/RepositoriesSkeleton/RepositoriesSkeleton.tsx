@@ -17,7 +17,7 @@ function RepositoriesSkeleton() {
   };
 
   return (
-    <div style={{ padding: 30, height: "100%", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <div className={classes.content}>
         <SimpleGrid
           breakpoints={[

@@ -1,5 +1,10 @@
 import { createStyles } from "@mantine/core";
-import { primaryColorShade } from "../../utils/mantine";
+import {
+  getButtonLabelColor,
+  getHoverButtonLabelColor,
+  getTextColor,
+  primaryColorShade,
+} from "../../utils/mantine";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -35,28 +40,22 @@ const useStyles = createStyles((theme, _params, getRef) => {
       alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
-      color:
-        theme.colorScheme === "dark"
-          ? theme.colors.gray[4]
-          : theme.colors.gray[7],
+      color: getButtonLabelColor(theme),
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
       borderRadius: theme.radius.sm,
       fontWeight: 500,
 
       "&:hover": {
-        color: theme.white,
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
         [`& .${icon}`]: {
-          color: theme.colorScheme === "dark" ? theme.white : theme.black,
+          color: getHoverButtonLabelColor(theme),
         },
       },
     },
 
     linkIcon: {
       ref: icon,
-      color:
-        theme.colorScheme === "dark"
-          ? theme.colors.gray[4]
-          : theme.colors.gray[6],
+      color: getButtonLabelColor(theme),
     },
 
     linkActive: {

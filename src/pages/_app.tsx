@@ -71,7 +71,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           },
           primaryColor: accentColor,
           primaryShade: {
-            light: 4,
+            light: 5,
             dark: 4,
           },
           colorScheme:

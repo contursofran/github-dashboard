@@ -1,8 +1,9 @@
 import { createStyles } from "@mantine/core";
+import { getBackgroundColor } from "../../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
     width: "450px",
     height: "167.3px",
   },
