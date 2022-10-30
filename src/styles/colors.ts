@@ -1,20 +1,20 @@
 export const blue = [
   "#e7f5ff",
-  "#d0ebff",
-  "#a5d8ff",
+  "#c6e5fd",
+  "#9dd4ff",
   "#8ccafa",
   "#67bafa",
-  "#339af0",
-  "#228be6",
+  "#45acfb",
+  "#2ca0f9",
   "#2684ad",
   "#02617e",
   "#0e3144",
 ];
 
 export const violet = [
-  "#f3f0ff",
-  "#e5dbff",
-  "#d0bfff",
+  "#ddd5fc",
+  "#dbcdff",
+  "#c2acfc",
   "#b197fc",
   "#9775fa",
   "#845ef7",
@@ -25,9 +25,9 @@ export const violet = [
 ];
 
 export const indigo = [
-  "#edf2ff",
-  "#dbe4ff",
-  "#bac8ff",
+  "#d6e2ff",
+  "#c9d5f9",
+  "#a6b7f9",
   "#91a7ff",
   "#748ffc",
   "#5c7cfa",
@@ -35,17 +35,4 @@ export const indigo = [
   "#3551c0",
   "#293f95",
   "#1d2961",
-];
-
-export const orange = [
-  "#fff4e6",
-  "#ffe8cc",
-  "#ffd8a8",
-  "#ffc078",
-  "#ffa94d",
-  "#ff922b",
-  "#fd7e14",
-  "#b6591c",
-  "#853e18",
-  "#5f260f",
 ];

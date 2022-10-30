@@ -1,7 +1,9 @@
 import { Text } from "@mantine/core";
 import { getDate } from "../../../helpers/formatDates";
+import { useStyles } from "../Timeline.styles";
 
 function Commit({ event }: { event: any }) {
+  const { classes } = useStyles();
   const size = event.payload.size ? event.payload.size : 0;
   const date = event.created_at;
   const text = event.payload.commits ? event.payload.commits[0].message : "";
@@ -41,7 +43,7 @@ function Commit({ event }: { event: any }) {
         <>
           <Text color="dimmed" size="sm">
             You&apos;ve pushed{" "}
-            <Text inherit color="gray.3" component="span">
+            <Text inherit className={classes.commit} component="span">
               {text}
             </Text>{" "}
             to{" "}

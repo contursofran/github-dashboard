@@ -47,7 +47,7 @@ function Header({ tabs }: Props) {
       {tabs && <Tabs tabs={tabs} />}
       {pathname === "/" && (
         <MediaQuery query="(min-width: 1400px)" styles={{ display: "none" }}>
-          <ActionIcon color="gray.4" mr={-7} variant="transparent">
+          <ActionIcon className={classes.icon} color="gray.4" mr={-7} variant="transparent">
             <MenuBurger />
           </ActionIcon>
         </MediaQuery>

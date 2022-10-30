@@ -6,9 +6,7 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useElementSize } from "@mantine/hooks";
 import { Type } from "@prisma/client";
-import { useEffect, useState } from "react";
 import { Droppable } from "../../../../utils/dnd";
 import { SkeletonCard } from "../../../Board/components/SkeletonCard";
 import { BoardCard } from "../../types";

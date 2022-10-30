@@ -1,4 +1,4 @@
-import { Timeline } from "@mantine/core";
+import { Timeline, useMantineTheme } from "@mantine/core";
 import {
   IconGitCommit,
   IconGitCompare,
@@ -12,6 +12,8 @@ import { PullRequest } from "./PullRequest";
 import { Star } from "./Star";
 
 function Events({ events }: { events: any[] }) {
+  const { colorScheme, colors } = useMantineTheme();
+
   return (
     <Timeline m="xs">
       {events.map((event) => {
@@ -19,7 +21,12 @@ function Events({ events }: { events: any[] }) {
           case "PushEvent":
             return (
               <Timeline.Item
-                bullet={<IconGitCommit size={16} />}
+                bullet={
+                  <IconGitCommit
+                    color={colorScheme === "dark" ? colors.gray[5] : "gray"}
+                    size={16}
+                  />
+                }
                 bulletSize={24}
                 key={event.id}
                 title="Commits"
@@ -30,7 +37,12 @@ function Events({ events }: { events: any[] }) {
           case "WatchEvent":
             return (
               <Timeline.Item
-                bullet={<IconStar size={14} />}
+                bullet={
+                  <IconStar
+                    color={colorScheme === "dark" ? colors.gray[5] : "gray"}
+                    size={14}
+                  />
+                }
                 bulletSize={24}
                 key={event.id}
                 title="Star"
@@ -41,7 +53,12 @@ function Events({ events }: { events: any[] }) {
           case "IssuesEvent":
             return (
               <Timeline.Item
-                bullet={<IconGitCompare size={14} />}
+                bullet={
+                  <IconGitCompare
+                    color={colorScheme === "dark" ? colors.gray[5] : "gray"}
+                    size={14}
+                  />
+                }
                 bulletSize={24}
                 key={event.id}
                 title="Issue"
@@ -54,9 +71,15 @@ function Events({ events }: { events: any[] }) {
               <Timeline.Item
                 bullet={
                   event.payload.action === "closed" ? (
-                    <IconGitPullRequestClosed size={16} />
+                    <IconGitPullRequestClosed
+                      color={colorScheme === "dark" ? colors.gray[5] : "gray"}
+                      size={16}
+                    />
                   ) : (
-                    <IconGitPullRequest size={16} />
+                    <IconGitPullRequest
+                      color={colorScheme === "dark" ? colors.gray[5] : "gray"}
+                      size={16}
+                    />
                   )
                 }
                 bulletSize={24}

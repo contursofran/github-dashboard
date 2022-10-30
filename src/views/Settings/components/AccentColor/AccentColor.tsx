@@ -3,9 +3,9 @@ import { IconCheck } from "@tabler/icons";
 import { useStore } from "../../../../store";
 import { useStyles } from "./AccentColor.styles";
 
-export type AccentColors = "violet" | "indigo" | "blue" | "orange";
+export type AccentColors = "violet" | "indigo" | "blue";
 
-const accentColors: AccentColors[] = ["violet", "indigo", "blue", "orange"];
+const accentColors: AccentColors[] = ["violet", "indigo", "blue"];
 
 function AccentColor() {
   const { classes, cx } = useStyles();

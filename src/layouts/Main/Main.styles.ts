@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import { getButtonLabelColor, getScrollBallColor } from "../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   scrollBarThumb: {
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: getButtonLabelColor(theme),
   },
 
   test: {
@@ -38,7 +39,7 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: "6rem",
 
     '&[data-orientation="vertical"] .mantine-ScrollArea-thumb': {
-      backgroundColor: theme.colors.dark[5],
+      backgroundColor: getScrollBallColor(theme),
     },
     "&,&:hover": {
       background:
@@ -54,7 +55,7 @@ const useStyles = createStyles((theme) => ({
     paddingTop: "1rem",
     paddingLeft: "2rem",
     paddingRight: "2rem",
-    paddingBottom: "4.5rem",
+    paddingBottom: "8rem",
     width: "100%",
   },
 

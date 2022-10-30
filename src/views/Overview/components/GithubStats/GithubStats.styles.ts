@@ -1,11 +1,14 @@
 import { createStyles } from "@mantine/core";
-import { primaryColorShade } from "../../../../utils/mantine";
+import {
+  getBackgroundColor,
+  primaryColorShade,
+} from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
     height: "100%",
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
   },
   grid: {
     display: "grid",

@@ -4,16 +4,17 @@ import {
   Navbar as MantineNavbar,
   Stack,
   Text,
-  Tooltip,
+  Tooltip
 } from "@mantine/core";
 import { upperFirst, useDisclosure } from "@mantine/hooks";
 import { NextLink } from "@mantine/next";
 import {
   IconBook,
   IconBrandGithub,
+  IconLogin,
   IconLogout,
   IconSettings,
-  TablerIcon,
+  TablerIcon
 } from "@tabler/icons";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -171,7 +172,11 @@ function Navbar() {
                 }
               >
                 <Center>
-                  <IconLogout className={classes.linkIcon} stroke={1.5} />
+                  {status === "unauthenticated" ? (
+                    <IconLogin className={classes.linkIcon} stroke={1.5} />
+                  ) : (
+                    <IconLogout className={classes.linkIcon} stroke={1.5} />
+                  )}
                 </Center>
                 <span className={classes.linkLabel}>
                   {session?.user ? "Logout" : "Login"}

@@ -13,7 +13,7 @@ export function getBackgroundColor(theme: MantineTheme) {
 export function getTextColor(theme: MantineTheme) {
   return theme.colorScheme === "dark"
     ? theme.colors.gray[4]
-    : theme.colors.gray[8];
+    : theme.colors.gray[7];
 }
 
 export function getButtonLabelColor(theme: MantineTheme) {
@@ -24,4 +24,10 @@ export function getButtonLabelColor(theme: MantineTheme) {
 
 export function getHoverButtonLabelColor(theme: MantineTheme) {
   return theme.colorScheme === "dark" ? "white" : theme.colors.gray[7];
+}
+
+export function getScrollBallColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark"
+    ? theme.colors.dark[5]
+    : theme.colors.gray[3];
 }

@@ -2107,9 +2107,9 @@
   "version" "2.0.0"
 
 "jose@^4.1.4", "jose@^4.3.7":
-  "integrity" "sha512-RgaqEOZLkVO+ViN3KkN44XJt9g7+wMveUv59sVLaTxONcUPc8ZpfqOCeLphVBZyih2dgkvZ0Ap1CNcokvY7Uyw=="
-  "resolved" "https://registry.npmjs.org/jose/-/jose-4.9.0.tgz"
-  "version" "4.9.0"
+  "integrity" "sha512-3S4wQnaoJKSAx9uHSoyf8B/lxjs1qCntHWL6wNFszJazo+FtWe+qD0zVfY0BlqJ5HHK4jcnM98k3BQzVLbzE4g=="
+  "resolved" "https://registry.npmjs.org/jose/-/jose-4.10.3.tgz"
+  "version" "4.10.3"
 
 "js-sha3@0.8.0":
   "integrity" "sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q=="

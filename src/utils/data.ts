@@ -386,10 +386,6 @@ const guestUser: GuestData =
           name: "C++",
           value: 10,
         },
-        {
-          name: "Python",
-          value: 5,
-        },
       ],
       githubStats: {
         contributions: 12,

@@ -1,8 +1,9 @@
 import { Card, Group, Text, Title, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
+import { getTextColor } from "../../../../utils/mantine";
 import { displayContributions, getMonth } from "../../helpers/formatDates";
-import { getColor } from "../../helpers/getColor";
+import { getColor, getLabelColor } from "../../helpers/getColor";
 import { useContributions, WEEK_LABELS } from "../../hooks/useContributions";
 import { useStyles } from "./Contributions.styles";
 import { ContributionsSkeleton } from "./ContributionsSkeleton";
@@ -35,7 +36,7 @@ function Contributions() {
           (month, index) =>
             index < 12 && (
               <text
-                fill={theme.colors.gray[4]}
+                fill={getTextColor(theme)}
                 fontSize={14}
                 key={index}
                 x={getMonthPosition(index, cardWidth, 55 + 1200 / cardWidth)}
@@ -47,7 +48,7 @@ function Contributions() {
         )}
         {WEEK_LABELS.map((label, index) => (
           <text
-            fill={theme.colors.gray[4]}
+            fill={getTextColor(theme)}
             fontSize={14}
             key={index}
             x={0}
@@ -75,7 +76,7 @@ function Contributions() {
       </svg>
 
       <Group mr={10} mt={15} position="right">
-        <Text color="gray" size="md">
+        <Text color={getTextColor(theme)} size="md">
           Less
         </Text>
         <Group spacing={10}>
@@ -84,12 +85,12 @@ function Contributions() {
               className={classes.swatches}
               key={level + index}
               style={{
-                backgroundColor: getColor(level, theme),
+                backgroundColor: getLabelColor(level, theme),
               }}
             />
           ))}
         </Group>
-        <Text color="gray" size="md">
+        <Text color={getTextColor(theme)} size="md">
           More
         </Text>
       </Group>

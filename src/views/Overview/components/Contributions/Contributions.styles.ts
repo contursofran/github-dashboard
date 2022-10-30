@@ -1,46 +1,12 @@
 import { createStyles } from "@mantine/core";
-
-const calendarColors = {
-  green: {
-    dark: {
-      NONE: "#1A1B1E",
-      FIRST_QUARTILE: "#0e4429",
-      SECOND_QUARTILE: "#006d32",
-      THIRD_QUARTILE: "#26a641",
-      FOURTH_QUARTILE: "#39d353",
-    },
-    light: {
-      NONE: "#f5f6f8",
-      FIRST_QUARTILE: "#9be9a8",
-      SECOND_QUARTILE: "#40c463",
-      THIRD_QUARTILE: "#30a14e",
-      FOURTH_QUARTILE: "#216e39",
-    },
-  },
-  blue: {
-    dark: {
-      NONE: "#1A1B1E",
-      FIRST_QUARTILE: "#0e3144",
-      SECOND_QUARTILE: "#00526b",
-      THIRD_QUARTILE: "#2680a6",
-      FOURTH_QUARTILE: "#58b3f9",
-    },
-    light: {
-      NONE: "#f5f6f8",
-      FIRST_QUARTILE: "hsl(209, 66%, 16%)",
-      SECOND_QUARTILE: "hsl(209, 66%, 16%)",
-      THIRD_QUARTILE: "hsl(209, 66%, 16%)",
-      FOURTH_QUARTILE: "hsl(209, 66%, 16%)",
-    },
-  },
-};
+import { getBackgroundColor } from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
     minWidth: "900px",
     height: "100%",
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
   },
   grid: {
     display: "grid",
@@ -50,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     padding: "1rem",
   },
   gridItem: {
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: getBackgroundColor(theme),
     height: "17px",
     borderRadius: "3px",
     width: "17px",
@@ -62,4 +28,4 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export { useStyles, calendarColors };
+export { useStyles };

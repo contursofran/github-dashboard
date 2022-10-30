@@ -16,11 +16,20 @@ const useStyles = createStyles((theme) => ({
     height: "40px",
   },
   hover: {
-    color: theme.colors.dark[6],
-    backgroundColor: theme.colors.gray[4],
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.gray[4]
+        : theme.colors.dark[6],
     "&:hover": {
-      backgroundColor: theme.colors.gray[3],
-      color: theme.colors.dark[9],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.gray[3]
+          : theme.colors.dark[9],
+      color: theme.colorScheme === "dark" ? theme.colors.dark[9] : "white",
     },
   },
 }));

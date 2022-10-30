@@ -15,7 +15,7 @@ function Overview() {
   if (status === "unauthenticated") {
     return (
       <div className={classes.root} id="root">
-        <Grid gutter={0} style={{ height: "100%" }}>
+        <Grid grow gutter={0} style={{ height: "100%" }}>
           <Grid.Col pr="2rem" span={9}>
             <div className={classes.grid}>
               <SimpleGrid cols={3} spacing={30}>
@@ -28,9 +28,11 @@ function Overview() {
               <ContributionsGuest />
             </div>
           </Grid.Col>
-          <Grid.Col span={3}>
-            <Timeline />
-          </Grid.Col>
+          <MediaQuery query="(max-width: 1400px)" styles={{ display: "none" }}>
+            <Grid.Col span={3}>
+              <Timeline />
+            </Grid.Col>
+          </MediaQuery>
         </Grid>
       </div>
     );

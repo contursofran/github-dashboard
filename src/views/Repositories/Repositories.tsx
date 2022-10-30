@@ -52,12 +52,13 @@ function Repositories({ visibility }: { visibility: Visibility }) {
       ) : (
         <SimpleGrid
           breakpoints={[
-            { minWidth: 1780, cols: 3, spacing: 40 },
-            { minWidth: 1210, cols: 2, spacing: 40 },
+            { minWidth: 1780, cols: 3, spacing: 30 },
+            { minWidth: 1210, cols: 2, spacing: 30 },
             { minWidth: 0, cols: 1 },
           ]}
           className={classes.grid}
           cols={3}
+          spacing={30}
         >
           {mapRepositories(repositories, visibility).map((repo) => (
             <Repository key={repo.name} {...repo} />

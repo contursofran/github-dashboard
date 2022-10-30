@@ -28,8 +28,9 @@ function Main({ children, tabs }: Props) {
           }}
           id="scrollArea"
           style={{
-            height: "calc(100vh - 40px)",
+            height: "calc(100vh )",
           }}
+          type="always"
         >
           {children}
         </ScrollArea>

@@ -22,10 +22,9 @@ function Timeline({ borderless }: { borderless?: boolean }) {
   return (
     <>
       <Paper
-        className={classes.card}
+        className={borderless ? classes.cardBorderless : classes.card}
         p="lg"
         radius="md"
-        style={{ border: borderless ? "" : "solid 1px #373a40" }}
       >
         <Stack sx={{ height: "100%" }}>
           <Title size={18}>Last activity</Title>

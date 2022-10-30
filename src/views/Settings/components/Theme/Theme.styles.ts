@@ -62,7 +62,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   skeletonColorSystem: {
-    background: "linear-gradient(90deg, #dee2e6 20%, #373a40 20%)",
+    background: "linear-gradient(270deg, #373a40 80%, #dee2e6 20%)",
   },
 
   block: {
@@ -86,7 +86,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   blockSystem: {
-    background: "linear-gradient(90deg, #ffffff 29%, #1a1b1e 29%)",
+    background: "linear-gradient(270deg, #1a1b1e 71%, #ffffff 29%)",
   },
 
   skeletonRect: {

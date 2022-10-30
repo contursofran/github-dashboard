@@ -1,13 +1,14 @@
 import { createStyles } from "@mantine/core";
+import { getBackgroundColor } from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   card: {
     width: "100%",
     height: "100%",
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
   },
   progress: {
-    backgroundColor: "#1a1b1e",
+    backgroundColor: theme.colorScheme === "dark" ? "#1a1b1e" : "ebedf0",
   },
 }));
 

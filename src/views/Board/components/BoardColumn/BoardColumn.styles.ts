@@ -1,19 +1,23 @@
 import { createStyles } from "@mantine/core";
+import {
+  getBackgroundColor,
+  getScrollBallColor,
+} from "../../../../utils/mantine";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colors.dark[8],
+    backgroundColor: getBackgroundColor(theme),
   },
   title: {
     fontColor: theme.colors.red[2],
     fontWeight: 600,
   },
   scrollBarThumb: {
-    backgroundColor: theme.colors.dark[6],
+    backgroundColor: getScrollBallColor(theme),
   },
   scrollBar: {
     '&[data-orientation="vertical"] .mantine-ScrollArea-thumb': {
-      backgroundColor: theme.colors.dark[6],
+      backgroundColor: getScrollBallColor(theme),
     },
     "&,&:hover": {
       background:
