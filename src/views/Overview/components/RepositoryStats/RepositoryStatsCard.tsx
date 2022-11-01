@@ -1,12 +1,4 @@
-import {
-  Card,
-  Group,
-  Progress,
-  Stack,
-  Text,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+import { Card, Group, Progress, Stack, Text, Title } from "@mantine/core";
 import { IconAlertCircle, IconBulb, IconCheckupList } from "@tabler/icons";
 import { primaryColorShade } from "../../../../utils/mantine";
 import { useStyles } from "./RepositoryStats.styles";
@@ -25,8 +17,7 @@ interface Props {
 }
 
 function RepositoryStatsCard({ features, issues, name, tasks }: Props) {
-  const { classes } = useStyles();
-  const theme = useMantineTheme();
+  const { classes, theme } = useStyles();
 
   return (
     <Card withBorder className={classes.card} p="lg" radius="md">

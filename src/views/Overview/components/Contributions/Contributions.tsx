@@ -1,4 +1,4 @@
-import { Card, Group, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, Group, Text, Title } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { getTextColor } from "../../../../utils/mantine";
@@ -9,8 +9,7 @@ import { useStyles } from "./Contributions.styles";
 import { ContributionsSkeleton } from "./ContributionsSkeleton";
 
 function Contributions() {
-  const { classes } = useStyles();
-  const theme = useMantineTheme();
+  const { classes, theme } = useStyles();
   const [cardWidth, setCardWidth] = useState(1078);
   const { ref, width } = useElementSize();
   const { contributionLevels, data, getMonthPosition, monthData, weekData } =

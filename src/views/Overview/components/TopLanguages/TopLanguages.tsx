@@ -7,7 +7,6 @@ import {
   Stack,
   Text,
   Title,
-  useMantineTheme,
 } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -25,9 +24,8 @@ export interface LanguageArray extends Language {
 }
 
 function TopLanguages() {
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles();
   const { status } = useSession();
-  const theme = useMantineTheme();
   const [languages, setLanguages] = useState<LanguageArray[]>([]);
   const { data } = trpc.useQuery(["github.getUserTopLanguages"], {
     enabled: status === "authenticated",

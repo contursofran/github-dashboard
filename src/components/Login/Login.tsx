@@ -1,4 +1,4 @@
-import { Button, Modal, useMantineTheme } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -13,8 +13,7 @@ interface LoginProps {
 }
 
 function Login({ close, opened }: LoginProps) {
-  const { classes } = useStyles();
-  const { colorScheme } = useMantineTheme();
+  const { classes, theme } = useStyles();
 
   return (
     <Modal
@@ -26,14 +25,14 @@ function Login({ close, opened }: LoginProps) {
           alignItems: "start",
           "&:hover": {
             backgroundColor: "transparent",
-            color: colorScheme === "dark" ? "#fff" : "#000",
+            color: theme.colorScheme === "dark" ? "#fff" : "#000",
           },
         },
       }}
       onClose={close}
     >
       <div className={classes.container}>
-        {colorScheme === "dark" ? (
+        {theme.colorScheme === "dark" ? (
           <div className={classes.img}>
             <Image alt="github" layout="fill" src={GithubIcon} />
           </div>
@@ -49,7 +48,7 @@ function Login({ close, opened }: LoginProps) {
             root: classes.root,
           }}
           leftIcon={<IconBrandGithub />}
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", { redirect: true, callbackUrl: "/" })}
         >
           Continue with GitHub
         </Button>

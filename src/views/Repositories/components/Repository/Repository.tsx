@@ -1,4 +1,4 @@
-import { Card, ColorSwatch, Group, Text, useMantineTheme } from "@mantine/core";
+import { Card, ColorSwatch, Group, Text } from "@mantine/core";
 import Link from "next/link";
 import { primaryColorShade } from "../../../../utils/mantine";
 import { useStyles } from "./Repository.styles";
@@ -32,8 +32,7 @@ function Repository({
   pushed_at,
   visibility,
 }: Props) {
-  const { classes } = useStyles();
-  const theme = useMantineTheme();
+  const { classes, theme } = useStyles();
   const link = `/repositories/${visibility?.toLowerCase()}/${name}/features`;
 
   const getLanguageColor = () => {

@@ -1,4 +1,4 @@
-import { Card, Group, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, Group, Text, Title } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { guestUser } from "../../../../utils/data";
@@ -9,8 +9,7 @@ import { WEEK_LABELS } from "../../hooks/useContributions";
 import { useStyles } from "./Contributions.styles";
 
 function ContributionsGuest() {
-  const { classes } = useStyles();
-  const theme = useMantineTheme();
+  const { classes, theme } = useStyles();
   const [cardWidth, setCardWidth] = useState(1078);
   const { ref, width } = useElementSize();
 

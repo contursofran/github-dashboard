@@ -1,4 +1,4 @@
-import { ColorSwatch, Group, useMantineTheme } from "@mantine/core";
+import { ColorSwatch, Group } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 import { useStore } from "../../../../store";
 import { useStyles } from "./AccentColor.styles";
@@ -8,8 +8,7 @@ export type AccentColors = "violet" | "indigo" | "blue";
 const accentColors: AccentColors[] = ["violet", "indigo", "blue"];
 
 function AccentColor() {
-  const { classes, cx } = useStyles();
-  const { colorScheme, colors } = useMantineTheme();
+  const { classes, cx, theme } = useStyles();
   const accentColor = useStore((state) => state.accentColor);
 
   const setAccentColor = (color: AccentColors) => {
@@ -24,7 +23,11 @@ function AccentColor() {
           className={cx({
             [classes.swatch]: color !== accentColor,
           })}
-          color={colorScheme === "dark" ? colors[color][5] : colors[color][5]}
+          color={
+            theme.colorScheme === "dark"
+              ? theme.colors[color][5]
+              : theme.colors[color][5]
+          }
           key={color}
           size={40}
           onClick={() => setAccentColor(color)}

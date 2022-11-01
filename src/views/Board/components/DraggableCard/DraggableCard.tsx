@@ -31,7 +31,7 @@ function DraggableCard(props: DraggableCardProps) {
   const { classes, cx, theme } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
 
-  const { description, draggableId, id, index, tag, title, type } = props;
+  const { description, draggableId, index, tag, title, type } = props;
 
   const getTagColor = () => {
     const tagColor = tags.find((t) => t.name === tag);
@@ -55,14 +55,11 @@ function DraggableCard(props: DraggableCardProps) {
         >
           {editingCard ? (
             <EditableCard
-              id={id}
-              index={index}
+              {...props}
               newCard={false}
               setEditingCard={setEditingCard}
               tag={tag ? tag : undefined}
               text={description ? description : undefined}
-              title={title}
-              type={type}
             />
           ) : (
             <Card

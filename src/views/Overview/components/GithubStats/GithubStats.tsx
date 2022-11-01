@@ -6,7 +6,6 @@ import {
   Stack,
   Text,
   Title,
-  useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import {
@@ -31,10 +30,9 @@ interface Rank {
 }
 
 function GithubStats() {
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles();
   const { status } = useSession();
   const largeScreen = useMediaQuery("(min-width: 1600px)");
-  const theme = useMantineTheme();
   const [values, setValues] = useState([0, 0, 0, 0, 0]);
   const [rank, setRank] = useState<Rank>();
   const { data } = trpc.useQuery(["github.getUserStats"], {
