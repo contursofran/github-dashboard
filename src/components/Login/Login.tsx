@@ -26,7 +26,7 @@ function Login({ close, opened }: LoginProps) {
           alignItems: "start",
           "&:hover": {
             backgroundColor: "transparent",
-            color: "white",
+            color: colorScheme === "dark" ? "#fff" : "#000",
           },
         },
       }}

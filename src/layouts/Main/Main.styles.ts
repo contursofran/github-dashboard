@@ -36,7 +36,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   scrollBar: {
-    paddingBottom: "6rem",
+    paddingBottom: "4rem",
 
     '&[data-orientation="vertical"] .mantine-ScrollArea-thumb': {
       backgroundColor: getScrollBallColor(theme),

@@ -31,3 +31,22 @@ export function getScrollBallColor(theme: MantineTheme) {
     ? theme.colors.dark[5]
     : theme.colors.gray[3];
 }
+
+export function getTitleColor(theme: MantineTheme) {
+  return theme.colorScheme === "dark"
+    ? theme.colors.dark[0]
+    : theme.colors.dark[8];
+}
+
+export const getIconStyle = (theme: MantineTheme) => {
+  return {
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[5],
+    cursor: "pointer",
+    "&:hover": {
+      color: theme.colorScheme === "dark" ? "white" : theme.colors.gray[6],
+    },
+  };
+};

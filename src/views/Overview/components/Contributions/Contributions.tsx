@@ -2,7 +2,7 @@ import { Card, Group, Text, Title, useMantineTheme } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { getTextColor } from "../../../../utils/mantine";
-import { displayContributions, getMonth } from "../../helpers/formatDates";
+import { displayContributions } from "../../helpers/formatDates";
 import { getColor, getLabelColor } from "../../helpers/getColor";
 import { useContributions, WEEK_LABELS } from "../../hooks/useContributions";
 import { useStyles } from "./Contributions.styles";
@@ -31,7 +31,7 @@ function Contributions() {
       <Title pb={25} size={18}>
         Total contributions
       </Title>
-      <svg width={"100%"}>
+      <svg height={"70%"} width={"100%"}>
         {monthData?.map(
           (month, index) =>
             index < 12 && (
@@ -42,7 +42,7 @@ function Contributions() {
                 x={getMonthPosition(index, cardWidth, 55 + 1200 / cardWidth)}
                 y={16}
               >
-                {getMonth(index)}
+                {monthData[index + 1].name}
               </text>
             )
         )}
@@ -52,7 +52,7 @@ function Contributions() {
             fontSize={14}
             key={index}
             x={0}
-            y={60 + 40 * index}
+            y={62 + 40 * index}
           >
             {label}
           </text>
@@ -75,7 +75,7 @@ function Contributions() {
         )}
       </svg>
 
-      <Group mr={10} mt={15} position="right">
+      <Group mr={10} mt={5} position="right">
         <Text color={getTextColor(theme)} size="md">
           Less
         </Text>

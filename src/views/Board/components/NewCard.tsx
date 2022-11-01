@@ -1,4 +1,4 @@
-import { Group, Text, useMantineTheme } from "@mantine/core";
+import { Group, MantineTheme, Text, useMantineTheme } from "@mantine/core";
 import { Type } from "@prisma/client";
 import { IconPlus } from "@tabler/icons";
 import { useState } from "react";
@@ -10,11 +10,25 @@ interface Props {
   disabled?: boolean;
   type: Type;
 }
+
+const getColor = (theme: MantineTheme, disabled?: boolean) => {
+  if (disabled && theme.colorScheme === "dark") {
+    return theme.colors.gray[7];
+  } else if (disabled && theme.colorScheme === "light") {
+    return "white";
+  } else if (theme.colorScheme === "dark") {
+    return theme.colors.gray[5];
+  } else {
+    return theme.colors.gray[4];
+  }
+};
+
 function NewCard({ cards, disabled, type }: Props) {
   const [editingCard, setEditingCard] = useState(false);
-  const { spacing } = useMantineTheme();
+  const theme = useMantineTheme();
 
   const index = cards.length;
+
   return (
     <>
       {editingCard ? (
@@ -28,13 +42,14 @@ function NewCard({ cards, disabled, type }: Props) {
       ) : (
         <Group
           align="center"
+          pb={20}
           position="center"
           spacing="xs"
           style={disabled ? { cursor: "not-allowed" } : { cursor: "pointer" }}
           onClick={() => setEditingCard(true)}
         >
-          <IconPlus color={disabled ? "gray" : "white"} size={spacing.lg} />
-          <Text color={disabled ? "gray.7" : "gray.5"} size="md">
+          <IconPlus color={getColor(theme, disabled)} size={theme.spacing.lg} />
+          <Text color={getColor(theme, disabled)} size="md">
             Add new
           </Text>
         </Group>

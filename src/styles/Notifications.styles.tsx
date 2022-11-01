@@ -9,11 +9,12 @@ const icons = {
 
 const useStyles = createStyles((theme) => ({
   root: {
-    border: `1px solid #373A40`,
+    border: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
     margin: "1rem",
   },
   closeButton: {
-    // on hover should have no background color
     "&:hover": {
       backgroundColor: "transparent",
     },
@@ -29,7 +30,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === "dark"
         ? theme.colors.gray[5]
-        : theme.colors.green[6],
+        : theme.colors.gray[6],
     fontWeight: 550,
   },
   errorIcon: {
@@ -40,7 +41,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === "dark"
         ? `${theme.colors.red[5]} !important`
-        : `${theme.colors.red[6]} !important`,
+        : `${theme.colors.red[5]} !important`,
   },
   successIcon: {
     backgroundColor:
@@ -50,7 +51,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === "dark"
         ? `${theme.colors.green[6]} !important`
-        : `${theme.colors.green[6]} !important`,
+        : `${theme.colors.green[5]} !important`,
   },
 
   warningIcon: {
@@ -61,7 +62,7 @@ const useStyles = createStyles((theme) => ({
     color:
       theme.colorScheme === "dark"
         ? `${theme.colors.yellow[6]} !important`
-        : `${theme.colors.yellow[6]} !important`,
+        : `${theme.colors.yellow[5]} !important`,
   },
 }));
 export { useStyles, icons };

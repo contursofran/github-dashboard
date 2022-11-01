@@ -2,6 +2,7 @@ import { Draggable } from "@hello-pangea/dnd";
 import { Badge, Card, Group, Space, Text } from "@mantine/core";
 import { IconPencil } from "@tabler/icons";
 import { useState } from "react";
+import { getTitleColor } from "../../../../utils/mantine";
 import { BoardCard } from "../../types";
 import { EditableCard } from "../EditableCard";
 import { useStyles } from "./DraggableCard.styles";
@@ -27,14 +28,15 @@ const tags = [
 ];
 
 function DraggableCard(props: DraggableCardProps) {
-  const { classes, cx } = useStyles();
+  const { classes, cx, theme } = useStyles();
   const [editingCard, setEditingCard] = useState(false);
+
+  const { description, draggableId, id, index, tag, title, type } = props;
+
   const getTagColor = () => {
     const tagColor = tags.find((t) => t.name === tag);
     return tagColor?.color;
   };
-
-  const { description, draggableId, id, index, tag, title, type } = props;
 
   return (
     <Draggable
@@ -74,6 +76,7 @@ function DraggableCard(props: DraggableCardProps) {
                 <Group>
                   <Group>
                     <Text
+                      color={getTitleColor(theme)}
                       size={"md"}
                       style={
                         type === "Done"

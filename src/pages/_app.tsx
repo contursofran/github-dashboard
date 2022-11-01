@@ -66,7 +66,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
             blue: [blue[0], blue[1], blue[2], blue[3], blue[4], blue[5], blue[6], blue[7], blue[8], blue[9]],
             violet: [violet[0], violet[1], violet[2], violet[3], violet[4], violet[5], violet[6], violet[7], violet[8], violet[9]],
             indigo: [indigo[0], indigo[1], indigo[2], indigo[3], indigo[4], indigo[5], indigo[6], indigo[7], indigo[8], indigo[9]],
-          
           },
           primaryColor: accentColor,
           primaryShade: {

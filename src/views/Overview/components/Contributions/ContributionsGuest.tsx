@@ -84,7 +84,7 @@ function ContributionsGuest() {
       <Title pb={25} size={18}>
         Total contributions
       </Title>
-      <svg width={"100%"}>
+      <svg height={"70%"} width={"100%"}>
         {MONTHS.map(
           (month, index) =>
             index < 12 && (
@@ -103,7 +103,7 @@ function ContributionsGuest() {
             fill={getTextColor(theme)}
             key={index}
             x={0}
-            y={64 + 40 * index}
+            y={62 + 40 * index}
           >
             {label}
           </text>
@@ -123,7 +123,7 @@ function ContributionsGuest() {
           ))
         )}
       </svg>
-      <Group mr={10} mt={15} position="right">
+      <Group mr={10} mt={5} position="right">
         <Text color={getTextColor(theme)} size="md">
           Less
         </Text>

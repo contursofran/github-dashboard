@@ -57,71 +57,73 @@ function EditableCard({ tag = "", text = "", title = "", ...props }: Props) {
   };
 
   return (
-    <>
-      <div ref={ref}>
-        <Card
-          withBorder
-          className={classes.root}
-          ml={25}
-          mr={17}
-          p="md"
-          radius="md"
-          ref={focusTrapRef}
-          shadow="md"
-        >
-          <Stack spacing="xs">
-            <div className={classes.titleTag}>
-              <TextInput
-                aria-label="Title"
-                className={classes.title}
-                classNames={{ input: classes.input }}
-                placeholder={title ? title : "Title"}
-                value={titleForm}
-                onChange={(e) => setTitleForm(e.currentTarget.value)}
-                onKeyDown={getHotkeyHandler([
-                  ["Enter", handleClickOutside],
-                  ["Escape", () => setEditingCard(false)],
-                ])}
-              />
-              <TextInput
-                aria-label="Tag"
-                className={classes.tag}
-                classNames={{ input: classes.input }}
-                placeholder={tag ? tag : "Tag"}
-                value={tagForm}
-                onChange={(e) => setTagForm(e.currentTarget.value)}
-                onKeyDown={getHotkeyHandler([
-                  ["Enter", handleClickOutside],
-                  ["Escape", () => setEditingCard(false)],
-                ])}
-              />
-              <IconTrash
-                className={classes.icon}
-                size={25}
-                onClick={() => {
-                  setEditingCard(false);
-                  card.deleteCard({ id: id, type: type });
-                }}
-              />
-            </div>
-            <Textarea
-              aria-label="Text"
-              className={classes.textArea}
-              classNames={{
-                input: classes.input,
-              }}
-              placeholder={text ? text : "Text"}
-              value={textForm}
-              onChange={(e) => setTextForm(e.currentTarget.value)}
+    <div ref={ref}>
+      <Card
+        withBorder
+        className={classes.root}
+        id="editable-card"
+        p="md"
+        radius="md"
+        ref={focusTrapRef}
+        shadow="md"
+        style={
+          newCard
+            ? { marginLeft: "25px", marginRight: "17px", marginBottom: "20px" }
+            : {}
+        }
+      >
+        <Stack spacing="xs">
+          <div className={classes.titleTag}>
+            <TextInput
+              aria-label="Title"
+              className={classes.title}
+              classNames={{ input: classes.input }}
+              placeholder={title ? title : "Title"}
+              value={titleForm}
+              onChange={(e) => setTitleForm(e.currentTarget.value)}
               onKeyDown={getHotkeyHandler([
                 ["Enter", handleClickOutside],
                 ["Escape", () => setEditingCard(false)],
               ])}
             />
-          </Stack>
-        </Card>
-      </div>
-    </>
+            <TextInput
+              aria-label="Tag"
+              className={classes.tag}
+              classNames={{ input: classes.input }}
+              placeholder={tag ? tag : "Tag"}
+              value={tagForm}
+              onChange={(e) => setTagForm(e.currentTarget.value)}
+              onKeyDown={getHotkeyHandler([
+                ["Enter", handleClickOutside],
+                ["Escape", () => setEditingCard(false)],
+              ])}
+            />
+            <IconTrash
+              className={classes.icon}
+              size={25}
+              onClick={() => {
+                setEditingCard(false);
+                card.deleteCard({ id: id, type: type });
+              }}
+            />
+          </div>
+          <Textarea
+            aria-label="Text"
+            className={classes.textArea}
+            classNames={{
+              input: classes.input,
+            }}
+            placeholder={text ? text : "Text"}
+            value={textForm}
+            onChange={(e) => setTextForm(e.currentTarget.value)}
+            onKeyDown={getHotkeyHandler([
+              ["Enter", handleClickOutside],
+              ["Escape", () => setEditingCard(false)],
+            ])}
+          />
+        </Stack>
+      </Card>
+    </div>
   );
 }
 

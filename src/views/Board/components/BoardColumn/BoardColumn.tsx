@@ -3,11 +3,12 @@ import {
   Group,
   Paper,
   ScrollArea,
+  Text,
   Title,
-  useMantineTheme,
 } from "@mantine/core";
 import { Type } from "@prisma/client";
 import { Droppable } from "../../../../utils/dnd";
+import { getTitleColor } from "../../../../utils/mantine";
 import { SkeletonCard } from "../../../Board/components/SkeletonCard";
 import { BoardCard } from "../../types";
 import { DraggableCard } from "../DraggableCard";
@@ -23,8 +24,7 @@ interface Props {
 }
 
 function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
-  const { classes } = useStyles();
-  const { colors } = useMantineTheme();
+  const { classes, theme } = useStyles();
 
   const counter = loading ? "?" : itemsList.length;
 
@@ -32,10 +32,22 @@ function BoardColumn({ id, itemsList, loading, skeletons, title }: Props) {
     <Paper withBorder className={classes.root} radius="md">
       <Group p={20} position="apart">
         <Group spacing="xs">
-          <Title className={classes.title} order={4}>
+          <Title
+            className={classes.title}
+            color={getTitleColor(theme)}
+            order={4}
+          >
             {title}
           </Title>
-          <ColorSwatch color={colors.gray[7]}>{counter}</ColorSwatch>
+          <ColorSwatch
+            color={
+              theme.colorScheme === "dark"
+                ? theme.colors.gray[7]
+                : theme.colors.gray[1]
+            }
+          >
+            {<Text color={getTitleColor(theme)}>{counter}</Text>}
+          </ColorSwatch>
         </Group>
       </Group>
 

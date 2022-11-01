@@ -33,10 +33,7 @@ const useStyles = createStyles((theme) => ({
       backgroundColor: getScrollBallColor(theme),
     },
     "&,&:hover": {
-      background:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[8]
-          : theme.colors.gray[0],
+      background: theme.colorScheme === "dark" ? theme.colors.dark[8] : "white",
       cursor: "pointer",
     },
   },

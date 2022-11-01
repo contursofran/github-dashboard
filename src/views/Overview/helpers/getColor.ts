@@ -21,13 +21,13 @@ export const getColor = (
   } else {
     switch (contrituionLevel) {
       case ContributionLevel.FirstQuartile:
-        return theme.colors[theme.primaryColor][5];
-      case ContributionLevel.SecondQuartile:
         return theme.colors[theme.primaryColor][4];
-      case ContributionLevel.ThirdQuartile:
-        return theme.colors[theme.primaryColor][3];
-      case ContributionLevel.FourthQuartile:
+      case ContributionLevel.SecondQuartile:
         return theme.colors[theme.primaryColor][2];
+      case ContributionLevel.ThirdQuartile:
+        return theme.colors[theme.primaryColor][1];
+      case ContributionLevel.FourthQuartile:
+        return theme.colors[theme.primaryColor][0];
       case ContributionLevel.None:
         return "#ebedf0";
     }

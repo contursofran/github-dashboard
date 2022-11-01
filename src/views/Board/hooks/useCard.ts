@@ -183,7 +183,6 @@ function useCard(setEditingCard: (boolean: boolean) => void) {
   };
 
   const deleteCard = ({ id, type }: { id: string; type: Type }) => {
-    console.log(id);
     const card = cards[getType(type)].find((card) => card.id === id);
     if (card) {
       cardsHandler[getType(type)].remove(card.index);
