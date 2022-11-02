@@ -45,9 +45,9 @@ function Repositories({ visibility }: { visibility: Visibility }) {
 
   return (
     <div className={classes.content}>
-      {filterRepositories.length === 0 ? (
+      {filterRepositories(repositories, visibility).length === 0 ? (
         <Title align="center" order={4}>
-          No repositories found
+          No {visibility} repositories found
         </Title>
       ) : (
         <SimpleGrid

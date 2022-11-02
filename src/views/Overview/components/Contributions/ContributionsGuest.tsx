@@ -79,8 +79,15 @@ function ContributionsGuest() {
   };
 
   return (
-    <Card withBorder className={classes.card} p="lg" radius="md" ref={ref}>
-      <Title pb={25} size={18}>
+    <Card
+      withBorder
+      className={classes.card}
+      p="lg"
+      pb={30}
+      radius="md"
+      ref={ref}
+    >
+      <Title pb={15} size={18}>
         Total contributions
       </Title>
       <svg height={"70%"} width={"100%"}>
@@ -122,7 +129,7 @@ function ContributionsGuest() {
           ))
         )}
       </svg>
-      <Group mr={10} mt={5} position="right">
+      <Group mr={10} mt={15} position="right">
         <Text color={getTextColor(theme)} size="md">
           Less
         </Text>
