@@ -3,10 +3,11 @@ import { getDate } from "../../../helpers/formatDates";
 import { useStyles } from "../Timeline.styles";
 
 function Commit({ event }: { event: any }) {
+  console.log(event);
   const { classes } = useStyles();
   const size = event.payload.size ? event.payload.size : 0;
   const date = event.created_at;
-  const text = event.payload.commits ? event.payload.commits[0].message : "";
+  const text = event.payload.commits[0] ? event.payload.commits[0].message : "";
   const repository = event.repo.name;
   const link =
     "https://github.com/" +
