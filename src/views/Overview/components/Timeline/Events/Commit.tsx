@@ -3,7 +3,6 @@ import { getDate } from "../../../helpers/formatDates";
 import { useStyles } from "../Timeline.styles";
 
 function Commit({ event }: { event: any }) {
-  console.log(event);
   const { classes } = useStyles();
   const size = event.payload.size ? event.payload.size : 0;
   const date = event.created_at;

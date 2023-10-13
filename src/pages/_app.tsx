@@ -120,7 +120,12 @@ export default withTRPC<AppRouter>({
     const url = `${getBaseUrl()}/api/trpc`;
 
     const links = [
-      loggerLink(),
+      loggerLink({
+        enabled: (opts) =>
+          (process.env.NODE_ENV === "development" &&
+            typeof window !== "undefined") ||
+          (opts.direction === "down" && opts.result instanceof Error),
+      }),
       httpBatchLink({
         url,
       }),
