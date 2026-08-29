@@ -35,7 +35,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.3",
-    "superjson": "^1.13.3",
+    "superjson": "^2.2.6",
     "zod": "^3.25.76",
     "zustand": "^4.5.7"
   },
