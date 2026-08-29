@@ -1,13 +1,16 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import {
+  requireRepositoryOwner,
+  requireTaskOwner,
+  requireUserId,
+} from "../authorization";
 import { createRouter } from "../context";
 
 export const tasksRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
-    if (!ctx.session?.user) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next();
+    const userId = requireUserId(ctx);
+
+    return next({ ctx: { ...ctx, userId } });
   })
   // same as featuresRouter
   .query("get", {
@@ -16,6 +19,8 @@ export const tasksRouter = createRouter()
     }),
     async resolve({ ctx, input }) {
       const { repositoryId } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const data = await ctx.prisma.tasks.findMany({
         where: {
@@ -38,6 +43,8 @@ export const tasksRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { description, index, repositoryId, tag, title, type } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const task = await ctx.prisma.tasks.create({
         data: {
@@ -67,6 +74,9 @@ export const tasksRouter = createRouter()
     async resolve({ ctx, input }) {
       const { description, id, index, repositoryId, tag, title, type } = input;
 
+      await requireTaskOwner(ctx.prisma, ctx.userId, id);
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
+
       const task = await ctx.prisma.tasks.update({
         where: {
           id,
@@ -92,6 +102,8 @@ export const tasksRouter = createRouter()
     async resolve({ ctx, input }) {
       const { id } = input;
 
+      await requireTaskOwner(ctx.prisma, ctx.userId, id);
+
       const task = await ctx.prisma.tasks.delete({
         where: {
           id,
@@ -109,6 +121,8 @@ export const tasksRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, type } = input;
+
+      await requireTaskOwner(ctx.prisma, ctx.userId, id);
 
       const tasks = await ctx.prisma.tasks.update({
         where: {
@@ -131,6 +145,8 @@ export const tasksRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, index } = input;
+
+      await requireTaskOwner(ctx.prisma, ctx.userId, id);
 
       const tasks = await ctx.prisma.tasks.update({
         where: {

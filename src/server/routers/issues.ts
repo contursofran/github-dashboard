@@ -1,13 +1,16 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import {
+  requireIssueOwner,
+  requireRepositoryOwner,
+  requireUserId,
+} from "../authorization";
 import { createRouter } from "../context";
 
 export const issuesRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next();
+    const userId = requireUserId(ctx);
+
+    return next({ ctx: { ...ctx, userId } });
   })
   .query("get", {
     input: z.object({
@@ -15,6 +18,8 @@ export const issuesRouter = createRouter()
     }),
     async resolve({ ctx, input }) {
       const { repositoryId } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const data = await ctx.prisma.issues.findMany({
         where: {
@@ -37,6 +42,8 @@ export const issuesRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { description, index, repositoryId, tag, title, type } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const issue = await ctx.prisma.issues.create({
         data: {
@@ -66,6 +73,9 @@ export const issuesRouter = createRouter()
     async resolve({ ctx, input }) {
       const { description, id, index, repositoryId, tag, title, type } = input;
 
+      await requireIssueOwner(ctx.prisma, ctx.userId, id);
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
+
       const issue = await ctx.prisma.issues.update({
         where: {
           id,
@@ -91,6 +101,8 @@ export const issuesRouter = createRouter()
     async resolve({ ctx, input }) {
       const { id } = input;
 
+      await requireIssueOwner(ctx.prisma, ctx.userId, id);
+
       const issue = await ctx.prisma.issues.delete({
         where: {
           id,
@@ -108,6 +120,8 @@ export const issuesRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, type } = input;
+
+      await requireIssueOwner(ctx.prisma, ctx.userId, id);
 
       const issues = await ctx.prisma.issues.update({
         where: {
@@ -130,6 +144,8 @@ export const issuesRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, index } = input;
+
+      await requireIssueOwner(ctx.prisma, ctx.userId, id);
 
       const issues = await ctx.prisma.issues.update({
         where: {

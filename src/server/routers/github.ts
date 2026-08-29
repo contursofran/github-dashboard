@@ -44,10 +44,16 @@ export const githubRouter = createRouter()
       },
     });
 
+    const accessToken = token?.accounts[0]?.access_token;
+
+    if (!accessToken) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
     return next({
       ctx: {
         ...ctx,
-        token: token?.accounts[0].access_token,
+        token: accessToken,
       },
     });
   })
@@ -103,6 +109,16 @@ export const githubRouter = createRouter()
         } = await res.json();
         return data.user.contributionsCollection.contributionCalendar;
       }
+    },
+  })
+  .query("getRepositories", {
+    async resolve({ ctx }) {
+      const octokit = new Octokit({ auth: ctx.token });
+      const response = await octokit.request("GET /user/repos", {
+        per_page: 100,
+      });
+
+      return response.data;
     },
   })
   .query("getUserEvents", {

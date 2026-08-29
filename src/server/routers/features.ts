@@ -1,13 +1,16 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import {
+  requireFeatureOwner,
+  requireRepositoryOwner,
+  requireUserId,
+} from "../authorization";
 import { createRouter } from "../context";
 
 export const featuresRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next();
+    const userId = requireUserId(ctx);
+
+    return next({ ctx: { ...ctx, userId } });
   })
   .query("get", {
     input: z.object({
@@ -15,6 +18,8 @@ export const featuresRouter = createRouter()
     }),
     async resolve({ ctx, input }) {
       const { repositoryId } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const data = await ctx.prisma.features.findMany({
         where: {
@@ -37,6 +42,8 @@ export const featuresRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { description, index, repositoryId, tag, title, type } = input;
+
+      await requireRepositoryOwner(ctx.prisma, ctx.userId, repositoryId);
 
       const feature = await ctx.prisma.features.create({
         data: {
@@ -64,6 +71,8 @@ export const featuresRouter = createRouter()
     async resolve({ ctx, input }) {
       const { description, id, tag, title, type } = input;
 
+      await requireFeatureOwner(ctx.prisma, ctx.userId, id);
+
       const feature = await ctx.prisma.features.update({
         where: {
           id,
@@ -87,6 +96,8 @@ export const featuresRouter = createRouter()
     async resolve({ ctx, input }) {
       const { id } = input;
 
+      await requireFeatureOwner(ctx.prisma, ctx.userId, id);
+
       const feature = await ctx.prisma.features.delete({
         where: {
           id,
@@ -104,6 +115,8 @@ export const featuresRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, type } = input;
+
+      await requireFeatureOwner(ctx.prisma, ctx.userId, id);
 
       const feature = await ctx.prisma.features.update({
         where: {
@@ -126,6 +139,8 @@ export const featuresRouter = createRouter()
 
     async resolve({ ctx, input }) {
       const { id, index } = input;
+
+      await requireFeatureOwner(ctx.prisma, ctx.userId, id);
 
       const feature = await ctx.prisma.features.update({
         where: {

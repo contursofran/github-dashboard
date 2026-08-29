@@ -1,10 +1,15 @@
-import { Subscription, TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { requireUserId } from "../authorization";
 import { createRouter } from "../context";
 
 // create a global event emitter (could be replaced by redis, etc)
 
 export const repositoryRouter = createRouter()
+  .middleware(async ({ ctx, next }) => {
+    const userId = requireUserId(ctx);
+
+    return next({ ctx: { ...ctx, userId } });
+  })
   .query("get", {
     input: z.object({
       name: z.string(),
@@ -16,7 +21,7 @@ export const repositoryRouter = createRouter()
         const repository = await ctx.prisma.repository.findFirst({
           where: {
             name: name,
-            userId: ctx.session?.user?.id,
+            userId: ctx.userId,
           },
         });
 
@@ -40,10 +45,10 @@ export const repositoryRouter = createRouter()
       const repository = await ctx.prisma.repository.create({
         data: {
           name,
-          owner: ctx.session?.user?.name ? ctx.session?.user?.name : "",
+          owner: ctx.session?.user?.username ?? "",
           user: {
             connect: {
-              id: ctx.session?.user?.id,
+              id: ctx.userId,
             },
           },
         },
@@ -61,7 +66,7 @@ export const repositoryRouter = createRouter()
     async resolve({ ctx }) {
       const repositories = await ctx.prisma.repository.findMany({
         where: {
-          userId: ctx.session?.user?.id,
+          userId: ctx.userId,
         },
         include: {
           tasks: true,

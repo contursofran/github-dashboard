@@ -5,6 +5,7 @@ import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { NextPage } from "next";
+import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
@@ -14,11 +15,13 @@ import { AppRouter } from "../server/createRouter";
 import { useStore } from "../store";
 import { blue, indigo, violet } from "../styles/colors";
 
-export type NextPageWithLayout = NextPage & {
+type PageProps = Record<string, unknown> & { session?: Session };
+
+export type NextPageWithLayout = NextPage<PageProps> & {
   getLayout?: (_page: ReactElement) => ReactNode;
 };
 
-type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = AppProps<PageProps> & {
   Component: NextPageWithLayout;
 };
 
